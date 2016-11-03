@@ -1,0 +1,9 @@
+button.incidents {
+    background:none!important;
+    border:none;
+    padding:0!important;
+    font: inherit;
+    /*border is optional*/
+    border-bottom:1px solid #444;
+    cursor: pointer;
+}

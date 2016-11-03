@@ -30,13 +30,11 @@ function displayIncident($groupName) {
     $txtfile = file_get_contents(GROUPINCIDENTS);
     $rows    = explode("\n", $txtfile);
 
-        for($i=0; $i<count($rows); $i++){
-           if (strpos($rows[$i], $groupName) !== false) {
+    for($i=0; $i<count($rows); $i++){
+        if (strpos($rows[$i], $groupName) !== false) {
                $incidents = explode("|",$rows[$i]);
-               for($j=1; $j<count($incidents); $j++){
-                   echo $incidents[$j] . "<br>";
-               }
-            }
+               return $incidents;
         }
+    }
 }
 ?>
