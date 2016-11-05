@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <ACTIONITEMS>
 <Actionitem>
 <ID>XXX1</ID>
@@ -20,11 +21,12 @@ to
 https:// in the box and then append the link, it will not be clickable.
 </RATIONALE>
 </Actionitem>
-<ActionItem>
+<Actionitem>
 <ID>XXX2</ID>
-<GROUP>Workpackage</GROUP>
-<PID>WS-UploadTool</PID>
+<GROUP>Project</GROUP>
+<PID>NSF20160001</PID>
 <NUMBER>1</NUMBER>
+<AIACRO>WSPR-WSUL-2</AIACRO>
 <AIACRO>WSPR-WSUL-1</AIACRO>
 <OWNER>HPP</OWNER>
 <RESPONSIBLE>XYZ</RESPONSIBLE>
@@ -38,6 +40,50 @@ File Name (clickable)
 Description
 Status
 small picture (size max 150x150, clickable)</DESCRIPTION>
+<RATIONALE>Additional functionality: The function display_selected_uploads(upload_item) works very well. We get a table showing the uploaded files in a category. See, for example, "Library" in http://www.mari-odu.org/cl/workspace. Currently, we use the same functions to show a list of graphics, but the list does not include a small picture of each graphics.
+</RATIONALE>
+</Actionitem>
+<Actionitem>
+<ID>XXX2</ID>
+<GROUP>Workpackage</GROUP>
+<PID>NSF20160001</PID>
+<NUMBER>1</NUMBER>
+<AIACRO>WSPR-WSUL-2</AIACRO>
+<AIACRO>WSPR-WSUL-1</AIACRO>
+<OWNER>HPP</OWNER>
+<RESPONSIBLE>XYZ</RESPONSIBLE>
+<CREATED>16:45, 3rd July 2016</CREATED>
+<DEADLINE>20th July 2016</DEADLINE>
+<DEPENDENCY></DEPENDENCY>
+<DESCRIPTION>Write a function display_graphics, which displays all uploaded graphics in a table with the columns:
+Date
+Provided by
+File Name (clickable)
+Description
+Status
+small picture (size max 150x150, clickable)</DESCRIPTION>
+<RATIONALE>Additional functionality: The function display_selected_uploads(upload_item) works very well. We get a table showing the uploaded files in a category. See, for example, "Library" in http://www.mari-odu.org/cl/workspace. Currently, we use the same functions to show a list of graphics, but the list does not include a small picture of each graphics.
+</RATIONALE>
+</Actionitem>
+<Actionitem>
+<ID>XXX3</ID>
+<GROUP>Project</GROUP>
+<PID>NSF20160001</PID>
+<NUMBER>1</NUMBER>
+<AIACRO>WSPR-WSUL-2</AIACRO>
+<AIACRO>WSPR-WSUL-1</AIACRO>
+<OWNER>HPP</OWNER>
+<RESPONSIBLE>XYZ</RESPONSIBLE>
+<CREATED>16:45, 3rd July 2016</CREATED>
+<DEADLINE>20th July 2016</DEADLINE>
+<DEPENDENCY></DEPENDENCY>
+<DESCRIPTION>Write a function display_graphics, which displays all uploaded graphics in a table with the columns:
+    Date
+    Provided by
+    File Name (clickable)
+    Description
+    Status
+    small picture (size max 150x150, clickable)</DESCRIPTION>
 <RATIONALE>Additional functionality: The function display_selected_uploads(upload_item) works very well. We get a table showing the uploaded files in a category. See, for example, "Library" in http://www.mari-odu.org/cl/workspace. Currently, we use the same functions to show a list of graphics, but the list does not include a small picture of each graphics.
 </RATIONALE>
 </Actionitem>

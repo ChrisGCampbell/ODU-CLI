@@ -7,7 +7,7 @@ if(isset($_POST['submitGroup'])){
        displayIncident(trim($_POST['group']));
    }
 } else if(isset($_GET['incidentnumber'])){
-    displayIncidentDetails(trim($_GET['incidentnumber']));
+    displayIncidentReportDetails(trim($_GET['incidentnumber']));
 } else {
     displayGroupList();
 }?>

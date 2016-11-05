@@ -8,6 +8,7 @@
 define("GROUPFILE", "known_groups.txt");
 define("GROUPINCIDENTS", "known_incidents.txt");
 define("ACTIONITEMS", "ais.xml");
+define("AIREPORTS", "aireports.xml");
 
 function loadGroups() {
     $groupNames = [];
@@ -42,12 +43,26 @@ function displayIncident($groupName) {
     }
 }
 
-function DisplayIncidentDetails($incidentNumber) {
-    $incidentNumber = $_GET['incidentnumber'];
-    $group = $_GET['groupname'];
+function DisplayIncidentReportDetails($incidentNumber) {
+    $incidentNumber = trim($_GET['incidentnumber']);
+    $group = trim($_GET['groupname']);
     echo "<h2>".$group . "</h2><br/>";
     echo $incidentNumber . "<br/>";
-    $xml = simplexml_load_file(ACTIONITEMS);
+    $aixml = simplexml_load_file(ACTIONITEMS) or die("Error: Cannot open Action Items file");
+    for($i=0; $i<count($aixml); $i++) {
+        if ($aixml->Actionitem[$i]->GROUP == $group && $aixml->Actionitem[$i]->PID == $incidentNumber) {
+            echo "AIACRO: " .$aixml->Actionitem[$i]->AIACRO . "<br/>";
+            echo "OWNER: " .$aixml->Actionitem[$i]->OWNER . "<br/>";
+            $aireportxml = simplexml_load_file(AIREPORTS) or die("Error: Cannot open AIReports file");
+            for($j=0; $j<count($aireportxml); $j++) {
+                if ($aireportxml->Aireport[$j]->AIID == $incidentNumber) {
+                    echo "DESCRIPTION: " . $aireportxml->Aireport[$j]->NDESCRIPTION . "<br/>";
+                    echo "STATUS: " . $aireportxml->Aireport[$j]->STATUS . "<br/>";
+                    echo "<br/><br/>";
+                }
+            }
+        }
+    }
 }
 
 function displayGroupList() {
