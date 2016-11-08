@@ -18,13 +18,7 @@ function loadGroups() {
     for($i=0; $i<$groupCount; $i++) {
         $groupNames[$i] =  fgets($fileHandler);
     }
-    populateGroupList($groupNames);
-}
-
-function populateGroupList($groupNames){
-    for($i=0; $i<count($groupNames); $i++) {
-        echo '<input type="radio" name="group" id="group" value="'.$groupNames[$i].'">'.$groupNames[$i];
-    }
+    return $groupNames;
 }
 
 function displayIncident($groupName) {
@@ -65,9 +59,3 @@ function DisplayIncidentReportDetails($incidentNumber) {
     }
 }
 
-function displayGroupList() {
-    echo "<form id='groupList' method='POST' action='"; echo $_SERVER['PHP_SELF']; echo "'>";
-    echo 'Select Group:';
-    loadGroups();
-    echo '&nbsp<input type="submit" value="submit" name="submitGroup"></form>';
-}?>
