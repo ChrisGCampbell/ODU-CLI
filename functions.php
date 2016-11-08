@@ -18,11 +18,18 @@ function loadGroups() {
     for($i=0; $i<$groupCount; $i++) {
         $groupNames[$i] =  fgets($fileHandler);
     }
-    return $groupNames;
+    populateGroupList($groupNames);
+}
+
+function populateGroupList($groupNames){
+    for($i=0; $i<count($groupNames); $i++) {
+        echo '<input type="radio" name="group" id="group" value="'.$groupNames[$i].'">'.$groupNames[$i];
+    }
 }
 
 function displayIncident($groupName) {
     echo "<h2>" . $groupName. "</h2>";
+    echo "<h3>Action Items for " . $groupName. "</h3>";
     $txtfile = file_get_contents(GROUPINCIDENTS);
     $rows    = explode("\n", $txtfile);
 
@@ -32,9 +39,25 @@ function displayIncident($groupName) {
                break;
         }
     }
-    for($j=1; $j<count($incidents); $j++){
-        echo '<a name="incidentLookup" href="add_ai.php?groupname='.$groupName.'&incidentnumber='.$incidents[$j].'">'.$incidents[$j].'</a><br/><br/>';
+    $aixml = simplexml_load_file(ACTIONITEMS);
+    echo "<table width='550'><col align='center' width='200'><col align='center' width='100'><col align='center' width='100'><col align='center' width='250'>
+            <tr>
+                <th>AI-Acronym</th>
+                <th>Owner</th>
+                <th>Status</th>
+                <th>Description</th>
+             </tr>";
+
+    for($j=0; $j<count($aixml); $j++){
+        if($aixml->Actionitem[$j]->PID == trim($incidents[1])){
+            echo "<tr><td>".$aixml->Actionitem[$j]->AIACRO."</td>";
+            echo "<td>".$aixml->Actionitem[$j]->OWNER."</td>";
+            echo "<td>".$aixml->Actionitem[$j]->STATUS."</td>";
+            echo "<td>".substr($aixml->Actionitem[$j]->DESCRIPTION,0,25)."</td></tr>";
+        }
     }
+    echo "</table>";
+    echo "<button>Add A New Action Item</button>";
 }
 
 function DisplayIncidentReportDetails($incidentNumber) {
@@ -59,3 +82,9 @@ function DisplayIncidentReportDetails($incidentNumber) {
     }
 }
 
+function displayGroupList() {
+    echo "<form id='groupList' method='POST' action='"; echo $_SERVER['PHP_SELF']; echo "'>";
+    echo 'Select Group:';
+    loadGroups();
+    echo '&nbsp<input type="submit" value="submit" name="submitGroup"></form>';
+}?>
