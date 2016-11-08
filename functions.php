@@ -49,8 +49,8 @@ function displayIncident($groupName) {
              </tr>";
 
     for($j=0; $j<count($aixml); $j++){
-        if($aixml->Actionitem[$j]->PID == trim($incidents[1])){
-            echo "<tr><td>".$aixml->Actionitem[$j]->AIACRO."</td>";
+        if($aixml->Actionitem[$j]->PID == trim($incidents[1]) && $aixml->Actionitem[$j]->GROUP == $groupName){
+            echo "<tr><td><a href='{$aixml->Actionitem[$j]->AIACRO}'>".$aixml->Actionitem[$j]->AIACRO."</a></td></td>";
             echo "<td>".$aixml->Actionitem[$j]->OWNER."</td>";
             echo "<td>".$aixml->Actionitem[$j]->STATUS."</td>";
             echo "<td>".substr($aixml->Actionitem[$j]->DESCRIPTION,0,25)."</td></tr>";
