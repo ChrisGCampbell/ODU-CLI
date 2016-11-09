@@ -10,4 +10,15 @@
 <NRESPONSIBLE></NRESPONSIBLE>
 <STATUS>active</STATUS>
 </Aireport>
+<Aireport>
+<ID>XXX3</ID>
+<AIID>ATTL20160001</AIID>
+<OWNER>John</OWNER>
+<DATE>16:45, 7th July 2016</DATE>
+<REPORT>There has been no progress so far.</REPORT>
+<NDESCRIPTION>Much progress so far.</NDESCRIPTION>
+<NDEADLINE></NDEADLINE>
+<NRESPONSIBLE></NRESPONSIBLE>
+<STATUS>not active</STATUS>
+</Aireport>
 </AIREPORTS>
