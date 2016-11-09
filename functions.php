@@ -107,11 +107,14 @@ function displayListOfAIS($selectedGroup) {
                 for($q=0; $q<count($aireportxml); $q++){
 
                     if( $aireportxml->Aireport[$q]->AIID == trim( $aiItems[$i] ) ) {
-                        echo "<td>" .$aireportxml->Aireport[$q]->STATUS. "</td>";
+                        if(isset($aireportxml->Aireport[$q]->STATUS)){
+                            echo "<td>" .$aireportxml->Aireport[$q]->STATUS. "</td>";
+                        }
+                        else {
+                            echo "<td>NULL</td>";
+                        }
                     }
-                    else {
-                        echo "<td> NULL </td>";
-                    }
+
                 }
 
                 echo "<td>".substr($aixml->Actionitem[$j]->DESCRIPTION,0,25)."</td></tr>";
