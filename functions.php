@@ -210,8 +210,15 @@ function editAI($ai) {
 function saveToFile($descr, $aia) {
     $description = trim($descr);
     $aiacronym = trim($aia);
+    $aixml = simplexml_load_file(ACTIONITEMS);
 
-    echo $description;
-    echo $aiacronym;
+    for($i=0; $i<count($aixml); $i++) {
+       if($aixml->Actionitem[$i]->AIACRO == $aiacronym) {
+           $aixml->Actionitem[$i]->DESCRIPTION = $description;
+           $aixml->asXML(ACTIONITEMS);
+       }
+    }
+
+    echo "File Edited Successfully!";
 }
 ?>
