@@ -18,6 +18,9 @@ elseif( isset($_GET['group']) && isset($_GET['aiacronym']) && isset($_GET['incid
     displayFullActionItem( $_GET['group'] , $_GET['aiacronym'], $_GET['incident'] );
 }
 
+elseif( isset($_GET['editAI']) && isset($_GET['aiacronym'])) {
+    editAI($_GET['aiacronym']);
+}
 
 else {
     displayGroupOptions();

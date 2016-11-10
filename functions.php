@@ -159,9 +159,9 @@ function displayFullActionItem( $group, $acronym, $incident ) {
     $incidentNumber = trim($_GET['incident']);
 
     echo "<p>Action item for {$groupName} {$aiacronym}</p>";
-    echo "<p>Add New Action Item | ";
-    echo "Edit | ";
-    echo "Report</p>";
+    echo '<p><a href="#">Add New Action Item</a> | ';
+    echo "<a href=?editAI=true&aiacronym=$aiacronym>Edit</a> | ";
+    echo "<a href='#'>Report</a></p>";
 
     $aixml = simplexml_load_file(ACTIONITEMS) or die("Error: Cannot open Action Items file");
     for($i=0; $i<count($aixml); $i++) {
@@ -178,5 +178,25 @@ function displayFullActionItem( $group, $acronym, $incident ) {
             echo "DEADLINE: " .$aixml->Actionitem[$i]->DEADLINE . "<br/>";
         }
     }
+}
+
+function editAI($ai) {
+    $aiacronym = trim($_GET['aiacronym']);
+    $aixml = simplexml_load_file(ACTIONITEMS);
+
+    for($i=0; $i<count($aixml); $i++) {
+        if($aixml->Actionitem[$i]->AIACRO == $aiacronym) {
+            $description = $aixml->Actionitem[$i]->DESCRIPTION;
+            $group = $aixml->Actionitem[$i]->GROUP;
+            break;
+        }
+    }
+
+    echo "Edit description details for ".$group." ".$aiacronym;
+    echo "<form>
+            <textarea rows='4' cols='50'>{$description}</textarea>
+            <br><input type=\"submit\" value=\"submit\" name=\"submitEditAI\">
+          </form>";
+
 }
 ?>
