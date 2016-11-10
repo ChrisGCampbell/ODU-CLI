@@ -188,15 +188,30 @@ function editAI($ai) {
         if($aixml->Actionitem[$i]->AIACRO == $aiacronym) {
             $description = $aixml->Actionitem[$i]->DESCRIPTION;
             $group = $aixml->Actionitem[$i]->GROUP;
+            $owner = $aixml->Actionitem[$i]->OWNER;
+            $created = $aixml->Actionitem[$i]->CREATED;
+            $deadline = $aixml->Actionitem[$i]->DEADLINE;
             break;
         }
     }
 
     echo "Edit description details for ".$group." ".$aiacronym;
-    echo "<form>
-            <textarea rows='4' cols='50'>{$description}</textarea>
+    echo "<p>Owner: {$owner}</p>";
+    echo "<p>Date Created: {$created}</p>";
+    echo "<p>Deadline: {$deadline}</p>";
+    echo "<form method='POST' action=\""; echo $_SERVER['PHP_SELF']; echo "\">
+            <textarea rows='4' cols='50' name='description'>{$description}</textarea>
+            <input type=\"hidden\" name=\"aiacronym\" value=\""; echo $aiacronym; echo "\">
             <br><input type=\"submit\" value=\"submit\" name=\"submitEditAI\">
           </form>";
 
+}
+
+function saveToFile($descr, $aia) {
+    $description = trim($descr);
+    $aiacronym = trim($aia);
+
+    echo $description;
+    echo $aiacronym;
 }
 ?>

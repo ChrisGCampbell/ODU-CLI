@@ -22,6 +22,9 @@ elseif( isset($_GET['editAI']) && isset($_GET['aiacronym'])) {
     editAI($_GET['aiacronym']);
 }
 
+elseif( isset($_POST['submitEditAI'])) {
+    saveToFile($_POST['description'],$_POST['aiacronym']);
+}
 else {
     displayGroupOptions();
 }
