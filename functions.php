@@ -159,7 +159,7 @@ function displayFullActionItem( $group, $acronym, $incident ) {
     $incidentNumber = trim($_GET['incident']);
 
     echo "<p>Action item for {$groupName} {$aiacronym}</p>";
-    echo '<p><a href="#">Add New Action Item</a> | ';
+    echo '<p><a href=?newActionItem=true>Add New Action Item</a> | ';
     echo "<a href=?editAI=true&aiacronym=$aiacronym>Edit</a> | ";
     echo "<a href='#'>Report</a></p>";
 
@@ -220,5 +220,9 @@ function saveToFile($descr, $aia) {
     }
 
     echo "File Edited Successfully!";
+}
+
+function addNewActionItem() {
+    
 }
 ?>

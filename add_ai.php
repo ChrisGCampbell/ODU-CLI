@@ -2,6 +2,7 @@
 include 'header.html';
 include 'functions.php';
 
+
 if(isset($_POST['submitGroup'])){
    if(isset($_POST['group'])){
        displayListOfAIS(trim($_POST['group']));
@@ -18,17 +19,24 @@ elseif( isset($_GET['group']) && isset($_GET['aiacronym']) && isset($_GET['incid
     displayFullActionItem( $_GET['group'] , $_GET['aiacronym'], $_GET['incident'] );
 }
 
+
 elseif( isset($_GET['editAI']) && isset($_GET['aiacronym'])) {
     editAI($_GET['aiacronym']);
 }
 
+
 elseif( isset($_POST['submitEditAI'])) {
     saveToFile($_POST['description'],$_POST['aiacronym']);
 }
+
+elseif( isset($_GET['newActionItem'])) {
+
+}
+
+
 else {
     displayGroupOptions();
 }
-
 
 
 include 'footer.html';
