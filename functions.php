@@ -254,18 +254,28 @@ function newActionItemForm($aiac) {
 
 
 function addNewAIToFile() {
-    $aifile = fopen(ACTIONITEMS, 'r');
-    $NAI = '<Actionitem>'.PHP_EOL;
-    $NAI .="<ID>".$_POST['ID']."</ID>".PHP_EOL;
-    $NAI .="<PID>".$_POST['PID']."</PID>".PHP_EOL;
-    $NAI .="<AIACRO>".$_POST['AIACRO']."</AIACRO>".PHP_EOL;
-    $NAI .="<OWNER>".$_POST['OWNER']."</OWNER>".PHP_EOL;
-    $NAI .="<RESPONSIBLE>".$_POST['RESPONSIBLE']."</RESPONSIBLE>".PHP_EOL;
-    $NAI .="<CREATED>".$_POST['CREATED']."</CREATED>".PHP_EOL;
-    $NAI .="<DEADLINE>".$_POST['DEADLINE']."</DEADLINE>".PHP_EOL;
-    $NAI .="<DESCRIPTION>".$_POST['DESCRIPTION']."</DESCRIPTION>".PHP_EOL;
-    $NAI .="<RATIONALE>".$_POST['RATIONALE']."</RATIONALE>".PHP_EOL;
+    $FILENAME = ACTIONITEMS;
+    if(file_exists($FILENAME)) {
+        $aifile = fopen($FILENAME, 'r+') or die("cant open file");
+        $NAI = '<Actionitem>' . PHP_EOL;
+        $NAI .= "<ID>" . $_POST['ID'] . "</ID>" . PHP_EOL;
+        $NAI .= "<PID>" . $_POST['PID'] . "</PID>" . PHP_EOL;
+        $NAI .= "<AIACRO>" . $_POST['AIACRO'] . "</AIACRO>" . PHP_EOL;
+        $NAI .= "<OWNER>" . $_POST['OWNER'] . "</OWNER>" . PHP_EOL;
+        $NAI .= "<RESPONSIBLE>" . $_POST['RESPONSIBLE'] . "</RESPONSIBLE>" . PHP_EOL;
+        $NAI .= "<CREATED>" . $_POST['CREATED'] . "</CREATED>" . PHP_EOL;
+        $NAI .= "<DEADLINE>" . $_POST['DEADLINE'] . "</DEADLINE>" . PHP_EOL;
+        $NAI .= "<DESCRIPTION>" . $_POST['DESCRIPTION'] . "</DESCRIPTION>" . PHP_EOL;
+        $NAI .= "<RATIONALE>" . $_POST['RATIONALE'] . "</RATIONALE>" . PHP_EOL;
+        $NAI .= "<Actionitem>" . PHP_EOL . "</ACTIONITEMS>";
+
+        fseek($aifile, 0, SEEK_END);
+        fwrite($aifile, $NAI);
+        fclose($aifile);
+
+        echo "Action Item added!";
+    }
 }
     
-echo "ai added";
+
 ?>
