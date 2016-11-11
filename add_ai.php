@@ -30,10 +30,17 @@ elseif( isset($_POST['submitEditAI'])) {
 }
 
 elseif( isset($_GET['newActionItem'])) {
-
+    newActionItemForm($_GET['newActionItem']);
 }
 
 
+elseif( isset($_GET['newActionItem'])) {
+    newActionItemForm($_GET['submitNewActionItem']);
+}
+
+elseif ( isset($_POST['submitAddedNewActionItem'])) {
+    addNewAIToFile();
+}
 else {
     displayGroupOptions();
 }

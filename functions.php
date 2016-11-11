@@ -222,7 +222,39 @@ function saveToFile($descr, $aia) {
     echo "File Edited Successfully!";
 }
 
-function addNewActionItem() {
-    
+
+function newActionItemForm($aiac) {
+    $aiacro = trim($aiac);
+
+    //add new action Item coming soon.
+    echo "<form method='POST' action=\""; echo $_SERVER['PHP_SELF']; echo "\">
+            ID:<input type='text' name='ID'>
+            <br/>
+            Group:<input type='text' name='GROUP'>
+            <br/>
+            PID:<input type='text' name='PID'>
+            <br/>
+            AIACRO:<input type='text' name='AIACRO'>
+            <br/>
+            Owner:<input type='text' name='OWNER'>
+            <br/>
+            Responsible:<input type='text' name='RESPONSIBLE'>
+            <br/>
+            Created:<input type='text' name='CREATED'>
+            <br/>
+            Deadlline:<input type='text' name='DEADLINE'>
+            <br/>
+            Description<input type='text' name='DESCRIPTION'>
+            <br/>
+            Rationale:<input type='text' name='RATIONALE'>
+            <br/>
+            <input type=\"submit\" name =\"submitAddedNewActionItem\" value=\"Submit\">
+            </form>";
 }
+
+
+function addNewAIToFile() {
+    echo "New AI Added";
+}
+
 ?>
