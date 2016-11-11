@@ -254,7 +254,7 @@ function newActionItemForm($aiac) {
 
 
 function addNewAIToFile() {
-    $aifile = fopen(ACTIONITEM, 'r');
+    $aifile = fopen(ACTIONITEMS, 'r');
     $NAI = '<Actionitem>'.PHP_EOL;
     $NAI .="<ID>".$_POST['ID']."</ID>".PHP_EOL;
     $NAI .="<PID>".$_POST['PID']."</PID>".PHP_EOL;
@@ -267,5 +267,5 @@ function addNewAIToFile() {
     $NAI .="<RATIONALE>".$_POST['RATIONALE']."</RATIONALE>".PHP_EOL;
 }
     
-
+echo "ai added";
 ?>
