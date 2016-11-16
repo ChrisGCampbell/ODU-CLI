@@ -89,7 +89,7 @@ function displayListOfAIS($selectedGroup) {
         }
     }
 
-    echo "Below is a list of Action Items for <b>{$selectedGroup}</b> group<br/><br/>.";
+    echo "Below is a list of Action Items for <b>{$selectedGroup}</b> group.<br/><br/>";
     //$aiItems AI-Acronym's being at index 1
     echo "<table width='550'><col width='200'><col width='100'><col width='100'><col width='250'>
             <tr> <th>AI-Acronym</th> <th>Owner</th> <th>Status</th> <th>Description</th> </tr>";
@@ -130,6 +130,13 @@ function displayListOfAIS($selectedGroup) {
 
 
 
+###############################################
+#   function displayIncidentReportDetails()
+#
+#   Display the details of the Action Item
+#   Returns: null
+#
+##############################################
 function displayIncidentReportDetails($incidentNumber) {
     $incidentNumber = trim($_GET['incidentnumber']);
     $group = trim($_GET['groupname']);
@@ -154,6 +161,14 @@ function displayIncidentReportDetails($incidentNumber) {
 
 
 
+###############################################
+#   function displayFullActionItem()
+#
+#   After a user selects a an incident the full
+#   incident is displayed
+#   Returns: null
+#
+##############################################
 function displayFullActionItem( $group, $acronym, $incident ) {
     $groupName = trim($_GET['group']);
     $aiacronym = trim($_GET['aiacronym']);
@@ -181,6 +196,15 @@ function displayFullActionItem( $group, $acronym, $incident ) {
     }
 }
 
+
+
+###############################################
+#   function editAI()
+#
+#   Edit fields within a specific action item
+#   Returns: null
+#
+##############################################
 function editAI($ai) {
     $aiacronym = trim($_GET['aiacronym']);
     $aixml = simplexml_load_file(ACTIONITEMS);
@@ -208,6 +232,15 @@ function editAI($ai) {
 
 }
 
+
+
+###############################################
+#   function saveToFile()
+#
+#   After an action item is edited save to file
+#   Returns: null
+#
+##############################################
 function saveToFile($descr, $aia) {
     $description = trim($descr);
     $aiacronym = trim($aia);
