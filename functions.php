@@ -89,6 +89,7 @@ function displayListOfAIS($selectedGroup) {
         }
     }
 
+    echo "Below is a list of Action Items for <b>{$selectedGroup}</b> group<br/><br/>.";
     //$aiItems AI-Acronym's being at index 1
     echo "<table width='550'><col width='200'><col width='100'><col width='100'><col width='250'>
             <tr> <th>AI-Acronym</th> <th>Owner</th> <th>Status</th> <th>Description</th> </tr>";
