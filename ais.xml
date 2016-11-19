@@ -69,6 +69,36 @@ https:// in the box and then append the link, it will not be clickable.
 </Actionitem>
 <Actionitem>
 <ID>XXX3</ID>
+<GROUP>Project</GROUP>
+<PID>NSF20166002</PID>
+<NUMBER>1</NUMBER>
+<AIACRO>WSPR-WSUL-3</AIACRO>
+<OWNER>Simmons</OWNER>
+<RESPONSIBLE>XYZ</RESPONSIBLE>
+<CREATED>16:45, 3rd July 2016</CREATED>
+<DEADLINE>20th July 2016</DEADLINE>
+<DEPENDENCY/>
+<DESCRIPTION> Whether we call it a "press release," a "press statement," a "news release," or a "media release," we're always talking about the same basic thing: an official announcement (written or recorded) that an organization issues to the news media and beyond. Most press releases are succinct at just a page long.</DESCRIPTION>
+<RATIONALE>Additional functionality: The function display_selected_uploads(upload_item) works very well. We get a table showing the uploaded files in a category. See, for example, "Library" in http://www.mari-odu.org/cl/workspace. Currently, we use the same functions to show a list of graphics, but the list does not include a small picture of each graphics.
+</RATIONALE>
+</Actionitem>
+<Actionitem>
+<ID>XXX3</ID>
+<GROUP>Project</GROUP>
+<PID>NSF20166003</PID>
+<NUMBER>1</NUMBER>
+<AIACRO>WSPR-WSUL-3</AIACRO>
+<OWNER>Plag</OWNER>
+<RESPONSIBLE>XYZ</RESPONSIBLE>
+<CREATED>16:45, 3rd July 2016</CREATED>
+<DEADLINE>20th July 2016</DEADLINE>
+<DEPENDENCY/>
+<DESCRIPTION>A CLI (command line interface) is a user interface to a computer's operating system or an application in which the user responds to a visual prompt by typing in a command on a specified line, receives a response back from the system, and then enters another command, and so forth. </DESCRIPTION>
+<RATIONALE>Additional functionality: The function display_selected_uploads(upload_item) works very well. We get a table showing the uploaded files in a category. See, for example, "Library" in http://www.mari-odu.org/cl/workspace. Currently, we use the same functions to show a list of graphics, but the list does not include a small picture of each graphics.
+</RATIONALE>
+</Actionitem>
+<Actionitem>
+<ID>XXX3</ID>
 <GROUP>Workpackage</GROUP>
 <PID>ATTL20160003</PID>
 <NUMBER>1</NUMBER>

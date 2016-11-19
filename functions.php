@@ -67,67 +67,48 @@ function loadGroupList($groupNames){
 
 
 ###############################################
-#   function displayListOfAIS()
-#
+#   function displayProjectIncidents($group)
+#   parameters: takes a string representing a group
 #   After a user selects a project group a list
-#   of associated actions items are display
-#   specific to that group
+#   of associated projects are display
+#
 #   Returns: null
 #
 ##############################################
-function displayListOfAIS($selectedGroup) {
+function displayProjectIncidents($selectedGroup) {
     $txtfile     = file_get_contents(GROUPINCIDENTS);
     $rows        = explode("\n", $txtfile);
     $aixml       = simplexml_load_file(ACTIONITEMS);
-    $aireportxml = simplexml_load_file(AIREPORTS);
 
-
-    for($i=0; $i<count($rows); $i++){
-        if (strpos($rows[$i], $selectedGroup) !== false) {
-               $aiItems = explode("|",$rows[$i]);
+    for( $i = 0; $i < count($rows); $i++ ){
+        if ( strpos($rows[$i], $selectedGroup ) !== false ) {
+               $projectIncidents = explode( "|", $rows[$i] );
                break;
         }
     }
 
-    echo "Below is a list of Action Items for <b>{$selectedGroup}</b> group.<br/><br/>";
-    //$aiItems AI-Acronym's being at index 1
-    echo "<table width='550'><col width='200'><col width='100'><col width='100'><col width='250'>
-            <tr> <th>AI-Acronym</th> <th>Owner</th> <th>Status</th> <th>Description</th> </tr>";
 
-    for($i=0; $i<count($aiItems); $i++) {
+    //Project Incidents array beings at index 1
+    echo "Below is a list of <b>{$selectedGroup}s</b>.<br/><br/>";
+    echo "<table width='550'> 
+            <tr> 
+                <th align='left'>Project</th>
+                <th align='left'>Description</th> 
+            </tr>";
 
-        for($j=0; $j<count($aixml); $j++){
+    for( $i = 0; $i < count($projectIncidents); $i++ ) {
 
-            if( $aixml->Actionitem[$j]->PID == trim( $aiItems[$i] ) &&
-                       $aixml->Actionitem[$j]->GROUP == $selectedGroup)
+        for( $j = 0; $j < count($aixml); $j++ ) {
+            if( $aixml->Actionitem[$j]->PID == trim( $projectIncidents[$i] ) &&
+                           $aixml->Actionitem[$j]->GROUP == $selectedGroup )
             {
-
-                echo "<tr> <td> <a href=?incident={$aiItems[$i]}&group={$selectedGroup}&aiacronym={$aixml->Actionitem[$j]->AIACRO}>".$aixml->Actionitem[$j]->AIACRO."</a> </td>";
-                echo "<td>" .$aixml->Actionitem[$j]->OWNER. "</td>";
-
-                for($q=0; $q<count($aireportxml); $q++){
-
-                    if( $aireportxml->Aireport[$q]->AIID == trim( $aiItems[$i] ) ) {
-                        if(isset($aireportxml->Aireport[$q]->STATUS)){
-                            echo "<td>" .$aireportxml->Aireport[$q]->STATUS. "</td>";
-                        }
-                        else {
-                            echo "<td>NULL</td>";
-                        }
-                    }
-
-                }
-
-                echo "<td>".substr($aixml->Actionitem[$j]->DESCRIPTION,0,25)."</td></tr>";
+                echo "<tr> <td> <a href=?pincident={$projectIncidents[$i]}&group={$selectedGroup}&aiacronym={$aixml->Actionitem[$j]->AIACRO}>".$projectIncidents[$i]."</a> </td>";
+                echo "<td>".substr( $aixml->Actionitem[$j]->DESCRIPTION, 0, 25 )."</td> </tr>";
             }
         }
     }
-
     echo "</table>";
-    //echo "<button>Add A New Action Item</button>";
-
 }
-
 
 
 ###############################################

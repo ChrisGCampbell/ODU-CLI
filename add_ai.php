@@ -5,7 +5,7 @@ include 'functions.php';
 
 if(isset($_POST['submitGroup'])){
    if(isset($_POST['group'])){
-       displayListOfAIS(trim($_POST['group']));
+       displayProjectIncidents(trim($_POST['group']));
    }
 }
 
