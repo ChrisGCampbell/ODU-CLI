@@ -31,8 +31,8 @@ function displayGroupOptions() {
 ###############################################
 #   function getGroups()
 #
-#   Retrieves group list from flat file
-#
+#   Retrieves group list from flat file to
+#   populate form in function displayGroupOptions
 #
 #   Returns: null
 #
@@ -78,7 +78,7 @@ function loadGroupList($groupNames){
 function displayProjectIncidents($selectedGroup) {
     $txtfile     = file_get_contents(GROUPINCIDENTS);
     $rows        = explode("\n", $txtfile);
-    $aixml       = simplexml_load_file(ACTIONITEMS);
+    $projectIncidents = [];
 
     for( $i = 0; $i < count($rows); $i++ ){
         if ( strpos($rows[$i], $selectedGroup ) !== false ) {
@@ -87,27 +87,22 @@ function displayProjectIncidents($selectedGroup) {
         }
     }
 
-
-    //Project Incidents array beings at index 1
-    echo "Below is a list of <b>{$selectedGroup}s</b>.<br/><br/>";
-    echo "<table width='550'> 
-            <tr> 
-                <th align='left'>Project</th>
-                <th align='left'>Description</th> 
-            </tr>";
-
-    for( $i = 0; $i < count($projectIncidents); $i++ ) {
-
-        for( $j = 0; $j < count($aixml); $j++ ) {
-            if( $aixml->Actionitem[$j]->PID == trim( $projectIncidents[$i] ) &&
-                           $aixml->Actionitem[$j]->GROUP == $selectedGroup )
-            {
-                echo "<tr> <td> <a href=?pincident={$projectIncidents[$i]}&group={$selectedGroup}&aiacronym={$aixml->Actionitem[$j]->AIACRO}>".$projectIncidents[$i]."</a> </td>";
-                echo "<td>".substr( $aixml->Actionitem[$j]->DESCRIPTION, 0, 25 )."</td> </tr>";
-            }
-        }
+    if(empty($projectIncidents)){
+        echo "No current listings for <b>{$selectedGroup}</b>";
     }
-    echo "</table>";
+    else{
+        echo "List of <b>{$selectedGroup}s</b> <br/>";
+        echo "----------------------";
+        echo "<table width='550'>";
+
+                //Project Incidents array beings at index 1
+                for( $i = 1; $i < count($projectIncidents); $i++ ) {
+                    echo "<tr> <td> <a href=?pincident={$projectIncidents[$i]}&group={$selectedGroup}>" . $projectIncidents[$i]."</a> </td>";
+                }
+
+        echo "</table>";
+        echo "----------------------";
+    }
 }
 
 

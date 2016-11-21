@@ -3,10 +3,10 @@
 <Actionitem>
 <ID>XXX1</ID>
 <GROUP>Workpackage</GROUP>
-<PID>ATTL20160001</PID>
+<PID>Workpackage1</PID>
 <NUMBER>1</NUMBER>
 <AIACRO>WSPR-WSUL-0</AIACRO>
-<AIID>WSPR-WSCT-1</AIID>
+<AIID>Workpackage1-3</AIID>
 <OWNER>HPP</OWNER>
 <RESPONSIBLE>XYZ</RESPONSIBLE>
 <CREATED>16:44, 3rd Sept 2016</CREATED>
@@ -23,11 +23,34 @@ https:// in the box and then append the link, it will not be clickable.
 </RATIONALE>
 </Actionitem>
 <Actionitem>
+<ID>XXX1</ID>
+<GROUP>Project</GROUP>
+<PID>Project1</PID>
+<NUMBER>1</NUMBER>
+<AIACRO>WSPR-WSUL-0</AIACRO>
+<AIID>Project1-1</AIID>
+<OWNER>HPP</OWNER>
+<RESPONSIBLE>XYZ</RESPONSIBLE>
+<CREATED>16:44, 3rd Sept 2016</CREATED>
+<DEADLINE>20th Dec 2016</DEADLINE>
+<DEPENDENCY/>
+<DESCRIPTION>Check and correct issues with the "Append Link" function in Write/Add Comment.
+</DESCRIPTION>
+<RATIONALE>Fix for a current problem: In write_comment, one can add a URL into the comment. The URL box shows
+http://
+and the user can write the rest of the URL into this box and then click on "Append Link." This works fine and the link in the comment text is clickable. However, if I change
+http://
+to
+https:// in the box and then append the link, it will not be clickable.
+</RATIONALE>
+</Actionitem>
+<Actionitem>
 <ID>XXX2</ID>
 <GROUP>Project</GROUP>
-<PID>NSF20160001</PID>
+<PID>Project2</PID>
 <NUMBER>1</NUMBER>
 <AIACRO>WSPR-WSUL-1</AIACRO>
+<AIID>Project2-1</AIID>
 <OWNER>Dave</OWNER>
 <RESPONSIBLE>XYZ</RESPONSIBLE>
 <CREATED>16:45, 3rd July 2016</CREATED>
@@ -40,9 +63,10 @@ https:// in the box and then append the link, it will not be clickable.
 <Actionitem>
 <ID>XXX2</ID>
 <GROUP>Workpackage</GROUP>
-<PID>ATTL20160001</PID>
+<PID>Workpackage1</PID>
 <NUMBER>1</NUMBER>
 <AIACRO>WSPR-WSUL-1</AIACRO>
+<AIID>Workpackage1-4</AIID>
 <OWNER>john</OWNER>
 <RESPONSIBLE>XYZ</RESPONSIBLE>
 <CREATED>16:45, 3rd July 2016</CREATED>
@@ -55,9 +79,10 @@ https:// in the box and then append the link, it will not be clickable.
 <Actionitem>
 <ID>XXX3</ID>
 <GROUP>Project</GROUP>
-<PID>NSF20160001</PID>
+<PID>Project2-2</PID>
 <NUMBER>1</NUMBER>
 <AIACRO>WSPR-WSUL-3</AIACRO>
+<AIID>Project3-3</AIID>
 <OWNER>Jill</OWNER>
 <RESPONSIBLE>XYZ</RESPONSIBLE>
 <CREATED>16:45, 3rd July 2016</CREATED>
@@ -70,9 +95,10 @@ https:// in the box and then append the link, it will not be clickable.
 <Actionitem>
 <ID>XXX3</ID>
 <GROUP>Project</GROUP>
-<PID>NSF20166002</PID>
+<PID>Project4</PID>
 <NUMBER>1</NUMBER>
 <AIACRO>WSPR-WSUL-3</AIACRO>
+<AIID>Project4-11</AIID>
 <OWNER>Simmons</OWNER>
 <RESPONSIBLE>XYZ</RESPONSIBLE>
 <CREATED>16:45, 3rd July 2016</CREATED>
@@ -85,9 +111,10 @@ https:// in the box and then append the link, it will not be clickable.
 <Actionitem>
 <ID>XXX3</ID>
 <GROUP>Project</GROUP>
-<PID>NSF20166003</PID>
+<PID>Project4</PID>
 <NUMBER>1</NUMBER>
-<AIACRO>WSPR-WSUL-3</AIACRO>
+<AIACRO>POL-POL-3</AIACRO>
+<AIID>Project4-6</AIID>
 <OWNER>Plag</OWNER>
 <RESPONSIBLE>XYZ</RESPONSIBLE>
 <CREATED>16:45, 3rd July 2016</CREATED>
@@ -99,10 +126,27 @@ https:// in the box and then append the link, it will not be clickable.
 </Actionitem>
 <Actionitem>
 <ID>XXX3</ID>
+<GROUP>Project</GROUP>
+<PID>Project3</PID>
+<NUMBER>1</NUMBER>
+<AIACRO>III-POL-3</AIACRO>
+<AIID>Project3-10</AIID>
+<OWNER>Plag</OWNER>
+<RESPONSIBLE>XYZ</RESPONSIBLE>
+<CREATED>16:45, 3rd July 2016</CREATED>
+<DEADLINE>20th July 2016</DEADLINE>
+<DEPENDENCY/>
+<DESCRIPTION>To be determined</DESCRIPTION>
+<RATIONALE>Additional functionality: The function display_selected_uploads(upload_item) works very well. We get a table showing the uploaded files in a category. See, for example, "Library" in http://www.mari-odu.org/cl/workspace. Currently, we use the same functions to show a list of graphics, but the list does not include a small picture of each graphics.
+</RATIONALE>
+</Actionitem>
+<Actionitem>
+<ID>XXX3</ID>
 <GROUP>Workpackage</GROUP>
-<PID>ATTL20160003</PID>
+<PID>Workpackage5</PID>
 <NUMBER>1</NUMBER>
 <AIACRO>WSPR-WSUL-3</AIACRO>
+<AIID>Workpackage5-12</AIID>
 <OWNER>Jill</OWNER>
 <RESPONSIBLE>XYZ</RESPONSIBLE>
 <CREATED>16:45, 3rd July 2016</CREATED>
@@ -115,9 +159,10 @@ https:// in the box and then append the link, it will not be clickable.
 <Actionitem>
 <ID>XXX2</ID>
 <GROUP>Workpackage</GROUP>
-<PID>ATTL20160004</PID>
+<PID>Workpackage6</PID>
 <NUMBER>1</NUMBER>
 <AIACRO>ATTL-WSUL-2</AIACRO>
+<AIID>Workpackage6-1</AIID>
 <OWNER>Tom</OWNER>
 <RESPONSIBLE>XYZ</RESPONSIBLE>
 <CREATED>16:45, 3rd Feb 2016</CREATED>
