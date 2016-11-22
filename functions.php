@@ -7,7 +7,7 @@
  */
 define("GROUPFILE", "known_groups.txt");
 define("GROUPINCIDENTS", "known_incidents.txt");
-define("ACTIONITEMS", "ais.xml");
+define("ACTIONITEMS", "Actionitems.xml");
 define("AIREPORTS", "aireports.xml");
 
 
@@ -78,7 +78,7 @@ function loadGroupList($groupNames){
 function displayProjectIncidents($selectedGroup) {
     $txtfile     = file_get_contents(GROUPINCIDENTS);
     $rows        = explode("\n", $txtfile);
-    $projectIncidents = [];
+    $pid = [];
 
     for( $i = 0; $i < count($rows); $i++ ){
         if ( strpos($rows[$i], $selectedGroup ) !== false ) {
@@ -97,7 +97,7 @@ function displayProjectIncidents($selectedGroup) {
 
                 //Project Incidents array beings at index 1
                 for( $i = 1; $i < count($projectIncidents); $i++ ) {
-                    echo "<tr> <td> <a href=?pincident={$projectIncidents[$i]}&group={$selectedGroup}>" . $projectIncidents[$i]."</a> </td>";
+                    echo "<tr> <td> <a href=?pid={$projectIncidents[$i]}&pgroup={$selectedGroup}>" . $projectIncidents[$i]."</a> </td>";
                 }
 
         echo "</table>";
@@ -107,32 +107,29 @@ function displayProjectIncidents($selectedGroup) {
 
 
 ###############################################
-#   function displayIncidentReportDetails()
+#   function displayActionItemDetails()
 #
 #   Display the details of the Action Item
 #   Returns: null
 #
 ##############################################
-function displayIncidentReportDetails($incidentNumber) {
-    $incidentNumber = trim($_GET['incidentnumber']);
-    $group = trim($_GET['groupname']);
-    echo "<h2>".$group . "</h2><br/>";
-    echo $incidentNumber . "<br/>";
+function displayActionItemDetails($pid, $pgroup) {
+    $pid = trim($_GET['pid']);
+    $pgroup = trim($_GET['pgroup']);
+    echo "Lis of Action Items for {$pid} in the group ($pgroup}:</br>";
+    echo "-------------------";
+    echo "<table width='500'><th align='left'>Action Item</th><th align='left'>Owner</th><th align='left'>Description</th>";
+
     $aixml = simplexml_load_file(ACTIONITEMS) or die("Error: Cannot open Action Items file");
     for($i=0; $i<count($aixml); $i++) {
-        if ($aixml->Actionitem[$i]->GROUP == $group && $aixml->Actionitem[$i]->PID == $incidentNumber) {
-            echo "AIACRO: " .$aixml->Actionitem[$i]->AIACRO . "<br/>";
-            echo "OWNER: " .$aixml->Actionitem[$i]->OWNER . "<br/>";
-            $aireportxml = simplexml_load_file(AIREPORTS) or die("Error: Cannot open AIReports file");
-            for($j=0; $j<count($aireportxml); $j++) {
-                if ($aireportxml->Aireport[$j]->AIID == $incidentNumber) {
-                    echo "DESCRIPTION: " . $aireportxml->Aireport[$j]->NDESCRIPTION . "<br/>";
-                    echo "STATUS: " . $aireportxml->Aireport[$j]->STATUS . "<br/>";
-                    echo "<br/><br/>";
-                }
-            }
+        if ($aixml->Actionitem[$i]->PGROUP == $pgroup && $aixml->Actionitem[$i]->PID == $pid) {
+            echo "<tr> <td>" .$aixml->Actionitem[$i]->AIACRO;
+            echo $aixml->Actionitem[$i]->OWNER;
+            echo $aixml->Actionitem[$i]->DESCRIPTION . "</td></tr><tr><td></td></tr>";
         }
     }
+    echo "</table>";
+    echo "-------------------";
 }
 
 

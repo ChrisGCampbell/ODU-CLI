@@ -10,8 +10,8 @@ if(isset($_POST['submitGroup'])){
 }
 
 
-else if(isset($_GET['incidentnumber'])){
-    displayIncidentReportDetails(trim($_GET['incidentnumber']));
+else if(isset($_GET['pid']) && isset($_GET['pgroup'])){
+    displayActionItemDetails(trim($_GET['pid']), trim($_GET['pgroup']));
 }
 
 
