@@ -116,16 +116,18 @@ function displayProjectIncidents($selectedGroup) {
 function displayActionItemDetails($pid, $pgroup) {
     $pid = trim($_GET['pid']);
     $pgroup = trim($_GET['pgroup']);
-    echo "Lis of Action Items for {$pid} in the group ($pgroup}:</br>";
+
+    echo "<form method='POST' action='"; echo $_SERVER['PHP_SELF']; echo "'> <input type='submit' name='newActionItem' value='Create New Action Item'></form><br/><br/>";
+    echo "List of Action Items for {$pid} in the group ($pgroup}:</br>";
     echo "-------------------";
-    echo "<table width='500'><th align='left'>Action Item</th><th align='left'>Owner</th><th align='left'>Description</th>";
+    echo "<table width='1000'><th width='250' align='left'>Action Item</th><th align='left'>Owner</th><th align='left'>Description</th>";
 
     $aixml = simplexml_load_file(ACTIONITEMS) or die("Error: Cannot open Action Items file");
     for($i=0; $i<count($aixml); $i++) {
         if ($aixml->Actionitem[$i]->PGROUP == $pgroup && $aixml->Actionitem[$i]->PID == $pid) {
-            echo "<tr> <td>" .$aixml->Actionitem[$i]->AIACRO;
-            echo $aixml->Actionitem[$i]->OWNER;
-            echo $aixml->Actionitem[$i]->DESCRIPTION . "</td></tr><tr><td></td></tr>";
+            echo "<tr> <td width='250'>" .$aixml->Actionitem[$i]->AIACRO . "</td>";
+            echo "<td width='250'>" . $aixml->Actionitem[$i]->OWNER . "</td>";
+            echo "<td>" . $aixml->Actionitem[$i]->DESCRIPTION . "</td></tr><tr><td></td></tr>";
         }
     }
     echo "</table>";

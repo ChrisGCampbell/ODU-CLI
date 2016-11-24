@@ -29,8 +29,8 @@ elseif( isset($_POST['submitEditAI'])) {
     saveToFile($_POST['description'],$_POST['aiacronym']);
 }
 
-elseif( isset($_GET['newActionItem'])) {
-    newActionItemForm($_GET['newActionItem']);
+elseif( isset($_POST['newActionItem'])) {
+    newActionItemForm($_POST['newActionItem']);
 }
 
 
