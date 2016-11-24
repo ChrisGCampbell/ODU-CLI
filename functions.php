@@ -194,6 +194,7 @@ function editAI($ai) {
             $owner = $aixml->Actionitem[$i]->OWNER;
             $created = $aixml->Actionitem[$i]->CREATED;
             $deadline = $aixml->Actionitem[$i]->DEADLINE;
+            $responsible = $aixml->Actionitem[$i]->RESPONSIBLE;
             break;
         }
     }
@@ -203,6 +204,7 @@ function editAI($ai) {
     echo "<p>Owner: {$owner}</p>";
     echo "<p>Date Created: {$created}</p>";
     echo "<p>Action Item: {$aiacronym}</p>";
+    echo "<p>Responsible: {$responsible}</p>";
     echo "<p>Deadline: {$deadline}</p>";
     echo "<form method='POST' action=\""; echo $_SERVER['PHP_SELF']; echo "\">
             <textarea rows='4' cols='50' name='description'>{$description}</textarea>
