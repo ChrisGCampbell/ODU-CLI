@@ -125,7 +125,9 @@ function displayActionItemDetails($pid, $pgroup) {
     $aixml = simplexml_load_file(ACTIONITEMS) or die("Error: Cannot open Action Items file");
     for($i=0; $i<count($aixml); $i++) {
         if ($aixml->Actionitem[$i]->PGROUP == $pgroup && $aixml->Actionitem[$i]->PID == $pid) {
-            echo "<tr> <td width='250'>" .$aixml->Actionitem[$i]->AIACRO . "</td>";
+            echo "<tr> <td width='250'>" .$aixml->Actionitem[$i]->AIACRO .
+                 "&nbsp;<a href='?editAI=true&aiacronym=" . $aixml->Actionitem[$i]->AIACRO;
+                 echo "'><input type='button' value='edit' name='editAI'></a></td>";
             echo "<td width='250'>" . $aixml->Actionitem[$i]->OWNER . "</td>";
             echo "<td>" . $aixml->Actionitem[$i]->DESCRIPTION . "</td></tr><tr><td></td></tr>";
         }
@@ -187,7 +189,8 @@ function editAI($ai) {
     for($i=0; $i<count($aixml); $i++) {
         if($aixml->Actionitem[$i]->AIACRO == $aiacronym) {
             $description = $aixml->Actionitem[$i]->DESCRIPTION;
-            $group = $aixml->Actionitem[$i]->GROUP;
+            $pgroup = $aixml->Actionitem[$i]->PGROUP;
+            $pid = $aixml->Actionitem[$i]->PID;
             $owner = $aixml->Actionitem[$i]->OWNER;
             $created = $aixml->Actionitem[$i]->CREATED;
             $deadline = $aixml->Actionitem[$i]->DEADLINE;
@@ -195,9 +198,11 @@ function editAI($ai) {
         }
     }
 
-    echo "Edit description details for ".$group." ".$aiacronym;
+    echo "<p>Group: ". $pgroup."</p>";
+    echo "<p>Incident: " . $pid . "</p>";
     echo "<p>Owner: {$owner}</p>";
     echo "<p>Date Created: {$created}</p>";
+    echo "<p>Action Item: {$aiacronym}</p>";
     echo "<p>Deadline: {$deadline}</p>";
     echo "<form method='POST' action=\""; echo $_SERVER['PHP_SELF']; echo "\">
             <textarea rows='4' cols='50' name='description'>{$description}</textarea>
