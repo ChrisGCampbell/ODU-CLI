@@ -29,13 +29,8 @@ elseif( isset($_POST['submitEditAI'])) {
     saveToFile($_POST['description'],$_POST['aiacronym']);
 }
 
-elseif( isset($_POST['newActionItem'])) {
-    newActionItemForm($_POST['newActionItem'], $_POST['pid']);
-}
-
-
-elseif( isset($_GET['newActionItem'])) {
-    newActionItemForm($_GET['submitNewActionItem']);
+elseif( isset($_POST['newActionItem']) && isset($_POST['pid']) && isset($_POST['pgroup'])) {
+    newActionItemForm($_POST['pid'], $_POST['pgroup']);
 }
 
 elseif ( isset($_POST['submitAddedNewActionItem'])) {

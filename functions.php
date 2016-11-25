@@ -134,9 +134,53 @@ function displayActionItemDetails($pid, $pgroup) {
     echo "</table>";
     echo "<form method='POST' action='"; echo $_SERVER['PHP_SELF']; echo "'> 
          <input type='hidden' name='pid' value='{$pid}'>
+         <input type='hidden' name='pgroup' value='{$pgroup}'>
          <input type='submit' name='newActionItem' value='Create New Action Item'></form><br/><br/>";
 
     echo "-------------------";
+}
+
+
+function newActionItemForm($pincident, $projectgroup) {
+    $pid    = trim($pincident);
+    $PGROUP = trim($projectgroup);
+    $aixml = simplexml_load_file(ACTIONITEMS);
+    $aiacroList = [];
+    $ID = rand(4,4);
+
+    for($i=0; $i<count($aixml); $i++) {
+        if($aixml->Actionitem[$i]->PID == $pid) {
+            array_push($aiacroList, $aixml->Actionitem[$i]->AIACRO);
+        }
+    }
+
+    var_dump($aiacroList);
+
+    echo "Please input the fields to add a new action item below:<br/>";
+    //add new action Item coming soon.
+    echo "<form method='POST' action=\""; echo $_SERVER['PHP_SELF']; echo "\">
+            ID:<input type='text' name='ID' value='{$ID}'>
+            <br/>
+            Group:<input type='text' name='GROUP' value='{$GROUP}'>
+            <br/>
+            PID:<input type='text' name='PID' value='{$PID}'>
+            <br/>
+            AIACRO:<input type='text' name='AIACRO'>
+            <br/>
+            Owner:<input type='text' name='OWNER' value='{$OWNER}'>
+            <br/>
+            Responsible:<input type='text' name='RESPONSIBLE'>
+            <br/>
+            Created:<input type='text' name='CREATED'>
+            <br/>
+            Deadline:<input type='text' name='DEADLINE'>
+            <br/>
+            Description<input type='text' name='DESCRIPTION'>
+            <br/>
+            Rationale:<input type='text' name='RATIONALE'>
+            <br/>
+            <input type=\"submit\" name =\"submitAddedNewActionItem\" value=\"Submit\">
+            </form>";
 }
 
 
@@ -242,47 +286,6 @@ function saveToFile($descr, $aia) {
 }
 
 
-function newActionItemForm($aiac, $pincident) {
-    $aiacro = trim($aiac);
-    $pid    = trim($pincident);
-    echo $pid;
-    $aixml = simplexml_load_file(ACTIONITEMS);
-
-    for($i=0; $i<count($aixml); $i++) {
-        if($aixml->Actionitem[$i]->AIACRO == $aiacro) {
-            $ID = $aixml->Actionitem[$i]->ID;
-            $PID = $aixml->Actionitem[$i]->PID;
-            $GROUP = $aixml->Actionitem[$i]->GROUP;
-            $OWNER = $aixml->Actionitem[$i]->OWNER;
-
-        }
-    }
-    echo "Please input the fields to add a new action item below:<br/>";
-    //add new action Item coming soon.
-    echo "<form method='POST' action=\""; echo $_SERVER['PHP_SELF']; echo "\">
-            ID:<input type='text' name='ID' value='{$ID}'>
-            <br/>
-            Group:<input type='text' name='GROUP' value='{$GROUP}'>
-            <br/>
-            PID:<input type='text' name='PID' value='{$PID}'>
-            <br/>
-            AIACRO:<input type='text' name='AIACRO'>
-            <br/>
-            Owner:<input type='text' name='OWNER' value='{$OWNER}'>
-            <br/>
-            Responsible:<input type='text' name='RESPONSIBLE'>
-            <br/>
-            Created:<input type='text' name='CREATED'>
-            <br/>
-            Deadline:<input type='text' name='DEADLINE'>
-            <br/>
-            Description<input type='text' name='DESCRIPTION'>
-            <br/>
-            Rationale:<input type='text' name='RATIONALE'>
-            <br/>
-            <input type=\"submit\" name =\"submitAddedNewActionItem\" value=\"Submit\">
-            </form>";
-}
 
 
 function addNewAIToFile() {
