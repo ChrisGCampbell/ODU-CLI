@@ -117,8 +117,7 @@ function displayActionItemDetails($pid, $pgroup) {
     $pid = trim($_GET['pid']);
     $pgroup = trim($_GET['pgroup']);
 
-    echo "<form method='POST' action='"; echo $_SERVER['PHP_SELF']; echo "'> <input type='submit' name='newActionItem' value='Create New Action Item'></form><br/><br/>";
-    echo "List of Action Items for {$pid} in the group ($pgroup}:</br>";
+    echo "List of Action Items for {$pid} in the group {$pgroup}:</br>";
     echo "-------------------";
     echo "<table width='1000'><th width='250' align='left'>Action Item</th><th align='left'>Owner</th><th align='left'>Description</th>";
 
@@ -133,6 +132,10 @@ function displayActionItemDetails($pid, $pgroup) {
         }
     }
     echo "</table>";
+    echo "<form method='POST' action='"; echo $_SERVER['PHP_SELF']; echo "'> 
+         <input type='hidden' name='pid' value='{$pid}'>
+         <input type='submit' name='newActionItem' value='Create New Action Item'></form><br/><br/>";
+
     echo "-------------------";
 }
 
@@ -239,26 +242,39 @@ function saveToFile($descr, $aia) {
 }
 
 
-function newActionItemForm($aiac) {
+function newActionItemForm($aiac, $pincident) {
     $aiacro = trim($aiac);
+    $pid    = trim($pincident);
+    echo $pid;
+    $aixml = simplexml_load_file(ACTIONITEMS);
+
+    for($i=0; $i<count($aixml); $i++) {
+        if($aixml->Actionitem[$i]->AIACRO == $aiacro) {
+            $ID = $aixml->Actionitem[$i]->ID;
+            $PID = $aixml->Actionitem[$i]->PID;
+            $GROUP = $aixml->Actionitem[$i]->GROUP;
+            $OWNER = $aixml->Actionitem[$i]->OWNER;
+
+        }
+    }
     echo "Please input the fields to add a new action item below:<br/>";
     //add new action Item coming soon.
     echo "<form method='POST' action=\""; echo $_SERVER['PHP_SELF']; echo "\">
-            ID:<input type='text' name='ID'>
+            ID:<input type='text' name='ID' value='{$ID}'>
             <br/>
-            Group:<input type='text' name='GROUP'>
+            Group:<input type='text' name='GROUP' value='{$GROUP}'>
             <br/>
-            PID:<input type='text' name='PID'>
+            PID:<input type='text' name='PID' value='{$PID}'>
             <br/>
             AIACRO:<input type='text' name='AIACRO'>
             <br/>
-            Owner:<input type='text' name='OWNER'>
+            Owner:<input type='text' name='OWNER' value='{$OWNER}'>
             <br/>
             Responsible:<input type='text' name='RESPONSIBLE'>
             <br/>
             Created:<input type='text' name='CREATED'>
             <br/>
-            Deadlline:<input type='text' name='DEADLINE'>
+            Deadline:<input type='text' name='DEADLINE'>
             <br/>
             Description<input type='text' name='DESCRIPTION'>
             <br/>

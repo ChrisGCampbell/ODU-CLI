@@ -30,7 +30,7 @@ elseif( isset($_POST['submitEditAI'])) {
 }
 
 elseif( isset($_POST['newActionItem'])) {
-    newActionItemForm($_POST['newActionItem']);
+    newActionItemForm($_POST['newActionItem'], $_POST['pid']);
 }
 
 
