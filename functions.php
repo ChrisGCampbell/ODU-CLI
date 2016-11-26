@@ -156,20 +156,19 @@ function newActionItemForm($pincident, $projectgroup) {
 
     $highest = [];
     for($i=0; $i<count($aiacroList); $i++) {
-        $pos=0;
-        $incount=0;
-        $ff=0;
+        $position=0;
+        $pilength=0;
+        $positionOfIncident=0;
         $aia = $aiacroList[$i]; //example fdsfd-project1-12
-        $pos = stripos($aia, $pid, 0);//gets the position of project1
-        $incount = strlen($pid); //gets the length of project1
-        $ff = $pos + $incount + 1;//finds the position of the incident # (project1-)
-        $substring = substr($aia, 0, $ff); //assigns project1- to variable
-        $oldvalue = intval(substr($aia, $ff, 3));//gets the current incident #
-
+        $position = stripos($aia, $pid, 0);//gets the position of word project1
+        $pilength = strlen($pid); //gets the length of project1
+        $positionOfIncident = $position + $pilength + 1;//finds the position of the incident # (ex. project1-)
+        $substring = substr($aia, 0, $positionOfIncident); //assigns project1- to variable
+        $oldvalue = intval(substr($aia, $positionOfIncident, 3));//gets the current incident #
         array_push($highest, intval($oldvalue));
     }
-    $max = max($highest);
-    $newvalue =  $max + 1;//gets the numbers after project1-
+    $max = max($highest);//find the highest incident # last assigned
+    $newvalue =  $max + 1;//returns the number after project1- + 1
     $newstring = $substring . $newvalue;
 
 
