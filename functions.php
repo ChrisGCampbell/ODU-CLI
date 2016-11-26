@@ -146,7 +146,7 @@ function newActionItemForm($pincident, $projectgroup) {
     $PGROUP = trim($projectgroup);
     $aixml = simplexml_load_file(ACTIONITEMS);
     $aiacroList = [];
-    $ID = rand(4,4);
+    $ID = rand(1000,9999);
 
     for($i=0; $i<count($aixml); $i++) {
         if($aixml->Actionitem[$i]->PID == $pid) {
@@ -154,18 +154,38 @@ function newActionItemForm($pincident, $projectgroup) {
         }
     }
 
-    var_dump($aiacroList);
+    $highest = [];
+    for($i=0; $i<count($aiacroList); $i++) {
+        $pos=0;
+        $incount=0;
+        $ff=0;
+        $aia = $aiacroList[$i]; //example fdsfd-project1-12
+        $pos = stripos($aia, $pid, 0);//gets the position of project1
+        $incount = strlen($pid); //gets the length of project1
+        $ff = $pos + $incount + 1;//finds the position of the incident # (project1-)
+        $substring = substr($aia, 0, $ff); //assigns project1- to variable
+        $oldvalue = intval(substr($aia, $ff, 3));//gets the current incident #
+
+        array_push($highest, intval($oldvalue));
+    }
+    $max = max($highest);
+    $newvalue =  $max + 1;//gets the numbers after project1-
+    $newstring = $substring . $newvalue;
+
+
+
+    echo "<br/><br/>";
 
     echo "Please input the fields to add a new action item below:<br/>";
     //add new action Item coming soon.
     echo "<form method='POST' action=\""; echo $_SERVER['PHP_SELF']; echo "\">
-            ID:<input type='text' name='ID' value='{$ID}'>
+            ID:<input type='text' name='ID' disabled value='{$ID}'>
             <br/>
-            Group:<input type='text' name='GROUP' value='{$GROUP}'>
+            Group:<input type='text' name='GROUP' disabled value='{$PGROUP}'>
             <br/>
-            PID:<input type='text' name='PID' value='{$PID}'>
+            PID:<input type='text' name='PID' disabled value='{$pid}'>
             <br/>
-            AIACRO:<input type='text' name='AIACRO'>
+            AIACRO:<input type='text' name='AIACRO' disabled value='{$newstring}'>
             <br/>
             Owner:<input type='text' name='OWNER' value='{$OWNER}'>
             <br/>
