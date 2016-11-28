@@ -261,6 +261,7 @@ function editAI($ai) {
             $created = $aixml->Actionitem[$i]->CREATED;
             $deadline = $aixml->Actionitem[$i]->DEADLINE;
             $responsible = $aixml->Actionitem[$i]->RESPONSIBLE;
+            $rationale = $aixml->Actionitem[$i]->RATIONALE;
             break;
         }
     }
@@ -270,10 +271,11 @@ function editAI($ai) {
     echo "<p>Owner: {$owner}</p>";
     echo "<p>Date Created: {$created}</p>";
     echo "<p>Action Item: {$aiacronym}</p>";
-    echo "<p>Responsible: {$responsible}</p>";
-    echo "<p>Deadline: {$deadline}</p>";
     echo "<form method='POST' action=\""; echo $_SERVER['PHP_SELF']; echo "\">
-            <textarea rows='4' cols='50' name='description'>{$description}</textarea>
+            <p>Responsible: <input type='text' name='responsible' value='{$responsible}'></p>
+            <p>Deadline: <input type='text' name='deadline' value='{$deadline}'></p>
+            <p class='formfield'><label for='rationale'>Rationale:</label><textarea rows='3' cols='40' name='rationale'>{$rationale}</textarea></p>
+            <p><span style='vertical-align:middle'>Description:</span><textarea rows='3' cols='40' name='description'>{$description}</textarea></p>
             <input type=\"hidden\" name=\"aiacronym\" value=\""; echo $aiacronym; echo "\">
             <br><input type=\"submit\" value=\"submit\" name=\"submitEditAI\">
           </form>";
@@ -289,14 +291,20 @@ function editAI($ai) {
 #   Returns: null
 #
 ##############################################
-function saveToFile($descr, $aia) {
+function saveToFile($descr, $aia, $resp, $ration, $dead) {
     $description = trim($descr);
+    $rationale = trim($ration);
+    $responsible = trim($resp);
+    $deadline = trim($dead);
     $aiacronym = trim($aia);
     $aixml = simplexml_load_file(ACTIONITEMS);
 
     for($i=0; $i<count($aixml); $i++) {
        if($aixml->Actionitem[$i]->AIACRO == $aiacronym) {
            $aixml->Actionitem[$i]->DESCRIPTION = $description;
+           $aixml->Actionitem[$i]->RATIONALE = $rationale;
+           $aixml->Actionitem[$i]->DEADLINE = $deadline;
+           $aixml->Actionitem[$i]->RESPONSIBLE = $responsible;
            $aixml->asXML(ACTIONITEMS);
        }
     }

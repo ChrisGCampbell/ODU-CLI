@@ -26,7 +26,7 @@ elseif( isset($_GET['editAI']) && isset($_GET['aiacronym'])) {
 
 
 elseif( isset($_POST['submitEditAI'])) {
-    saveToFile($_POST['description'],$_POST['aiacronym']);
+    saveToFile($_POST['description'],$_POST['aiacronym'],$_POST['responsible'],$_POST['rationale'],$_POST['deadline']);
 }
 
 elseif( isset($_POST['newActionItem']) && isset($_POST['pid']) && isset($_POST['pgroup'])) {

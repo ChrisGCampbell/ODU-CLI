@@ -11,3 +11,7 @@ button.incidents {
 .displayIncident {
     margin-bottom: 10px;
 }
+
+.formfield * {
+    vertical-align: middle;
+}
