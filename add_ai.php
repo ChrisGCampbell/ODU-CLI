@@ -2,13 +2,6 @@
 include 'header.html';
 include 'functions.php';
 
-$time1 = strtotime('16:45, 3rd July 2013');
-$time2 = strtotime('16:45, 3rd July 2015');
-
-if($time1 < $time2){
-    echo "yes";
-}
-
 if(isset($_POST['submitGroup'])){
    if(isset($_POST['group'])){
        displayProjectIncidents(trim($_POST['group']));
