@@ -2,8 +2,9 @@
 /**
  * Created by PhpStorm.
  * User: Chris-Campbell
- * Date: 11/1/2016
- * Time: 7:19 PM
+ * UpDated: 11/29/2016
+ * Time: 2:49 AM
+ *
  */
 define("GROUPFILE", "known_groups.txt");
 define("GROUPINCIDENTS", "known_incidents.txt");
@@ -13,11 +14,10 @@ define("AIREPORTS", "aireports.xml");
 
 ###############################################
 #   function displayGroupOptions()
-#
+#   parameters: none
 #   Creates the form to display group list
 #
-#
-#   Returns: null
+#   Returns: (nothing)
 #
 ##############################################
 function displayGroupOptions() {
@@ -34,7 +34,7 @@ function displayGroupOptions() {
 #   Retrieves group list from flat file to
 #   populate form in function displayGroupOptions
 #
-#   Returns: null
+#   Returns: (nothing)
 #
 ##############################################
 function getGroups() {
@@ -52,11 +52,10 @@ function getGroups() {
 
 ###############################################
 #   function loadGroupList()
-#
+#   parameters(array)
 #   print group list options inside group form
 #
-#
-#   Returns: null
+#   Returns: (nothing)
 #
 ##############################################
 function loadGroupList($groupNames){
@@ -72,7 +71,7 @@ function loadGroupList($groupNames){
 #   After a user selects a project group a list
 #   of associated projects are display
 #
-#   Returns: null
+#   Returns: (nothing)
 #
 ##############################################
 function displayProjectIncidents($selectedGroup) {
@@ -108,30 +107,42 @@ function displayProjectIncidents($selectedGroup) {
 
 ###############################################
 #   function displayActionItemDetails()
-#
+#   parameters: projectIncident, projectGroup
 #   Display the details of the Action Item
-#   Returns: null
+#   Returns: (nothing)
 #
 ##############################################
 function displayActionItemDetails($pid, $pgroup) {
     $pid = trim($_GET['pid']);
     $pgroup = trim($_GET['pgroup']);
+    $aixml = simplexml_load_file(ACTIONITEMS) or die("Error: Cannot open Action Items file");
+    $timearray = []; //array to hold and sort PID by dates
 
     echo "List of Action Items for {$pid} in the group {$pgroup}:</br>";
     echo "-------------------";
-    echo "<table width='1000'><th width='250' align='left'>Action Item</th><th align='left'>Owner</th><th align='left'>Description</th>";
+    echo "<table width='1000'><th width='250' align='left'>Action Item</th><th align='left'>Owner</th><th align='left'>Date Created</th><th align='left'>Description</th>";
 
-    $aixml = simplexml_load_file(ACTIONITEMS) or die("Error: Cannot open Action Items file");
+    //Find PID dates
     for($i=0; $i<count($aixml); $i++) {
         if ($aixml->Actionitem[$i]->PGROUP == $pgroup && $aixml->Actionitem[$i]->PID == $pid) {
-            echo "<tr> <td width='250'>" .$aixml->Actionitem[$i]->AIACRO .
-                 "&nbsp;<a href='?editAI=true&aiacronym=" . $aixml->Actionitem[$i]->AIACRO;
-                 echo "'><input type='button' value='edit' name='editAI'></a></td>";
-            echo "<td width='250'>" . $aixml->Actionitem[$i]->OWNER . "</td>";
-            echo "<td>" . $aixml->Actionitem[$i]->DESCRIPTION . "</td></tr><tr><td></td></tr>";
+            $timearray[$i] = strtotime($aixml->Actionitem[$i]->CREATED);
         }
     }
+
+    //Sort PID Date Array
+    arsort($timearray);
+
+    //output sorted PID by dates
+    foreach($timearray as $key => $val) {
+        echo "<tr> <td width='250'>" .$aixml->Actionitem[$key]->AIACRO .
+            "&nbsp;<a href='?editAI=true&aiacronym=" . $aixml->Actionitem[$key]->AIACRO;
+        echo "'><input type='button' value='edit' name='editAI'></a></td>";
+        echo "<td width='250'>" . $aixml->Actionitem[$key]->OWNER . "</td>";
+        echo "<td width='250'>" . $aixml->Actionitem[$key]->CREATED . "</td>";
+        echo "<td>" . $aixml->Actionitem[$key]->DESCRIPTION . "</td></tr><tr><td></td></tr>";
+    }
     echo "</table>";
+
     echo "<form method='POST' action='"; echo $_SERVER['PHP_SELF']; echo "'> 
          <input type='hidden' name='pid' value='{$pid}'>
          <input type='hidden' name='pgroup' value='{$pgroup}'>
@@ -141,12 +152,20 @@ function displayActionItemDetails($pid, $pgroup) {
 }
 
 
+###############################################
+#   function newActionItemForm()
+#   paramters: projectIncident, projectGroup
+#   Display the details of the Action Item
+#   Returns: (nothing)
+#
+##############################################
 function newActionItemForm($pincident, $projectgroup) {
     $pid    = trim($pincident);
     $PGROUP = trim($projectgroup);
     $aixml = simplexml_load_file(ACTIONITEMS);
     $aiacroList = [];
     $ID = rand(1000,9999);
+    $highest = [];
 
     for($i=0; $i<count($aixml); $i++) {
         if($aixml->Actionitem[$i]->PID == $pid) {
@@ -154,7 +173,7 @@ function newActionItemForm($pincident, $projectgroup) {
         }
     }
 
-    $highest = [];
+
     for($i=0; $i<count($aiacroList); $i++) {
         $position=0;
         $pilength=0;
@@ -170,7 +189,7 @@ function newActionItemForm($pincident, $projectgroup) {
     $max = max($highest);//find the highest incident # last assigned
     $newvalue =  $max + 1;//returns the number after project1- + 1
     $newstring = $substring . $newvalue;
-
+    $objDateTime = new DateTime('NOW');
 
 
     echo "<br/><br/>";
@@ -186,11 +205,11 @@ function newActionItemForm($pincident, $projectgroup) {
             <br/>
             AIACRO:<input type='text' name='AIACRO' disabled value='{$newstring}'>
             <br/>
-            Owner:<input type='text' name='OWNER' value='{$OWNER}'>
+            Owner:<input type='text' name='OWNER' value=''>
             <br/>
             Responsible:<input type='text' name='RESPONSIBLE'>
             <br/>
-            Created:<input type='text' name='CREATED'>
+            Created:<input type='text' name='CREATED' value='"; echo $objDateTime->format('d-m-Y'); echo "'>
             <br/>
             Deadline:<input type='text' name='DEADLINE'>
             <br/>
@@ -206,10 +225,10 @@ function newActionItemForm($pincident, $projectgroup) {
 
 ###############################################
 #   function displayFullActionItem()
-#
+#   parameters: none
 #   After a user selects a an incident the full
 #   incident is displayed
-#   Returns: null
+#   Returns: (nothing)
 #
 ##############################################
 function displayFullActionItem( $group, $acronym, $incident ) {
@@ -245,7 +264,8 @@ function displayFullActionItem( $group, $acronym, $incident ) {
 #   function editAI()
 #
 #   Edit fields within a specific action item
-#   Returns: null
+#   parameters: none
+#   Returns: (nothing)
 #
 ##############################################
 function editAI($ai) {
@@ -286,9 +306,10 @@ function editAI($ai) {
 
 ###############################################
 #   function saveToFile()
-#
+#   parameters: description, aiacroynm, responsible,
+#               rationale, deadline
 #   After an action item is edited save to file
-#   Returns: null
+#   Returns: (nothing)
 #
 ##############################################
 function saveToFile($descr, $aia, $resp, $ration, $dead) {
@@ -313,8 +334,13 @@ function saveToFile($descr, $aia, $resp, $ration, $dead) {
 }
 
 
-
-
+###############################################
+#   function addNewAIToFile()
+#   parameters: none
+#   After an action item is edited save to file
+#   Returns: (nothing)
+#
+##############################################
 function addNewAIToFile() {
     $FILENAME = ACTIONITEMS;
     if(file_exists($FILENAME)) {

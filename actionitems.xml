@@ -8,11 +8,10 @@
 <AIACRO>WOPA-Workpackage1-1</AIACRO>
 <OWNER>HPP</OWNER>
 <RESPONSIBLE>XYZ</RESPONSIBLE>
-<CREATED>16:44, 3rd Sept 2016</CREATED>
+<CREATED>16:44, 5th Sept 2016</CREATED>
 <DEADLINE>20th Dec 2016</DEADLINE>
 <DEPENDENCY/>
-<DESCRIPTION>Check and correct issues with the "Append Link" function in Write/Add Comment.
-</DESCRIPTION>
+<DESCRIPTION>Check and correct issues with the "Append Link" function in Write/Add Comment.!</DESCRIPTION>
 <RATIONALE>Fix for a current problem: In write_comment, one can add a URL into the comment. The URL box shows
 http:// 
 and the user can write the rest of the URL into this box and then click on "Append Link." This works fine and the link in the comment text is clickable. However, if I change
@@ -26,10 +25,10 @@ https:// in the box and then append the link, it will not be clickable.
 <PGROUP>Project</PGROUP>
 <PID>Project1</PID>
 <NUMBER>1</NUMBER>
-<AIACRO>PRCT-Project1-1</AIACRO>
+<AIACRO>PRCT-Project1-12</AIACRO>
 <OWNER>HPP</OWNER>
 <RESPONSIBLE>XYZ</RESPONSIBLE>
-<CREATED>16:44, 3rd Sept 2016</CREATED>
+<CREATED>16:44, 3rd Dec 2016</CREATED>
 <DEADLINE>20th Dec 2016</DEADLINE>
 <DEPENDENCY/>
 <DESCRIPTION>Check and correct issues with the "Append Link" function in Write/Add Comment.
@@ -50,12 +49,26 @@ https:// in the box and then append the link, it will not be clickable.
 <AIACRO>PRCT-Project2-1</AIACRO>
 <OWNER>Dave</OWNER>
 <RESPONSIBLE>XYZ</RESPONSIBLE>
-<CREATED>16:45, 3rd July 2016</CREATED>
+<CREATED>16:45, 3rd July 2014</CREATED>
 <DEADLINE>20th July 2016</DEADLINE>
 <DEPENDENCY/>
-<DESCRIPTION>We are getting things in place!</DESCRIPTION>
+<DESCRIPTION>We are getting things in place!!</DESCRIPTION>
 <RATIONALE>Additional functionality: The function display_selected_uploads(upload_item) works very well. We get a table showing the uploaded files in a category. See, for example, "Library" in http://www.mari-odu.org/cl/workspace. Currently, we use the same functions to show a list of graphics, but the list does not include a small picture of each graphics.
 </RATIONALE>
+</Actionitem>
+<Actionitem>
+<ID>XXX9</ID>
+<PGROUP>Workpackage</PGROUP>
+<PID>Workpackage10</PID>
+<NUMBER>1</NUMBER>
+<AIACRO>WOPA-Workpackage10-12</AIACRO>
+<OWNER>Tom</OWNER>
+<RESPONSIBLE>XYZ</RESPONSIBLE>
+<CREATED>16:45, 1st Aug 2013</CREATED>
+<DEADLINE>11th Aug 2016</DEADLINE>
+<DEPENDENCY/>
+<DESCRIPTION/>
+<RATIONALE>yes</RATIONALE>
 </Actionitem>
 <Actionitem>
 <ID>XXX4</ID>
@@ -65,12 +78,26 @@ https:// in the box and then append the link, it will not be clickable.
 <AIACRO>WOPA-Workpackage1-2</AIACRO>
 <OWNER>john</OWNER>
 <RESPONSIBLE>XYZ</RESPONSIBLE>
-<CREATED>16:45, 3rd July 2016</CREATED>
+<CREATED>16:45, 3rd July 2010</CREATED>
 <DEADLINE>20th July 2016</DEADLINE>
 <DEPENDENCY/>
 <DESCRIPTION>We are getting things in place!</DESCRIPTION>
 <RATIONALE>Additional functionality: The function display_selected_uploads(upload_item) works very well. We get a table showing the uploaded files in a category. See, for example, "Library" in http://www.mari-odu.org/cl/workspace. Currently, we use the same functions to show a list of graphics, but the list does not include a small picture of each graphics.
 </RATIONALE>
+</Actionitem>
+<Actionitem>
+<ID>XX29</ID>
+<PGROUP>Workpackage</PGROUP>
+<PID>Workpackage10</PID>
+<NUMBER>1</NUMBER>
+<AIACRO>WOPA-Workpackage10-11</AIACRO>
+<OWNER>Tom</OWNER>
+<RESPONSIBLE>XYZ</RESPONSIBLE>
+<CREATED>16:45, 4th Feb 2011</CREATED>
+<DEADLINE>11th Aug 2016</DEADLINE>
+<DEPENDENCY/>
+<DESCRIPTION/>
+<RATIONALE>ok</RATIONALE>
 </Actionitem>
 <Actionitem>
 <ID>XXX5</ID>
@@ -80,12 +107,11 @@ https:// in the box and then append the link, it will not be clickable.
 <AIACRO>PRCT-Project2-2</AIACRO>
 <OWNER>Jill</OWNER>
 <RESPONSIBLE>XYZ</RESPONSIBLE>
-<CREATED>16:45, 3rd July 2016</CREATED>
-<DEADLINE>20th July 2016</DEADLINE>
+<CREATED>16:45, 3rd July 2009</CREATED>
+<DEADLINE>20th July 2017</DEADLINE>
 <DEPENDENCY/>
-<DESCRIPTION>A wireless sensor network (WSN) is a wireless network consisting of spatially distributed autonomous devices using sensors to monitor physical or environmental conditions. A WSN system incorporates a gateway that provides wireless connectivity back to the wired world and distributed nodes </DESCRIPTION>
-<RATIONALE>Additional functionality: The function display_selected_uploads(upload_item) works very well. We get a table showing the uploaded files in a category. See, for example, "Library" in http://www.mari-odu.org/cl/workspace. Currently, we use the same functions to show a list of graphics, but the list does not include a small picture of each graphics.
-</RATIONALE>
+<DESCRIPTION>A wireless sensor network (WSN) is a wireless network consisting of spatially distributed autonomous devices using sensors to monitor physical or environmental conditions. A WSN system incorporates a gateway that provides wireless connectivity back to the wired world and distributed nodes !!</DESCRIPTION>
+<RATIONALE>Additional functionality: The function display_selected_uploads(upload_item) works very well. We get a table showing the uploaded files in a category. See, for example, "Library" in http://www.mari-odu.org/cl/workspace. Currently, we use the same functions to show a list of graphics, but the list does not include a small picture of each graphics.</RATIONALE>
 </Actionitem>
 <Actionitem>
 <ID>XXX6</ID>
@@ -95,7 +121,7 @@ https:// in the box and then append the link, it will not be clickable.
 <AIACRO>PRCT-Project4-1</AIACRO>
 <OWNER>Simmons</OWNER>
 <RESPONSIBLE>XYZ</RESPONSIBLE>
-<CREATED>16:45, 3rd July 2016</CREATED>
+<CREATED>16:45, 3rd July 2001</CREATED>
 <DEADLINE>20th July 2016</DEADLINE>
 <DEPENDENCY/>
 <DESCRIPTION> Whether we call it a "press release," a "press statement," a "news release," or a "media release," we're always talking about the same basic thing: an official announcement (written or recorded) that an organization issues to the news media and beyond. Most press releases are succinct at just a page long.</DESCRIPTION>
@@ -110,7 +136,7 @@ https:// in the box and then append the link, it will not be clickable.
 <AIACRO>PRCT-Project4-2</AIACRO>
 <OWNER>Plag</OWNER>
 <RESPONSIBLE>XYZ</RESPONSIBLE>
-<CREATED>16:45, 3rd July 2016</CREATED>
+<CREATED>16:45, 8th July 2002</CREATED>
 <DEADLINE>20th July 2016</DEADLINE>
 <DEPENDENCY/>
 <DESCRIPTION>A CLI (command line interface) is a user interface to a computer's operating system or an application in which the user responds to a visual prompt by typing in a command on a specified line, receives a response back from the system, and then enters another command, and so forth. </DESCRIPTION>
@@ -125,7 +151,7 @@ https:// in the box and then append the link, it will not be clickable.
 <AIACRO>PRCT-Project3-1</AIACRO>
 <OWNER>Plag</OWNER>
 <RESPONSIBLE>XYZ</RESPONSIBLE>
-<CREATED>16:45, 3rd July 2016</CREATED>
+<CREATED>16:45, 3rd July 2003</CREATED>
 <DEADLINE>20th July 2016</DEADLINE>
 <DEPENDENCY/>
 <DESCRIPTION>To be determined</DESCRIPTION>
@@ -140,7 +166,7 @@ https:// in the box and then append the link, it will not be clickable.
 <AIACRO>WOPA-Workpackage5-1</AIACRO>
 <OWNER>Jill</OWNER>
 <RESPONSIBLE>XYZ</RESPONSIBLE>
-<CREATED>16:45, 3rd July 2016</CREATED>
+<CREATED>16:45, 3rd July 1999</CREATED>
 <DEADLINE>20th July 2016</DEADLINE>
 <DEPENDENCY/>
 <DESCRIPTION>A wireless sensor network (WSN) is a wireless network consisting of spatially distributed autonomous devices using sensors to monitor physical or environmental conditions. A WSN system incorporates a gateway that provides wireless connectivity back to the wired world and distributed nodes </DESCRIPTION>
@@ -155,7 +181,7 @@ https:// in the box and then append the link, it will not be clickable.
 <AIACRO>WOPA-Workpackage10-1</AIACRO>
 <OWNER>Tom</OWNER>
 <RESPONSIBLE>XYZ</RESPONSIBLE>
-<CREATED>16:45, 3rd Feb 2016</CREATED>
+<CREATED>16:45, 3rd Feb 1998</CREATED>
 <DEADLINE>11th Aug 2016</DEADLINE>
 <DEPENDENCY/>
 <DESCRIPTION/>
