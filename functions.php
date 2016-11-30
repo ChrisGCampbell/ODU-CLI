@@ -263,8 +263,8 @@ function saveToFile($descr, $aia, $resp, $ration, $dead) {
        }
     }
 
-    echo "File Edited Successfully!<br/>";
-    echo '<a href=?pid='.$pid.'&pgroup='.$pgroup.'>Back To List of Action Items for ' . $pid . 'in the group ' . $pgroup . '</a>';
+    echo "File Edited Successfully!<br/><br/>";
+    echo '<a href=?pid='.$pid.'&pgroup='.$pgroup.'>Back To List of Action Items for ' . $pid . ' in the group ' . $pgroup . '</a>';
 }
 
 
@@ -326,14 +326,14 @@ function newActionItemForm($pincident, $projectgroup) {
             Number:<input type='text' name='NUMBER'  value='1' disabled>
             <input type='hidden' name='NUMBER'  value='1'>
             <br/>
-            AIACRO:<input type='text' name='AIACRO'  value='$newstring' disabled>
+            AIACRO:<input type='text' name='AIACRO'  value='$newstring'>
             <input type='hidden' name='AIACRO'  value='$newstring'>
             <br/>
             Owner:<input type='text' name='OWNER'>
             <br/>
             Responsible:<input type='text' name='RESPONSIBLE'>
             <br/>
-            Created:<input type='text' name='CREATED' value='"; echo $objDateTime->format('d-m-Y'); echo "'>
+            Created:<input type='text' name='CREATED' value='"; echo $objDateTime->format('d-m-Y'); echo "' disabled>
             <br/>
             Deadline:<input type='text' name='DEADLINE' value='"; echo $objDateTime->format('d-m-Y'); echo "'>
             <br/>
