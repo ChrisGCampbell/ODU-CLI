@@ -225,9 +225,11 @@ function editAI($ai) {
             <p>Deadline: <input type='text' name='deadline' value='{$deadline}'></p>
             <p class='formfield'><label for='rationale'>Rationale:</label><textarea rows='3' cols='40' name='rationale'>{$rationale}</textarea></p>
             <p><span style='vertical-align:middle'>Description:</span><textarea rows='3' cols='40' name='description'>{$description}</textarea></p>
-            <input type=\"hidden\" name=\"aiacronym\" value=\""; echo $aiacronym; echo "\">
-            <br><input type=\"submit\" value=\"submit\" name=\"submitEditAI\">
-          </form>";
+            <input type='hidden' name='aiacronym' value='"; echo $aiacronym; echo "'>";
+    echo    '<input type="hidden" name="pid" value="'; echo $pid; echo '">';
+    echo    '<input type="hidden" name="pgroup" value="'; echo $pgroup; echo '">
+            <br><input type="submit" value="submit" name="submitEditAI">
+          </form>';
 
 }
 
@@ -242,6 +244,8 @@ function editAI($ai) {
 #
 ##############################################
 function saveToFile($descr, $aia, $resp, $ration, $dead) {
+    $pid = trim($_POST['pid']);
+    $pgroup = trim($_POST['pgroup']);
     $description = trim($descr);
     $rationale = trim($ration);
     $responsible = trim($resp);
@@ -259,7 +263,8 @@ function saveToFile($descr, $aia, $resp, $ration, $dead) {
        }
     }
 
-    echo "File Edited Successfully!";
+    echo "File Edited Successfully!<br/>";
+    echo '<a href=?pid='.$pid.'&pgroup='.$pgroup.'>Back To List of Action Items for ' . $pid . 'in the group ' . $pgroup . '</a>';
 }
 
 
