@@ -153,77 +153,6 @@ function displayActionItemDetails($pid, $pgroup) {
 
 
 ###############################################
-#   function newActionItemForm()
-#   paramters: projectIncident, projectGroup
-#   Display the details of the Action Item
-#   Returns: (nothing)
-#
-##############################################
-function newActionItemForm($pincident, $projectgroup) {
-    $pid    = trim($pincident);
-    $PGROUP = trim($projectgroup);
-    $aixml = simplexml_load_file(ACTIONITEMS);
-    $aiacroList = [];
-    $ID = rand(1000,9999);
-    $highest = [];
-
-    for($i=0; $i<count($aixml); $i++) {
-        if($aixml->Actionitem[$i]->PID == $pid) {
-            array_push($aiacroList, $aixml->Actionitem[$i]->AIACRO);
-        }
-    }
-
-
-    for($i=0; $i<count($aiacroList); $i++) {
-        $position=0;
-        $pilength=0;
-        $positionOfIncident=0;
-        $aia = $aiacroList[$i]; //example fdsfd-project1-12
-        $position = stripos($aia, $pid, 0);//gets the position of word project1
-        $pilength = strlen($pid); //gets the length of project1
-        $positionOfIncident = $position + $pilength + 1;//finds the position of the incident # (ex. project1-)
-        $substring = substr($aia, 0, $positionOfIncident); //assigns project1- to variable
-        $oldvalue = intval(substr($aia, $positionOfIncident, 3));//gets the current incident #
-        array_push($highest, intval($oldvalue));
-    }
-    $max = max($highest);//find the highest incident # last assigned
-    $newvalue =  $max + 1;//returns the number after project1- + 1
-    $newstring = $substring . $newvalue;
-    $objDateTime = new DateTime('NOW');
-
-
-    echo "<br/><br/>";
-
-    echo "Please input the fields to add a new action item below:<br/>";
-    //add new action Item coming soon.
-    echo "<form method='POST' action=\""; echo $_SERVER['PHP_SELF']; echo "\">
-            ID:<input type='text' name='ID' disabled value='{$ID}'>
-            <br/>
-            Group:<input type='text' name='GROUP' disabled value='{$PGROUP}'>
-            <br/>
-            PID:<input type='text' name='PID' disabled value='{$pid}'>
-            <br/>
-            AIACRO:<input type='text' name='AIACRO' disabled value='{$newstring}'>
-            <br/>
-            Owner:<input type='text' name='OWNER' value=''>
-            <br/>
-            Responsible:<input type='text' name='RESPONSIBLE'>
-            <br/>
-            Created:<input type='text' name='CREATED' value='"; echo $objDateTime->format('d-m-Y'); echo "'>
-            <br/>
-            Deadline:<input type='text' name='DEADLINE'>
-            <br/>
-            Description<input type='text' name='DESCRIPTION'>
-            <br/>
-            Rationale:<input type='text' name='RATIONALE'>
-            <br/>
-            <input type=\"submit\" name =\"submitAddedNewActionItem\" value=\"Submit\">
-            </form>";
-}
-
-
-
-###############################################
 #   function displayFullActionItem()
 #   parameters: none
 #   After a user selects a an incident the full
@@ -334,6 +263,85 @@ function saveToFile($descr, $aia, $resp, $ration, $dead) {
 }
 
 
+
+###############################################
+#   function newActionItemForm()
+#   paramters: projectIncident, projectGroup
+#   Display the details of the Action Item
+#   Returns: (nothing)
+#
+##############################################
+function newActionItemForm($pincident, $projectgroup) {
+    $pid    = trim($pincident);
+    $PGROUP = trim($projectgroup);
+    $aixml = simplexml_load_file(ACTIONITEMS);
+    $aiacroList = [];
+    $ID = rand(1000,9999);
+    $highest = [];
+
+    for($i=0; $i<count($aixml); $i++) {
+        if($aixml->Actionitem[$i]->PID == $pid) {
+            array_push($aiacroList, $aixml->Actionitem[$i]->AIACRO);
+        }
+    }
+
+
+    for($i=0; $i<count($aiacroList); $i++) {
+        $position=0;
+        $pilength=0;
+        $positionOfIncident=0;
+        $aia = $aiacroList[$i]; //example fdsfd-project1-12
+        $position = stripos($aia, $pid, 0);//gets the position of word project1
+        $pilength = strlen($pid); //gets the length of project1
+        $positionOfIncident = $position + $pilength + 1;//finds the position of the incident # (ex. project1-)
+        $substring = substr($aia, 0, $positionOfIncident); //assigns project1- to variable
+        $oldvalue = intval(substr($aia, $positionOfIncident, 3));//gets the current incident #
+        array_push($highest, intval($oldvalue));
+    }
+    $max = max($highest);//find the highest incident # last assigned
+    $newvalue =  $max + 1;//returns the number after project1- + 1
+    $newstring = $substring . $newvalue;
+    $objDateTime = new DateTime('NOW');
+
+
+    echo "<br/><br/>";
+
+    echo "Please input the fields to add a new action item below:<br/>";
+    //add new action Item coming soon.
+    echo "<form method='POST' action=\""; echo $_SERVER['PHP_SELF']; echo "\">
+            ID:<input type='text' name='ID'  value='$ID' disabled>
+            <input type='hidden' name='ID' value='$ID'>
+            <br/>
+            Group:<input type='text' name='PGROUP'  value='$PGROUP' disabled>
+            <input type='hidden' name='PGROUP'  value='$PGROUP'>
+            <br/>
+            PID:<input type='text' name='PID'  value='$pid' disabled>
+            <input type='hidden' name='PID'  value='$pid'>
+            <br/>
+            Number:<input type='text' name='NUMBER'  value='1' disabled>
+            <input type='hidden' name='NUMBER'  value='1'>
+            <br/>
+            AIACRO:<input type='text' name='AIACRO'  value='$newstring' disabled>
+            <input type='hidden' name='AIACRO'  value='$newstring'>
+            <br/>
+            Owner:<input type='text' name='OWNER'>
+            <br/>
+            Responsible:<input type='text' name='RESPONSIBLE'>
+            <br/>
+            Created:<input type='text' name='CREATED' value='"; echo $objDateTime->format('d-m-Y'); echo "'>
+            <br/>
+            Deadline:<input type='text' name='DEADLINE' value='"; echo $objDateTime->format('d-m-Y'); echo "'>
+            <br/>
+            Description<textarea row='2' cols='40' name='DESCRIPTION'></textarea>
+            <br/>
+            Rationale:<textarea row='2' cols='40' name='RATIONALE'></textarea>
+            <br/>
+            <input type=\"submit\" name =\"submitAddedNewActionItem\" value=\"Submit\">
+            </form>";
+}
+
+
+
 ###############################################
 #   function addNewAIToFile()
 #   parameters: none
@@ -342,12 +350,15 @@ function saveToFile($descr, $aia, $resp, $ration, $dead) {
 #
 ##############################################
 function addNewAIToFile() {
+
     $FILENAME = ACTIONITEMS;
     if(file_exists($FILENAME)) {
         $aifile = fopen($FILENAME, 'r+') or die("cant open file");
         $NAI = '<Actionitem>' . PHP_EOL;
         $NAI .= "<ID>" . $_POST['ID'] . "</ID>" . PHP_EOL;
+        $NAI .= "<PGROUP>" . $_POST['PGROUP'] . "</PGROUP>" . PHP_EOL;
         $NAI .= "<PID>" . $_POST['PID'] . "</PID>" . PHP_EOL;
+        $NAI .= "<NUMBER>" . $_POST['NUMBER'] . "</NUMBER>" . PHP_EOL;
         $NAI .= "<AIACRO>" . $_POST['AIACRO'] . "</AIACRO>" . PHP_EOL;
         $NAI .= "<OWNER>" . $_POST['OWNER'] . "</OWNER>" . PHP_EOL;
         $NAI .= "<RESPONSIBLE>" . $_POST['RESPONSIBLE'] . "</RESPONSIBLE>" . PHP_EOL;
@@ -355,13 +366,15 @@ function addNewAIToFile() {
         $NAI .= "<DEADLINE>" . $_POST['DEADLINE'] . "</DEADLINE>" . PHP_EOL;
         $NAI .= "<DESCRIPTION>" . $_POST['DESCRIPTION'] . "</DESCRIPTION>" . PHP_EOL;
         $NAI .= "<RATIONALE>" . $_POST['RATIONALE'] . "</RATIONALE>" . PHP_EOL;
-        $NAI .= "<Actionitem>" . PHP_EOL . "</ACTIONITEMS>";
+        $NAI .= "</Actionitem>".PHP_EOL;
+        $NAI .= "</ACTIONITEMS>";
 
-        fseek($aifile, 0, SEEK_END);
+        fseek($aifile, -14, SEEK_END);
         fwrite($aifile, $NAI);
         fclose($aifile);
 
-        echo "Action Item added!";
+        echo "Action Item added!<br/>";
+        echo "<a href='add_ai.php'>Back To Main Area</a>";
     }
 }
     
