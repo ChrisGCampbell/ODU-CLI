@@ -115,7 +115,7 @@ function displayProjectIncidents($selectedGroup) {
 function displayActionItemDetails($pid, $pgroup) {
     $pid = trim($_GET['pid']);
     $pgroup = trim($_GET['pgroup']);
-    $aixml = simplexml_load_file(ACTIONITEMS) or die("Error: Cannot open Action Items file");
+    $aixml = simplexml_load_file(ACTIONITEMS);
     $timearray = []; //array to hold and sort PID by dates
 
     echo "List of Action Items for {$pid} in the group {$pgroup}:</br>";
@@ -264,7 +264,7 @@ function saveToFile($descr, $aia, $resp, $ration, $dead) {
     }
 
     echo "File Edited Successfully!<br/><br/>";
-    echo '<a href=?pid='.$pid.'&pgroup='.$pgroup.'>Back To List of Action Items for ' . $pid . ' in the group ' . $pgroup . '</a>';
+    echo '<a href=?pid='.$pid.'&pgroup='.$pgroup.'>Back To List Area</a>';
 }
 
 
@@ -314,26 +314,27 @@ function newActionItemForm($pincident, $projectgroup) {
     echo "Please input the fields to add a new action item below:<br/>";
     //add new action Item coming soon.
     echo "<form method='POST' action=\""; echo $_SERVER['PHP_SELF']; echo "\">
-            ID:<input type='text' name='ID'  value='$ID' disabled>
-            <input type='hidden' name='ID' value='$ID'>
+            ID:<input type='text' name='ID'  value='{$ID}' disabled>
+            <input type='hidden' name='ID' value='{$ID}'>
             <br/>
-            Group:<input type='text' name='PGROUP'  value='$PGROUP' disabled>
-            <input type='hidden' name='PGROUP'  value='$PGROUP'>
+            Group:<input type='text' name='PGROUP'  value='{$PGROUP}' disabled>
+            <input type='hidden' name='PGROUP'  value='{$PGROUP}'>
             <br/>
             PID:<input type='text' name='PID'  value='$pid' disabled>
-            <input type='hidden' name='PID'  value='$pid'>
+            <input type='hidden' name='PID'  value='{$pid}'>
             <br/>
             Number:<input type='text' name='NUMBER'  value='1' disabled>
             <input type='hidden' name='NUMBER'  value='1'>
             <br/>
             AIACRO:<input type='text' name='AIACRO'  value='$newstring'>
-            <input type='hidden' name='AIACRO'  value='$newstring'>
+            <input type='hidden' name='AIACRO'  value='{$newstring}'>
             <br/>
             Owner:<input type='text' name='OWNER'>
             <br/>
             Responsible:<input type='text' name='RESPONSIBLE'>
             <br/>
-            Created:<input type='text' name='CREATED' value='"; echo $objDateTime->format('d-m-Y'); echo "' disabled>
+            Created:<input type='text' name='CREATED' value='{$objDateTime->format('d-m-Y')}'>
+            <input type='hidden' name='CREATED'  value='"; echo $objDateTime->format('d-m-Y'); echo "'>
             <br/>
             Deadline:<input type='text' name='DEADLINE' value='"; echo $objDateTime->format('d-m-Y'); echo "'>
             <br/>
@@ -356,6 +357,8 @@ function newActionItemForm($pincident, $projectgroup) {
 ##############################################
 function addNewAIToFile() {
 
+    $pid = trim($_POST['PID']);
+    $pgroup = trim($_POST['PGROUP']);
     $FILENAME = ACTIONITEMS;
     if(file_exists($FILENAME)) {
         $aifile = fopen($FILENAME, 'r+') or die("cant open file");
@@ -378,8 +381,8 @@ function addNewAIToFile() {
         fwrite($aifile, $NAI);
         fclose($aifile);
 
-        echo "Action Item added!<br/>";
-        echo "<a href='add_ai.php'>Back To Main Area</a>";
+        echo "Action Item added!<br/><br/>";
+        echo '<a href=?pid='. $pid . '&pgroup=' . $pgroup . '>Back To List Area</a>';
     }
 }
     
