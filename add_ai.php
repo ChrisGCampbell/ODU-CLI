@@ -23,6 +23,13 @@ elseif( isset($_GET['editAI']) && isset($_GET['aiacronym'])) {
     editAI($_GET['aiacronym']);
 }
 
+elseif( isset($_GET['viewAI']) && isset($_GET['aiacronym'])) {
+    viewAI($_GET['aiacronym']);
+}
+
+elseif( isset($_GET['reportAI']) && isset($_GET['aiacronym'])) {
+    reportAI($_GET['aiacronym']);
+}
 
 elseif( isset($_POST['submitEditAI'])) {
     saveToFile($_POST['description'],$_POST['aiacronym'],$_POST['responsible'],$_POST['rationale'],$_POST['deadline']);

@@ -120,7 +120,7 @@ function displayActionItemDetails($pid, $pgroup) {
 
     echo "List of Action Items for {$pid} in the group {$pgroup}:</br>";
     echo "-------------------";
-    echo "<table width='1000'><th width='250' align='left'>Action Item</th><th align='left'>Owner</th><th align='left'>Date Created</th><th align='left'>Description</th>";
+    echo "<table width='1000'><th width='250' align='left'>Action Item</th><th width='250' align='center'>Owner</th><th align='left'>Date Created</th><th align='left'>Description</th>";
 
     //Find PID dates
     for($i=0; $i<count($aixml); $i++) {
@@ -134,10 +134,12 @@ function displayActionItemDetails($pid, $pgroup) {
 
     //output sorted PID by dates
     foreach($timearray as $key => $val) {
-        echo "<tr> <td width='250'>" .$aixml->Actionitem[$key]->AIACRO .
-            "&nbsp;<a href='?editAI=true&aiacronym=" . $aixml->Actionitem[$key]->AIACRO;
-        echo "'><input type='button' value='edit' name='editAI'></a></td>";
-        echo "<td width='250'>" . $aixml->Actionitem[$key]->OWNER . "</td>";
+        echo "<tr> <td width='250'>" .$aixml->Actionitem[$key]->AIACRO . "&nbsp";
+        echo "<a href='?editAI=true&aiacronym=" . $aixml->Actionitem[$key]->AIACRO . "'><input type='button' value='edit' name='editAI'></a>";
+        echo "<a href='?viewAI=true&aiacronym=" . $aixml->Actionitem[$key]->AIACRO . "'><input type='button' value='view' name='viewAI'></a>";
+        echo "<a href='?reportAI=true&aiacronym=" . $aixml->Actionitem[$key]->AIACRO . "'><input type='button' value='report' name='reportAI'></a>";
+
+        echo "<td width='250' align='center'>" . $aixml->Actionitem[$key]->OWNER . "</td>";
         echo "<td width='250'>" . $aixml->Actionitem[$key]->CREATED . "</td>";
         echo "<td>" . $aixml->Actionitem[$key]->DESCRIPTION . "</td></tr><tr><td></td></tr>";
     }
@@ -149,42 +151,6 @@ function displayActionItemDetails($pid, $pgroup) {
          <input type='submit' name='newActionItem' value='Create New Action Item'></form><br/><br/>";
 
     echo "-------------------";
-}
-
-
-###############################################
-#   function displayFullActionItem()
-#   parameters: none
-#   After a user selects a an incident the full
-#   incident is displayed
-#   Returns: (nothing)
-#
-##############################################
-function displayFullActionItem( $group, $acronym, $incident ) {
-    $groupName = trim($_GET['group']);
-    $aiacronym = trim($_GET['aiacronym']);
-    $incidentNumber = trim($_GET['incident']);
-
-    echo "<p>Action item for {$groupName} {$aiacronym}</p>";
-    echo '<p><a href=?newActionItem=true>Add New Action Item</a> | ';
-    echo "<a href=?editAI=true&aiacronym=$aiacronym>Edit</a> | ";
-    echo "<a href='#'>Report</a></p>";
-
-    $aixml = simplexml_load_file(ACTIONITEMS) or die("Error: Cannot open Action Items file");
-    for($i=0; $i<count($aixml); $i++) {
-        if ($aixml->Actionitem[$i]->GROUP == $groupName && $aixml->Actionitem[$i]->AIACRO == $aiacronym) {
-            echo "AIACRO: " .$aixml->Actionitem[$i]->AIACRO . "<br/>";
-            echo "OWNER: " .$aixml->Actionitem[$i]->OWNER . "<br/>";
-            $aireportxml = simplexml_load_file(AIREPORTS) or die("Error: Cannot open AIReports file");
-            for($j=0; $j<count($aireportxml); $j++) {
-                if ($aireportxml->Aireport[$j]->AIID == $incidentNumber) {
-                    echo "DESCRIPTION: " . $aireportxml->Aireport[$j]->NDESCRIPTION . "<br/>";
-                    echo "STATUS: " . $aireportxml->Aireport[$j]->STATUS . "<br/>";
-                }
-            }
-            echo "DEADLINE: " .$aixml->Actionitem[$i]->DEADLINE . "<br/>";
-        }
-    }
 }
 
 
@@ -234,6 +200,82 @@ function editAI($ai) {
 }
 
 
+###############################################
+#   function viewAI()
+#
+#   View
+#   parameters: none
+#   Returns: (nothing)
+#
+##############################################
+function viewAI($ai) {
+
+    $aiacronym = trim($_GET['aiacronym']);
+    $aixml = simplexml_load_file(ACTIONITEMS);
+    $aireportxml = simplexml_load_file(AIREPORTS);
+    $numofreports = 0;
+
+    for($i=0; $i<count($aixml); $i++) {
+        if($aixml->Actionitem[$i]->AIACRO == $aiacronym) {
+            $id = trim($aixml->Actionitem[$i]->ID);
+            $number = $aixml->Actionitem[$i]->NUMBER;
+            $description = $aixml->Actionitem[$i]->DESCRIPTION;
+            $pgroup = $aixml->Actionitem[$i]->PGROUP;
+            $pid = $aixml->Actionitem[$i]->PID;
+            $owner = $aixml->Actionitem[$i]->OWNER;
+            $created = $aixml->Actionitem[$i]->CREATED;
+            $deadline = $aixml->Actionitem[$i]->DEADLINE;
+            $responsible = $aixml->Actionitem[$i]->RESPONSIBLE;
+            $rationale = $aixml->Actionitem[$i]->RATIONALE;
+            break;
+        }
+    }
+
+    echo $aiacronym . " <br/><br/>";
+    echo "<b>ID:</b> " . $id . "<br/>";
+    echo "<b>Project Group:</b> " . $pid . "<br/>";
+    echo "<b>Number:</b> " . $number . "<br/>";
+    echo "<b>Owner:</b> " . $owner . "<br/>";
+    echo "<b>Responsible:</b> " . $responsible . "<br/>";
+    echo "<b>Created:</b> " . $created . "<br/>";
+    echo "<b>Deadline:</b> " . $deadline . "<br/>";
+    echo "<b>Description:</b> " . $description . "<br/>";
+    echo "<b>Rationale:</b> " . $rationale . "<br/><br/>";
+
+    echo "Reports on this Action Item:<br/>";
+    for($i=0; $i<count($aireportxml); $i++) {
+        if($aireportxml->Aireport[$i]->ID == $id) {
+            $numofreports = numofreports +1;
+            echo "<b>ID:</b> " . $airid = $aireportxml->Aireport[$i]->ID . "<br/>";
+            echo "<b>Owner:</b> " . $airowner = $aireportxml->Aireport[$i]->OWNER . "<br/>";
+            echo "<b>Date:</b> " . $airdate = $aireportxml->Aireport[$i]->DATE . "<br/>";
+            echo "<b>Report:</b> " . $airreport = $aireportxml->Aireport[$i]->REPORT . "<br/>";
+            echo "<b>Description:</b> " . $airndescription = $aireportxml->Aireport[$i]->NDESCRIPTION . "<br/>";
+            echo "<b>Deadline:</b> " . $airndeadline = $aireportxml->Aireport[$i]->NDEADLINE . "<br/>";
+            echo "<b>Responsible:</b> " . $airnresponsible = $aireportxml->Aireport[$i]->NRESPONSIBLE . "<br/>";
+            echo "<b>Status:</b> " . $airstatus = $aireportxml->Aireport[$i]->STATUS;
+            echo "<br/><br/>";
+        }
+    }
+    if($numofreports == 0) {
+        echo "<b>Currently no reports on this item.</b><br/><br/>";
+    }
+    echo '<a href=?pid='.$pid.'&pgroup='.$pgroup.'>Back To List Area</a>';
+}
+
+
+###############################################
+#   function reportAI()
+#
+#   Report
+#   parameters: none
+#   Returns: (nothing)
+#
+##############################################
+function reportAI($ai) {
+    echo "report AI";
+
+}
 
 ###############################################
 #   function saveToFile()
