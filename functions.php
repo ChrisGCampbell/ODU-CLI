@@ -156,10 +156,10 @@ function displayActionItemDetails($pid, $pgroup) {
 
 
 ###############################################
-#   function editAI()
+#   function editAI($ai)
 #
 #   Edit fields within a specific action item
-#   parameters: none
+#   parameters: 1: the AIACRO of the action item
 #   Returns: (nothing)
 #
 ##############################################
@@ -201,10 +201,11 @@ function editAI($ai) {
 
 
 ###############################################
-#   function viewAI()
+#   function viewAI($ai)
 #
-#   View
-#   parameters: none
+#   Displays the details of the Action Item as well
+#   as any reports related to the action item
+#   parameters: 1: AIACRO value of the action item
 #   Returns: (nothing)
 #
 ##############################################
@@ -265,17 +266,82 @@ function viewAI($ai) {
 
 
 ###############################################
-#   function reportAI()
+#   function addAiReport($ai)
 #
-#   Report
-#   parameters: none
+#   Allows user to add a report
+#   parameters: 1: 1: AIACRO value of the action item
 #   Returns: (nothing)
 #
 ##############################################
-function reportAI($ai) {
-    echo "report AI";
+function addAiReport($ai) {
+    $objDateTime = new DateTime('NOW');
+
+    echo "Please input the fields to add a new report below:<br/>";
+    //add new action Item coming soon.
+    echo "<form method='POST' action=\""; echo $_SERVER['PHP_SELF']; echo "\">
+            ID:<input type='text' name='ID'  value=''>
+            <input type='hidden' name='ID' value=''>
+            <br/>
+            Owner:<input type='text' name='OWNER'  value=''>
+            <input type='hidden' name='OWNER'  value=''>
+            <br/>
+            Date:<input type='text' name='DATE' value='{$objDateTime->format('d-m-Y')}'>
+            <input type='hidden' name='DATE'  value='{$objDateTime->format('d-m-Y')}'>
+            <br/>
+            Report:<input type='text' name='REPORT'  value='1' disabled>
+            <input type='hidden' name='REPORT'  value='1'>
+            <br/>
+            Deadline:<input type='text' name='NDEADLINE'>
+            <br/>
+            Status:<input type='text' name='STATUS' value=''>
+            <br/>
+            Deadline:<input type='text' name='DEADLINE' value=''>
+            <br/>
+            Description<textarea row='2' cols='40' name='NDESCRIPTION'></textarea>
+            <br/>
+            Responsible:<textarea row='2' cols='40' name='NRESPONSIBLE'></textarea>
+            <br/>
+            <input type=\"submit\" name =\"submitNewReport\" value=\"Submit\">
+            </form>";
 
 }
+
+
+###############################################
+#   function addNewReportToFile()
+#   parameters: none
+#   Add new report to report file(xml file)
+#   Returns: (nothing)
+#
+##############################################
+function addNewReportToFile() {
+    //$pid = trim($_POST['PID']);
+    //$pgroup = trim($_POST['PGROUP']);
+    $FILENAME = AIREPORTS;
+
+    if(file_exists($FILENAME)) {
+        $airfile = fopen($FILENAME, 'r+') or die("cant open file");
+        $NAI = '<Aireport>' . PHP_EOL;
+        $NAI .= "<ID>" . $_POST['ID'] . "</ID>" . PHP_EOL;
+        $NAI .= "<OWNER>" . $_POST['OWNER'] . "</OWNER>" . PHP_EOL;
+        $NAI .= "<DATE>" . $_POST['DATE'] . "</DATE>" . PHP_EOL;
+        $NAI .= "<REPORT>" . $_POST['REPORT'] . "</REPORT>" . PHP_EOL;
+        $NAI .= "<NDESCRIPTION>" . $_POST['NDESCRIPTION'] . "</NDESCRIPTION>" . PHP_EOL;
+        $NAI .= "<NDEADLINE>" . $_POST['NDEADLINE'] . "</NDEADLINE>" . PHP_EOL;
+        $NAI .= "<NRESPONSIBLE>" . $_POST['NRESPONSIBLE'] . "</NRESPONSIBLE>" . PHP_EOL;
+        $NAI .= "<STATUS>" . $_POST['STATUS'] . "</STATUS>" . PHP_EOL;
+        $NAI .= "</Aireport>" . PHP_EOL;
+        $NAI .= "</AIREPORTS>";
+
+        fseek($airfile, -14, SEEK_END);
+        fwrite($airfile, $NAI);
+        fclose($airfile);
+
+        echo "Report added!<br/><br/>";
+        echo "<a href='add_ai.php'>Back To List Area</a>";
+    }
+}
+
 
 ###############################################
 #   function saveToFile()
