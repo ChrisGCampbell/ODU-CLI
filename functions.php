@@ -1,4 +1,5 @@
 <?php
+session_start();
 /**
  * Created by PhpStorm.
  * User: Chris-Campbell
@@ -275,16 +276,16 @@ function viewAI($ai) {
 ##############################################
 function addAiReportForm($ai) {
     $objDateTime = new DateTime('NOW');
-
+    $ID = rand(1000,9000);
 
     echo "Please input the fields to add a new report below:<br/>";
     //add new action Item coming soon.
     echo "<form method='POST' action=\""; echo $_SERVER['PHP_SELF']; echo "\">
-            ID:<input type='text' name='ID'  value=''>
-            <input type='hidden' name='ID' value=''>
+            ID:<input type='text' name='ID'  value='{$ID}'>
+            <input type='hidden' name='ID' value='{$ID}'>
             <br/>
-            Owner:<input type='text' name='OWNER'  value=''>
-            <input type='hidden' name='OWNER'  value=''>
+            Owner:<input type='text' name='OWNER'  value='{$_SESSION['firstname']} {$_SESSION['lastname']}'>
+            <input type='hidden' name='OWNER'  value='{$_SESSION['firstname']} {$_SESSION['lastname']}'>
             <br/>
             Date:<input type='text' name='DATE' value='{$objDateTime->format('d-m-Y')}'>
             <input type='hidden' name='DATE'  value='{$objDateTime->format('d-m-Y')}'>
@@ -438,7 +439,8 @@ function newActionItemForm($pincident, $projectgroup) {
             AIACRO:<input type='text' name='AIACRO'  value='$newstring'>
             <input type='hidden' name='AIACRO'  value='{$newstring}'>
             <br/>
-            Owner:<input type='text' name='OWNER'>
+            Owner:<input type='text' name='OWNER' value='{$_SESSION['firstname']} {$_SESSION['lastname']}'>
+            <input type='hidden' name='AIACRO'  value='{$_SESSION['firstname']} {$_SESSION['lastname']}'>
             <br/>
             Responsible:<input type='text' name='RESPONSIBLE'>
             <br/>

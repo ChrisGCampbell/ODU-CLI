@@ -1,6 +1,7 @@
 <?php
-include 'header.html';
 include 'functions.php';
+include 'header.html';
+
 
 if(isset($_POST['submitGroup'])){
    if(isset($_POST['group'])){
