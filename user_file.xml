@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Person>
+<person>
+<FNE>tony</FNE>
+<LNE>day</LNE>
+<ORG>ff</ORG>
+<DEP>ff</DEP>
+<DES>fff</DES>
+<DTE>22:49, 4th September 2015</DTE>
+<EML>tonyday@odu.edu</EML>
+<PWD>f2pCf17gNUU3A</PWD>
+<ROLE>Editor</ROLE>
+</person>
+<person>
+<FNE>christopher</FNE>
+<LNE>Wu</LNE>
+<ORG>old dominion university</ORG>
+<DEP>Computer Science</DEP>
+<DES>gg</DES>
+<DTE>01:42, 9th September 2015</DTE>
+<EML>jjacobs@odu.edu</EML>
+<PWD>23a001ca2d4b9f7e8195c8b7b62faf51</PWD>
+<ROLE>Editor</ROLE>
+</person>
+<person>
+<FNE>christopher</FNE>
+<LNE>campbell</LNE>
+<ORG>old dominion university</ORG>
+<DEP>Computer Science</DEP>
+<DES>h</DES>
+<DTE>01:43, 9th September 2015</DTE>
+<EML>jason@odu.edu</EML>
+<PWD>23a001ca2d4b9f7e8195c8b7b62faf51</PWD>
+<ROLE>Editor</ROLE>
+</person>
+<person>
+<FNE>Jennifer</FNE>
+<LNE>Ghrams</LNE>
+<ORG>Stanford</ORG>
+<DEP>Business</DEP>
+<DES>I will be contributing Business Analytics documents</DES>
+<DTE>17:17, 9th September 2015</DTE>
+<EML>jenniferg@odu.edu</EML>
+<PWD>23a001ca2d4b9f7e8195c8b7b62faf51</PWD>
+<ROLE>Editor,Chapter Lead Author,Chapter Co-Author</ROLE>
+</person>
+<person>
+<FNE>Stacy</FNE>
+<LNE>james</LNE>
+<ORG>ODU</ORG>
+<DEP>computer science</DEP>
+<DES>hi</DES>
+<DTE>02:27, 11th September 2015</DTE>
+<EML>stacyjames@odu.edu</EML>
+<PWD>e99a18c428cb38d5f260853678922e03</PWD>
+<ROLE>Editor,Chapter Co-Author</ROLE>
+</person>
+<person>
+<FNE>christopher</FNE>
+<LNE>campbellfff</LNE>
+<ORG>o</ORG>
+<DEP>jj</DEP>
+<DES>dfdfd</DES>
+<DTE>22:06, 1st October 2015</DTE>
+<EML>fernanda@odu.edu</EML>
+<PWD>e99a18c428cb38d5f260853678922e03</PWD>
+<ROLE>Contributing Author,Reviewer</ROLE>
+</person>
+<person>
+<FNE>christopher</FNE>
+<LNE>campbell</LNE>
+<ORG>odu</ORG>
+<DEP>Computer Science</DEP>
+<DES>Technology and sience</DES>
+<DTE>16:19, 16th October 2015</DTE>
+<EML>dominic@odu.edu</EML>
+<PWD>5ebe2294ecd0e0f08eab7690d2a6ee69</PWD>
+<ROLE>Editor</ROLE>
+</person>
+<person>
+<FNE>christopher</FNE>
+<LNE>campbell</LNE>
+<ORG>computer science</ORG>
+<DEP>computer science</DEP>
+<DES>hi there and yes</DES>
+<DTE>16:21, 16th October 2015</DTE>
+<EML>larry@odu.edu</EML>
+<PWD>5ebe2294ecd0e0f08eab7690d2a6ee69</PWD>
+<ROLE>Editor</ROLE>
+</person>
+<person>
+<FNE>jktom</FNE>
+<LNE>jackson</LNE>
+<ORG>andhjkmn</ORG>
+<DEP>nlkd</DEP>
+<DES>Iloveand!Ithewayiwrite!</DES>
+<DTE>16:52, 16th October 2015</DTE>
+<EML>ljackson@odu.edu</EML>
+<PWD>5ebe2294ecd0e0f08eab7690d2a6ee69</PWD>
+<ROLE>Editor</ROLE>
+</person>
+<person>
+<FNE>sonepcofederal</FNE>
+<LNE>hi</LNE>
+<ORG>andhi</ORG>
+<DEP>hi</DEP>
+<DES>hithere</DES>
+<DTE>18:47, 16th October 2015</DTE>
+<EML>donfranklin@odu.edu</EML>
+<PWD>5ebe2294ecd0e0f08eab7690d2a6ee69</PWD>
+<ROLE>Editor</ROLE>
+</person>
+<person>
+<FNE>James</FNE>
+<LNE>Evan</LNE>
+<ORG>ODU</ORG>
+<DEP>computer science</DEP>
+<DES>Machine Learning</DES>
+<DTE>15:54, 13th November 2015</DTE>
+<EML>tony@odu.edu</EML>
+<PWD>23a001ca2d4b9f7e8195c8b7b62faf51</PWD>
+<ROLE>Chapter Lead Author</ROLE>
+</person>
+<person>
+<FNE>chrissss</FNE>
+<LNE>campbelllll</LNE>
+<ORG>old dominion university</ORG>
+<DEP>Computer Science</DEP>
+<DES>I Love Machine Learning</DES>
+<DTE>03:37, 14th December 2015</DTE>
+<EML>ccamp002@odu.edu</EML>
+<PWD>23a001ca2d4b9f7e8195c8b7b62faf51</PWD>
+<ROLE>Editor,Chapter Lead Author</ROLE>
+</person>
+</Person>

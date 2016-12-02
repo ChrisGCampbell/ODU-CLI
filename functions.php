@@ -10,7 +10,7 @@ define("GROUPFILE", "known_groups.txt");
 define("GROUPINCIDENTS", "known_incidents.txt");
 define("ACTIONITEMS", "Actionitems.xml");
 define("AIREPORTS", "aireports.xml");
-
+define("REGISTERED_USERS", "user_file.xml");
 
 ###############################################
 #   function displayGroupOptions()
@@ -137,7 +137,7 @@ function displayActionItemDetails($pid, $pgroup) {
         echo "<tr> <td width='250'>" .$aixml->Actionitem[$key]->AIACRO . "&nbsp";
         echo "<a href='?editAI=true&aiacronym=" . $aixml->Actionitem[$key]->AIACRO . "'><input type='button' value='edit' name='editAI'></a>";
         echo "<a href='?viewAI=true&aiacronym=" . $aixml->Actionitem[$key]->AIACRO . "'><input type='button' value='view' name='viewAI'></a>";
-        echo "<a href='?reportAI=true&aiacronym=" . $aixml->Actionitem[$key]->AIACRO . "'><input type='button' value='report' name='reportAI'></a>";
+        echo "<a href='?reportAI=true&aiacronym=" . $aixml->Actionitem[$key]->AIACRO ."'><input type='button' value='report' name='reportAI'></a>";
 
         echo "<td width='250' align='center'>" . $aixml->Actionitem[$key]->OWNER . "</td>";
         echo "<td width='250'>" . $aixml->Actionitem[$key]->CREATED . "</td>";
@@ -273,8 +273,9 @@ function viewAI($ai) {
 #   Returns: (nothing)
 #
 ##############################################
-function addAiReport($ai) {
+function addAiReportForm($ai) {
     $objDateTime = new DateTime('NOW');
+
 
     echo "Please input the fields to add a new report below:<br/>";
     //add new action Item coming soon.
@@ -338,7 +339,7 @@ function addNewReportToFile() {
         fclose($airfile);
 
         echo "Report added!<br/><br/>";
-        echo "<a href='add_ai.php'>Back To List Area</a>";
+        echo "<a href='add_ai.php'>Back To Project Select Area</a>";
     }
 }
 
@@ -493,6 +494,39 @@ function addNewAIToFile() {
         echo '<a href=?pid='. $pid . '&pgroup=' . $pgroup . '>Back To List Area</a>';
     }
 }
-    
+
+###############################################
+#   function Verify_Session_Email_Exists()
+#   parameters: none
+#   Authentication of user
+#   Returns: (nothing)
+#
+##############################################
+function Verify_SignIn($search_em, $search_pwd){
+    $xml = simplexml_load_file(REGISTERED_USERS);
+    $search_ln=strtolower($search_em);
+    $count=false;
+    global $errors;
+
+    //Search for email and password match in users file
+    for($i=0; $i< count($xml); $i++){
+        if (strtolower($xml->person[$i]->EML) == strtolower($search_em) && md5($search_pwd) == $xml->person[$i]->PWD){
+            $count = true;
+            $_SESSION['email'] = trim($xml->person[$i]->EML);//start a session store email
+            $_SESSION['firstname'] = trim($xml->person[$i]->FNE);//start a session store firstname
+            $_SESSION['lastname'] = trim($xml->person[$i]->LNE);//start a session store lastname
+            header('Location: comments.php');
+            exit();
+        }//END IF
+
+    }//end for loop
+
+    //no match found with email and password combination
+    if($count == false){
+        $status_fail=array('fail');
+        $errors['fail'] = "<span class=\"errors\"><b>&nbsp Email address and/or password not valid. Please try again!</span>";
+        return $status_fail;
+    }
+}
 
 ?>

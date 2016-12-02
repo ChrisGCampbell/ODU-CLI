@@ -28,7 +28,7 @@ elseif( isset($_GET['viewAI']) && isset($_GET['aiacronym'])) {
 }
 
 elseif( isset($_GET['reportAI']) && isset($_GET['aiacronym'])) {
-    reportAI($_GET['aiacronym']);
+    addAiReportForm($_GET['aiacronym']);
 }
 
 elseif( isset($_POST['submitEditAI'])) {
@@ -41,6 +41,10 @@ elseif( isset($_POST['newActionItem']) && isset($_POST['pid']) && isset($_POST['
 
 elseif ( isset($_POST['submitAddedNewActionItem'])) {
     addNewAIToFile();
+}
+
+elseif ( isset($_POST['submitNewReport'])) {
+    addNewReportToFile();
 }
 else {
     displayGroupOptions();
