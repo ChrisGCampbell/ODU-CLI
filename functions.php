@@ -1,17 +1,17 @@
 <?php
 session_start();
 /**
- * Created by PhpStorm.
- * User: Chris-Campbell
- * UpDated: 11/29/2016
- * Time: 2:49 AM
+ * Web Portal Application
  *
  */
+
+//Constants
 define("GROUPFILE", "known_groups.txt");
 define("GROUPINCIDENTS", "known_incidents.txt");
 define("ACTIONITEMS", "Actionitems.xml");
 define("AIREPORTS", "aireports.xml");
 define("REGISTERED_USERS", "user_file.xml");
+
 
 ###############################################
 #   function displayGroupOptions()
@@ -155,7 +155,6 @@ function displayActionItemDetails($pid, $pgroup) {
 }
 
 
-
 ###############################################
 #   function editAI($ai)
 #
@@ -275,39 +274,79 @@ function viewAI($ai) {
 #
 ##############################################
 function addAiReportForm($ai) {
+    $actionitem = trim($ai);
     $objDateTime = new DateTime('NOW');
     $ID = rand(1000,9000);
+    $responsibleUsers = [];
+    $actionitemxml = simplexml_load_file(ACTIONITEMS);
+
+    for($j=0; $j<count($actionitemxml); $j++) {
+        if($actionitemxml->Actionitem[$j]->AIACRO == $actionitem) {
+            echo "Action item: ".$actionitemxml->Actionitem[$j]->AIACRO."<br/>";
+            echo "Group: ".$actionitemxml->Actionitem[$j]->PGROUP."<br/>";
+            echo "Incident: ".$actionitemxml->Actionitem[$j]->PID."<br/>";
+            echo "Owner: ".$actionitemxml->Actionitem[$j]->OWNER."<br/>";
+            echo "Date Created: ".$actionitemxml->Actionitem[$j]->CREATED."<br/><br/>";
+        }
+    }
 
     echo "Please input the fields to add a new report below:<br/>";
     //add new action Item coming soon.
+    echo "<table width='800'>";
     echo "<form method='POST' action=\""; echo $_SERVER['PHP_SELF']; echo "\">
-            ID:<input type='text' name='ID'  value='{$ID}'>
+            
+            <tr><td width='50'>ID:</td><td width='100'><input type='text' name='ID'  value='{$ID}' disabled></td></tr>
             <input type='hidden' name='ID' value='{$ID}'>
-            <br/>
-            Owner:<input type='text' name='OWNER'  value='{$_SESSION['firstname']} {$_SESSION['lastname']}'>
+            
+            <tr><td width='50'>Owner:</td><td width='100'><input type='text' name='OWNER'  value='{$_SESSION['firstname']} {$_SESSION['lastname']}'></td></tr>
             <input type='hidden' name='OWNER'  value='{$_SESSION['firstname']} {$_SESSION['lastname']}'>
-            <br/>
-            Date:<input type='text' name='DATE' value='{$objDateTime->format('d-m-Y')}'>
+            
+            <tr><td width='50'>Date:</td><td width='100'><input type='text' name='DATE' value='{$objDateTime->format('d-m-Y')}'></td></tr>
             <input type='hidden' name='DATE'  value='{$objDateTime->format('d-m-Y')}'>
-            <br/>
-            Report:<input type='text' name='REPORT'  value='1' disabled>
+            
+            <tr><td width='50'>Report:</td><td width='100'><input type='text' name='REPORT'  value='1' disabled></td></tr>
             <input type='hidden' name='REPORT'  value='1'>
-            <br/>
-            Deadline:<input type='text' name='NDEADLINE'>
-            <br/>
-            Status:<input type='text' name='STATUS' value=''>
-            <br/>
-            Deadline:<input type='text' name='DEADLINE' value=''>
-            <br/>
-            Description<textarea row='2' cols='40' name='NDESCRIPTION'></textarea>
-            <br/>
-            Responsible:<textarea row='2' cols='40' name='NRESPONSIBLE'></textarea>
-            <br/>
-            <input type=\"submit\" name =\"submitNewReport\" value=\"Submit\">
-            </form>";
+           
+            <tr><td width='50'>Deadline:</td><td width='100'><input type='text' name='NDEADLINE'></td></tr>
+            
+            <tr><td width='50'>Status:</td><td width='100'><input type='text' name='STATUS' value=''></td></tr>
+           
+            <tr><td width='50'>Deadline:</td><td width='100'><input type='text' name='DEADLINE' value=''></td></tr>
+           
+           <tr><td width='50'> Description:</td><td width='100'><textarea row='2' cols='40' name='NDESCRIPTION'></textarea></td></tr>
+           
+           <tr><td width='50'> Responsible:</td><td width='100'>";
+
+           $responsibleUsers = getResponsibleUsers();
+
+           echo "<select>";
+           for($i=0; $i<count($responsibleUsers); $i++) {
+               echo "<option name='NRESPONSIBLE' value='{$responsibleUsers[$i]}'>$responsibleUsers[$i]</option>";
+           }
+           echo "</td></tr>";
+
+           echo "<tr><td width='50'></td><td width='100'><input type=\"submit\" name =\"submitNewReport\" value=\"Submit\"></td></tr>
+           </form></table>";
 
 }
 
+###############################################
+#   function getResponsibleUsers()
+#   parameters: none
+#   gets an array of users from
+#   Returns: (array)
+#
+##############################################
+function getResponsibleUsers() {
+    $aireportsxml = simplexml_load_file(AIREPORTS);
+    $responsibleUsers = [];
+
+    for($i=0; $i<count($aireportsxml); $i++) {
+        array_push($responsibleUsers, $aireportsxml->Aireport[$i]->NRESPONSIBLE);
+    }
+
+    return $responsibleUsers;
+}
 
 ###############################################
 #   function addNewReportToFile()
@@ -376,7 +415,6 @@ function saveToFile($descr, $aia, $resp, $ration, $dead) {
     echo "File Edited Successfully!<br/><br/>";
     echo '<a href=?pid='.$pid.'&pgroup='.$pgroup.'>Back To List Area</a>';
 }
-
 
 
 ###############################################
@@ -458,7 +496,6 @@ function newActionItemForm($pincident, $projectgroup) {
 }
 
 
-
 ###############################################
 #   function addNewAIToFile()
 #   parameters: none
@@ -496,6 +533,7 @@ function addNewAIToFile() {
         echo '<a href=?pid='. $pid . '&pgroup=' . $pgroup . '>Back To List Area</a>';
     }
 }
+
 
 ###############################################
 #   function Verify_Session_Email_Exists()

@@ -1,10 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Chris-Campbell
- * Date: 12/2/2016
- * Time: 6:07 PM
- */
+
 if(!isset($_SESSION['email'])){
     header('Location:sign_in.php');
     exit();
