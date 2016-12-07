@@ -200,13 +200,14 @@ function editAI($ai)
     echo "<p>Owner: {$owner}</p>";
     echo "<p>Date Created: {$created}</p>";
     echo "<p>Action Item: {$aiacronym}</p>";
+    echo "<table width='800'>";
     echo "<form method='POST' action=\"";
     echo $_SERVER['PHP_SELF'];
     echo "\">
-            <p>Responsible: <input type='text' name='responsible' value='{$responsible}'></p>
-            <p>Deadline: <input type='text' name='deadline' value='{$deadline}'></p>
-            <p class='formfield'><label for='rationale'>Rationale:</label><textarea rows='3' cols='40' name='rationale'>{$rationale}</textarea></p>
-            <p><span style='vertical-align:middle'>Description:</span><textarea rows='3' cols='40' name='description'>{$description}</textarea></p>
+            <tr><td width='50'>Responsible:</td><td width='100'> <input type='text' name='responsible' value='{$responsible}'></td></tr>
+            <tr><td width='50'>Deadline:</td><td width='100'> <input type='text' name='deadline' value='{$deadline}'></td></tr>
+            <tr><td width='50'>Rationale:</td><td width='100'> <textarea rows='3' cols='40' name='rationale'>{$rationale}</textarea></td></tr>
+            <tr><td width='50'>Description:</td><td width='100'><textarea rows='3' cols='40' name='description'>{$description}</textarea></td></tr>
             <input type='hidden' name='aiacronym' value='";
     echo $aiacronym;
     echo "'>";
@@ -216,8 +217,8 @@ function editAI($ai)
     echo '<input type="hidden" name="pgroup" value="';
     echo $pgroup;
     echo '">
-            <br><input type="submit" value="submit" name="submitEditAI">
-          </form>';
+            <tr><td width=\'50\'></td><td><input type="submit" value="submit" name="submitEditAI"></td></tr>
+          </form></table>';
 
 }
 
