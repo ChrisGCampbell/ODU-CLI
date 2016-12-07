@@ -1,5 +1,6 @@
 <?php
 session_start();
+
 /**
  * Runs functions for Web Portal Application
  * Main function file for Web Portal Application
@@ -492,7 +493,12 @@ function newActionItemForm($pincident, $projectgroup)
     $objDateTime = new DateTime('NOW');
     $responsibleUsers = [];
 
-    echo "<br/><br/>";
+    echo "---------------------------------------------------------------------<br/>";
+    echo "CREATE A NEW ACTION ITEM IN THE AREA OF <BR/>";
+    echo "Group: " . $PGROUP . "<br/>";
+    echo "Project: " . $pid . "<br/>";
+    echo "----------------------------------------------------------------------";
+    echo "<br/>";
 
     echo "Please input the fields to add a new action item below:<br/>";
     //add new action Item coming soon.
@@ -522,9 +528,9 @@ function newActionItemForm($pincident, $projectgroup)
 
     $responsibleUsers = getResponsibleUsers();
 
-    echo "<select>";
+    echo "<select name='NRESPONSIBLE'>";
     for ($i = 0; $i < count($responsibleUsers); $i++) {
-        echo "<option name='NRESPONSIBLE' value='{$responsibleUsers[$i]}'>$responsibleUsers[$i]</option>";
+        echo "<option  value='$responsibleUsers[$i]'>$responsibleUsers[$i]</option>";
     }
     echo "</select>";
     echo "<tr><td width='50'>Created:</td><td width='100'><input type='text' name='CREATED' value='{$objDateTime->format('d-m-Y')}'></td></tr>
@@ -536,10 +542,16 @@ function newActionItemForm($pincident, $projectgroup)
     echo $objDateTime->format('d-m-Y');
     echo "'></td></tr>
            
+           <tr><td width='50'>Status:</td><td width='100'><input type='text' name='AISTATUS' value=''></td></tr>
+           
+           
             <tr><td width='50'>Description:</td><td width='100'><textarea row='2' cols='40' name='DESCRIPTION'></textarea></td></tr>
            
             <tr><td width='50'>Rationale:</td><td width='100'><textarea row='2' cols='40' name='RATIONALE'></textarea></td></tr>
             
+            <tr><td width='50'>Dependency:</td><td width='100'><textarea row='2' cols='40' name='AIDEPENDENCY'></textarea></td></tr>
+            
+     
             <tr><td width='50'></td><td width='100'><input type=\"submit\" name =\"submitAddedNewActionItem\" value=\"Submit\"></td></tr>
             </form></table>";
 }
@@ -567,11 +579,13 @@ function addNewAIToFile()
         $NAI .= "<NUMBER>" . $_POST['NUMBER'] . "</NUMBER>" . PHP_EOL;
         $NAI .= "<AIACRO>" . $_POST['AIACRO'] . "</AIACRO>" . PHP_EOL;
         $NAI .= "<OWNER>" . $_POST['OWNER'] . "</OWNER>" . PHP_EOL;
-        $NAI .= "<RESPONSIBLE>" . $_POST['RESPONSIBLE'] . "</RESPONSIBLE>" . PHP_EOL;
+        $NAI .= "<NRESPONSIBLE>" . $_POST['NRESPONSIBLE'] . "</NRESPONSIBLE>" . PHP_EOL;
         $NAI .= "<CREATED>" . $_POST['CREATED'] . "</CREATED>" . PHP_EOL;
         $NAI .= "<DEADLINE>" . $_POST['DEADLINE'] . "</DEADLINE>" . PHP_EOL;
         $NAI .= "<DESCRIPTION>" . $_POST['DESCRIPTION'] . "</DESCRIPTION>" . PHP_EOL;
         $NAI .= "<RATIONALE>" . $_POST['RATIONALE'] . "</RATIONALE>" . PHP_EOL;
+        $NAI .= "<AIDEPENDENCY>" . $_POST['AIDEPENDENCY'] . "</AIDEPENDENCY>" . PHP_EOL;
+        $NAI .= "<AISTATUS>" . $_POST['AISTATUS'] . "</AISTATUS>" . PHP_EOL;
         $NAI .= "</Actionitem>" . PHP_EOL;
         $NAI .= "</ACTIONITEMS>";
 
@@ -594,7 +608,7 @@ function addNewAIToFile()
 ##############################################
 function Verify_SignIn($search_em, $search_pwd)
 {
-    
+
     $xml = simplexml_load_file(REGISTERED_USERS);
     $search_ln = strtolower($search_em);
     $count = false;
