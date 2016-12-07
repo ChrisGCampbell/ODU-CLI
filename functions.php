@@ -1,8 +1,8 @@
 <?php
 session_start();
 /**
- * Web Portal Application
- *
+ * Runs functions for Web Portal Application
+ * Main function file for Web Portal Application
  */
 
 //Constants
@@ -21,8 +21,11 @@ define("REGISTERED_USERS", "user_file.xml");
 #   Returns: (nothing)
 #
 ##############################################
-function displayGroupOptions() {
-    echo "<form id='groupList' method='POST' action='"; echo $_SERVER['PHP_SELF']."'>";
+function displayGroupOptions()
+{
+
+    echo "<form id='groupList' method='POST' action='";
+    echo $_SERVER['PHP_SELF'] . "'>";
     echo 'Select Group:';
     getGroups();
     echo '&nbsp<input type="submit" value="submit" name="submitGroup"></form>';
@@ -38,13 +41,15 @@ function displayGroupOptions() {
 #   Returns: (nothing)
 #
 ##############################################
-function getGroups() {
+function getGroups()
+{
+
     $groupNames = [];
     $fileHandler = fopen(GROUPFILE, "r");
     $groupCount = fgets($fileHandler);
 
-    for($i=0; $i<$groupCount; $i++) {
-        $groupNames[$i] =  fgets($fileHandler);
+    for ($i = 0; $i < $groupCount; $i++) {
+        $groupNames[$i] = fgets($fileHandler);
     }
 
     loadGroupList($groupNames);
@@ -59,9 +64,11 @@ function getGroups() {
 #   Returns: (nothing)
 #
 ##############################################
-function loadGroupList($groupNames){
-    for($i=0; $i<count($groupNames); $i++) {
-        echo '<input type="radio" name="group" id="group" value="'.$groupNames[$i].'">'.$groupNames[$i];
+function loadGroupList($groupNames)
+{
+
+    for ($i = 0; $i < count($groupNames); $i++) {
+        echo '<input type="radio" name="group" id="group" value="' . $groupNames[$i] . '">' . $groupNames[$i];
     }
 }
 
@@ -75,30 +82,30 @@ function loadGroupList($groupNames){
 #   Returns: (nothing)
 #
 ##############################################
-function displayProjectIncidents($selectedGroup) {
-    $txtfile     = file_get_contents(GROUPINCIDENTS);
-    $rows        = explode("\n", $txtfile);
+function displayProjectIncidents($selectedGroup)
+{
+    $txtfile = file_get_contents(GROUPINCIDENTS);
+    $rows = explode("\n", $txtfile);
     $pid = [];
 
-    for( $i = 0; $i < count($rows); $i++ ){
-        if ( strpos($rows[$i], $selectedGroup ) !== false ) {
-               $projectIncidents = explode( "|", $rows[$i] );
-               break;
+    for ($i = 0; $i < count($rows); $i++) {
+        if (strpos($rows[$i], $selectedGroup) !== false) {
+            $projectIncidents = explode("|", $rows[$i]);
+            break;
         }
     }
 
-    if(empty($projectIncidents)){
+    if (empty($projectIncidents)) {
         echo "No current listings for <b>{$selectedGroup}</b>";
-    }
-    else{
+    } else {
         echo "List of <b>{$selectedGroup}s</b> <br/>";
         echo "----------------------";
         echo "<table width='550'>";
 
-                //Project Incidents array beings at index 1
-                for( $i = 1; $i < count($projectIncidents); $i++ ) {
-                    echo "<tr> <td> <a href=?pid={$projectIncidents[$i]}&pgroup={$selectedGroup}>" . $projectIncidents[$i]."</a> </td>";
-                }
+        //Project Incidents array beings at index 1
+        for ($i = 1; $i < count($projectIncidents); $i++) {
+            echo "<tr> <td> <a href=?pid={$projectIncidents[$i]}&pgroup={$selectedGroup}>" . $projectIncidents[$i] . "</a> </td>";
+        }
 
         echo "</table>";
         echo "----------------------";
@@ -113,7 +120,9 @@ function displayProjectIncidents($selectedGroup) {
 #   Returns: (nothing)
 #
 ##############################################
-function displayActionItemDetails($pid, $pgroup) {
+function displayActionItemDetails($pid, $pgroup)
+{
+
     $pid = trim($_GET['pid']);
     $pgroup = trim($_GET['pgroup']);
     $aixml = simplexml_load_file(ACTIONITEMS);
@@ -124,7 +133,7 @@ function displayActionItemDetails($pid, $pgroup) {
     echo "<table width='1000'><th width='250' align='left'>Action Item</th><th width='250' align='center'>Owner</th><th align='left'>Date Created</th><th align='left'>Description</th>";
 
     //Find PID dates
-    for($i=0; $i<count($aixml); $i++) {
+    for ($i = 0; $i < count($aixml); $i++) {
         if ($aixml->Actionitem[$i]->PGROUP == $pgroup && $aixml->Actionitem[$i]->PID == $pid) {
             $timearray[$i] = strtotime($aixml->Actionitem[$i]->CREATED);
         }
@@ -134,11 +143,11 @@ function displayActionItemDetails($pid, $pgroup) {
     arsort($timearray);
 
     //output sorted PID by dates
-    foreach($timearray as $key => $val) {
-        echo "<tr> <td width='250'>" .$aixml->Actionitem[$key]->AIACRO . "&nbsp";
+    foreach ($timearray as $key => $val) {
+        echo "<tr> <td width='250'>" . $aixml->Actionitem[$key]->AIACRO . "&nbsp";
         echo "<a href='?editAI=true&aiacronym=" . $aixml->Actionitem[$key]->AIACRO . "'><input type='button' value='edit' name='editAI'></a>";
         echo "<a href='?viewAI=true&aiacronym=" . $aixml->Actionitem[$key]->AIACRO . "'><input type='button' value='view' name='viewAI'></a>";
-        echo "<a href='?reportAI=true&aiacronym=" . $aixml->Actionitem[$key]->AIACRO ."'><input type='button' value='report' name='reportAI'></a>";
+        echo "<a href='?reportAI=true&aiacronym=" . $aixml->Actionitem[$key]->AIACRO . "'><input type='button' value='report' name='reportAI'></a>";
 
         echo "<td width='250' align='center'>" . $aixml->Actionitem[$key]->OWNER . "</td>";
         echo "<td width='250'>" . $aixml->Actionitem[$key]->CREATED . "</td>";
@@ -146,7 +155,9 @@ function displayActionItemDetails($pid, $pgroup) {
     }
     echo "</table>";
 
-    echo "<form method='POST' action='"; echo $_SERVER['PHP_SELF']; echo "'> 
+    echo "<form method='POST' action='";
+    echo $_SERVER['PHP_SELF'];
+    echo "'> 
          <input type='hidden' name='pid' value='{$pid}'>
          <input type='hidden' name='pgroup' value='{$pgroup}'>
          <input type='submit' name='newActionItem' value='Create New Action Item'></form><br/><br/>";
@@ -163,12 +174,14 @@ function displayActionItemDetails($pid, $pgroup) {
 #   Returns: (nothing)
 #
 ##############################################
-function editAI($ai) {
+function editAI($ai)
+{
+
     $aiacronym = trim($_GET['aiacronym']);
     $aixml = simplexml_load_file(ACTIONITEMS);
 
-    for($i=0; $i<count($aixml); $i++) {
-        if($aixml->Actionitem[$i]->AIACRO == $aiacronym) {
+    for ($i = 0; $i < count($aixml); $i++) {
+        if ($aixml->Actionitem[$i]->AIACRO == $aiacronym) {
             $description = $aixml->Actionitem[$i]->DESCRIPTION;
             $pgroup = $aixml->Actionitem[$i]->PGROUP;
             $pid = $aixml->Actionitem[$i]->PID;
@@ -181,19 +194,27 @@ function editAI($ai) {
         }
     }
 
-    echo "<p>Group: ". $pgroup."</p>";
+    echo "<p>Group: " . $pgroup . "</p>";
     echo "<p>Incident: " . $pid . "</p>";
     echo "<p>Owner: {$owner}</p>";
     echo "<p>Date Created: {$created}</p>";
     echo "<p>Action Item: {$aiacronym}</p>";
-    echo "<form method='POST' action=\""; echo $_SERVER['PHP_SELF']; echo "\">
+    echo "<form method='POST' action=\"";
+    echo $_SERVER['PHP_SELF'];
+    echo "\">
             <p>Responsible: <input type='text' name='responsible' value='{$responsible}'></p>
             <p>Deadline: <input type='text' name='deadline' value='{$deadline}'></p>
             <p class='formfield'><label for='rationale'>Rationale:</label><textarea rows='3' cols='40' name='rationale'>{$rationale}</textarea></p>
             <p><span style='vertical-align:middle'>Description:</span><textarea rows='3' cols='40' name='description'>{$description}</textarea></p>
-            <input type='hidden' name='aiacronym' value='"; echo $aiacronym; echo "'>";
-    echo    '<input type="hidden" name="pid" value="'; echo $pid; echo '">';
-    echo    '<input type="hidden" name="pgroup" value="'; echo $pgroup; echo '">
+            <input type='hidden' name='aiacronym' value='";
+    echo $aiacronym;
+    echo "'>";
+    echo '<input type="hidden" name="pid" value="';
+    echo $pid;
+    echo '">';
+    echo '<input type="hidden" name="pgroup" value="';
+    echo $pgroup;
+    echo '">
             <br><input type="submit" value="submit" name="submitEditAI">
           </form>';
 
@@ -209,15 +230,16 @@ function editAI($ai) {
 #   Returns: (nothing)
 #
 ##############################################
-function viewAI($ai) {
+function viewAI($ai)
+{
 
     $aiacronym = trim($_GET['aiacronym']);
     $aixml = simplexml_load_file(ACTIONITEMS);
     $aireportxml = simplexml_load_file(AIREPORTS);
     $numofreports = 0;
 
-    for($i=0; $i<count($aixml); $i++) {
-        if($aixml->Actionitem[$i]->AIACRO == $aiacronym) {
+    for ($i = 0; $i < count($aixml); $i++) {
+        if ($aixml->Actionitem[$i]->AIACRO == $aiacronym) {
             $id = trim($aixml->Actionitem[$i]->ID);
             $number = $aixml->Actionitem[$i]->NUMBER;
             $description = $aixml->Actionitem[$i]->DESCRIPTION;
@@ -244,9 +266,9 @@ function viewAI($ai) {
     echo "<b>Rationale:</b> " . $rationale . "<br/><br/>";
 
     echo "Reports on this Action Item:<br/>";
-    for($i=0; $i<count($aireportxml); $i++) {
-        if($aireportxml->Aireport[$i]->ID == $id) {
-            $numofreports = numofreports +1;
+    for ($i = 0; $i < count($aireportxml); $i++) {
+        if ($aireportxml->Aireport[$i]->ID == $id) {
+            $numofreports = numofreports + 1;
             echo "<b>ID:</b> " . $airid = $aireportxml->Aireport[$i]->ID . "<br/>";
             echo "<b>Owner:</b> " . $airowner = $aireportxml->Aireport[$i]->OWNER . "<br/>";
             echo "<b>Date:</b> " . $airdate = $aireportxml->Aireport[$i]->DATE . "<br/>";
@@ -258,10 +280,10 @@ function viewAI($ai) {
             echo "<br/><br/>";
         }
     }
-    if($numofreports == 0) {
+    if ($numofreports == 0) {
         echo "<b>Currently no reports on this item.</b><br/><br/>";
     }
-    echo '<a href=?pid='.$pid.'&pgroup='.$pgroup.'>Back To List Area</a>';
+    echo '<a href=?pid=' . $pid . '&pgroup=' . $pgroup . '>Back To List Area</a>';
 }
 
 
@@ -273,27 +295,31 @@ function viewAI($ai) {
 #   Returns: (nothing)
 #
 ##############################################
-function addAiReportForm($ai) {
+function addAiReportForm($ai)
+{
+
     $actionitem = trim($ai);
     $objDateTime = new DateTime('NOW');
-    $ID = rand(1000,9000);
+    $ID = rand(1000, 9000);
     $responsibleUsers = [];
     $actionitemxml = simplexml_load_file(ACTIONITEMS);
 
-    for($j=0; $j<count($actionitemxml); $j++) {
-        if($actionitemxml->Actionitem[$j]->AIACRO == $actionitem) {
-            echo "Action item: ".$actionitemxml->Actionitem[$j]->AIACRO."<br/>";
-            echo "Group: ".$actionitemxml->Actionitem[$j]->PGROUP."<br/>";
-            echo "Incident: ".$actionitemxml->Actionitem[$j]->PID."<br/>";
-            echo "Owner: ".$actionitemxml->Actionitem[$j]->OWNER."<br/>";
-            echo "Date Created: ".$actionitemxml->Actionitem[$j]->CREATED."<br/><br/>";
+    for ($j = 0; $j < count($actionitemxml); $j++) {
+        if ($actionitemxml->Actionitem[$j]->AIACRO == $actionitem) {
+            echo "Action item: " . $actionitemxml->Actionitem[$j]->AIACRO . "<br/>";
+            echo "Group: " . $actionitemxml->Actionitem[$j]->PGROUP . "<br/>";
+            echo "Incident: " . $actionitemxml->Actionitem[$j]->PID . "<br/>";
+            echo "Owner: " . $actionitemxml->Actionitem[$j]->OWNER . "<br/>";
+            echo "Date Created: " . $actionitemxml->Actionitem[$j]->CREATED . "<br/><br/>";
         }
     }
 
     echo "Please input the fields to add a new report below:<br/>";
     //add new action Item coming soon.
     echo "<table width='800'>";
-    echo "<form method='POST' action=\""; echo $_SERVER['PHP_SELF']; echo "\">
+    echo "<form method='POST' action=\"";
+    echo $_SERVER['PHP_SELF'];
+    echo "\">
             
             <tr><td width='50'>ID:</td><td width='100'><input type='text' name='ID'  value='{$ID}' disabled></td></tr>
             <input type='hidden' name='ID' value='{$ID}'>
@@ -317,15 +343,16 @@ function addAiReportForm($ai) {
            
            <tr><td width='50'> Responsible:</td><td width='100'>";
 
-           $responsibleUsers = getResponsibleUsers();
+    $responsibleUsers = getResponsibleUsers();
 
-           echo "<select>";
-           for($i=0; $i<count($responsibleUsers); $i++) {
-               echo "<option name='NRESPONSIBLE' value='{$responsibleUsers[$i]}'>$responsibleUsers[$i]</option>";
-           }
-           echo "</td></tr>";
+    echo "<select>";
+    for ($i = 0; $i < count($responsibleUsers); $i++) {
+        echo "<option name='NRESPONSIBLE' value='{$responsibleUsers[$i]}'>$responsibleUsers[$i]</option>";
+    }
+    echo "</select>";
+    echo "</td></tr>";
 
-           echo "<tr><td width='50'></td><td width='100'><input type=\"submit\" name =\"submitNewReport\" value=\"Submit\"></td></tr>
+    echo "<tr><td width='50'></td><td width='100'><input type=\"submit\" name =\"submitNewReport\" value=\"Submit\"></td></tr>
            </form></table>";
 
 }
@@ -337,11 +364,13 @@ function addAiReportForm($ai) {
 #   Returns: (array)
 #
 ##############################################
-function getResponsibleUsers() {
+function getResponsibleUsers()
+{
+
     $aireportsxml = simplexml_load_file(AIREPORTS);
     $responsibleUsers = [];
 
-    for($i=0; $i<count($aireportsxml); $i++) {
+    for ($i = 0; $i < count($aireportsxml); $i++) {
         array_push($responsibleUsers, $aireportsxml->Aireport[$i]->NRESPONSIBLE);
     }
 
@@ -355,12 +384,14 @@ function getResponsibleUsers() {
 #   Returns: (nothing)
 #
 ##############################################
-function addNewReportToFile() {
+function addNewReportToFile()
+{
+
     //$pid = trim($_POST['PID']);
     //$pgroup = trim($_POST['PGROUP']);
     $FILENAME = AIREPORTS;
 
-    if(file_exists($FILENAME)) {
+    if (file_exists($FILENAME)) {
         $airfile = fopen($FILENAME, 'r+') or die("cant open file");
         $NAI = '<Aireport>' . PHP_EOL;
         $NAI .= "<ID>" . $_POST['ID'] . "</ID>" . PHP_EOL;
@@ -392,7 +423,9 @@ function addNewReportToFile() {
 #   Returns: (nothing)
 #
 ##############################################
-function saveToFile($descr, $aia, $resp, $ration, $dead) {
+function saveToFile($descr, $aia, $resp, $ration, $dead)
+{
+
     $pid = trim($_POST['pid']);
     $pgroup = trim($_POST['pgroup']);
     $description = trim($descr);
@@ -402,18 +435,18 @@ function saveToFile($descr, $aia, $resp, $ration, $dead) {
     $aiacronym = trim($aia);
     $aixml = simplexml_load_file(ACTIONITEMS);
 
-    for($i=0; $i<count($aixml); $i++) {
-       if($aixml->Actionitem[$i]->AIACRO == $aiacronym) {
-           $aixml->Actionitem[$i]->DESCRIPTION = $description;
-           $aixml->Actionitem[$i]->RATIONALE = $rationale;
-           $aixml->Actionitem[$i]->DEADLINE = $deadline;
-           $aixml->Actionitem[$i]->RESPONSIBLE = $responsible;
-           $aixml->asXML(ACTIONITEMS);
-       }
+    for ($i = 0; $i < count($aixml); $i++) {
+        if ($aixml->Actionitem[$i]->AIACRO == $aiacronym) {
+            $aixml->Actionitem[$i]->DESCRIPTION = $description;
+            $aixml->Actionitem[$i]->RATIONALE = $rationale;
+            $aixml->Actionitem[$i]->DEADLINE = $deadline;
+            $aixml->Actionitem[$i]->RESPONSIBLE = $responsible;
+            $aixml->asXML(ACTIONITEMS);
+        }
     }
 
     echo "File Edited Successfully!<br/><br/>";
-    echo '<a href=?pid='.$pid.'&pgroup='.$pgroup.'>Back To List Area</a>';
+    echo '<a href=?pid=' . $pid . '&pgroup=' . $pgroup . '>Back To List Area</a>';
 }
 
 
@@ -424,25 +457,27 @@ function saveToFile($descr, $aia, $resp, $ration, $dead) {
 #   Returns: (nothing)
 #
 ##############################################
-function newActionItemForm($pincident, $projectgroup) {
-    $pid    = trim($pincident);
+function newActionItemForm($pincident, $projectgroup)
+{
+
+    $pid = trim($pincident);
     $PGROUP = trim($projectgroup);
     $aixml = simplexml_load_file(ACTIONITEMS);
     $aiacroList = [];
-    $ID = rand(1000,9999);
+    $ID = rand(1000, 9999);
     $highest = [];
 
-    for($i=0; $i<count($aixml); $i++) {
-        if($aixml->Actionitem[$i]->PID == $pid) {
+    for ($i = 0; $i < count($aixml); $i++) {
+        if ($aixml->Actionitem[$i]->PID == $pid) {
             array_push($aiacroList, $aixml->Actionitem[$i]->AIACRO);
         }
     }
 
 
-    for($i=0; $i<count($aiacroList); $i++) {
-        $position=0;
-        $pilength=0;
-        $positionOfIncident=0;
+    for ($i = 0; $i < count($aiacroList); $i++) {
+        $position = 0;
+        $pilength = 0;
+        $positionOfIncident = 0;
         $aia = $aiacroList[$i]; //example fdsfd-project1-12
         $position = stripos($aia, $pid, 0);//gets the position of word project1
         $pilength = strlen($pid); //gets the length of project1
@@ -452,47 +487,61 @@ function newActionItemForm($pincident, $projectgroup) {
         array_push($highest, intval($oldvalue));
     }
     $max = max($highest);//find the highest incident # last assigned
-    $newvalue =  $max + 1;//returns the number after project1- + 1
+    $newvalue = $max + 1;//returns the number after project1- + 1
     $newstring = $substring . $newvalue;
     $objDateTime = new DateTime('NOW');
-
+    $responsibleUsers = [];
 
     echo "<br/><br/>";
 
     echo "Please input the fields to add a new action item below:<br/>";
     //add new action Item coming soon.
-    echo "<form method='POST' action=\""; echo $_SERVER['PHP_SELF']; echo "\">
-            ID:<input type='text' name='ID'  value='{$ID}' disabled>
+    echo "<table width='800'>";
+    echo "<form method='POST' action=\"";
+    echo $_SERVER['PHP_SELF'];
+    echo "\">
+            <tr><td width='50'>ID:</td><td width='100'><input type='text' name='ID'  value='{$ID}' disabled></td></tr>
             <input type='hidden' name='ID' value='{$ID}'>
-            <br/>
-            Group:<input type='text' name='PGROUP'  value='{$PGROUP}' disabled>
+           
+            <tr><td width='50'>Group:</td><td width='100'><input type='text' name='PGROUP'  value='{$PGROUP}' disabled></td></tr>
             <input type='hidden' name='PGROUP'  value='{$PGROUP}'>
-            <br/>
-            PID:<input type='text' name='PID'  value='$pid' disabled>
+            
+            <tr><td width='50'>PID:</td><td width='100'><input type='text' name='PID'  value='$pid' disabled></td></tr>
             <input type='hidden' name='PID'  value='{$pid}'>
-            <br/>
-            Number:<input type='text' name='NUMBER'  value='1' disabled>
+            
+            <tr><td width='50'>Number:</td><td width='100'><input type='text' name='NUMBER'  value='1' disabled></td></tr>
             <input type='hidden' name='NUMBER'  value='1'>
-            <br/>
-            AIACRO:<input type='text' name='AIACRO'  value='$newstring'>
+          
+            <tr><td width='50'>AIACRO:</td><td width='100'><input type='text' name='AIACRO'  value='$newstring'></td></tr>
             <input type='hidden' name='AIACRO'  value='{$newstring}'>
-            <br/>
-            Owner:<input type='text' name='OWNER' value='{$_SESSION['firstname']} {$_SESSION['lastname']}'>
+            
+            <tr><td width='50'>Owner:</td><td width='100'><input type='text' name='OWNER' value='{$_SESSION['firstname']} {$_SESSION['lastname']}'></td></tr>
             <input type='hidden' name='AIACRO'  value='{$_SESSION['firstname']} {$_SESSION['lastname']}'>
-            <br/>
-            Responsible:<input type='text' name='RESPONSIBLE'>
-            <br/>
-            Created:<input type='text' name='CREATED' value='{$objDateTime->format('d-m-Y')}'>
-            <input type='hidden' name='CREATED'  value='"; echo $objDateTime->format('d-m-Y'); echo "'>
-            <br/>
-            Deadline:<input type='text' name='DEADLINE' value='"; echo $objDateTime->format('d-m-Y'); echo "'>
-            <br/>
-            Description<textarea row='2' cols='40' name='DESCRIPTION'></textarea>
-            <br/>
-            Rationale:<textarea row='2' cols='40' name='RATIONALE'></textarea>
-            <br/>
-            <input type=\"submit\" name =\"submitAddedNewActionItem\" value=\"Submit\">
-            </form>";
+            
+            <tr><td width='50'> Responsible:</td><td width='100'>";
+
+    $responsibleUsers = getResponsibleUsers();
+
+    echo "<select>";
+    for ($i = 0; $i < count($responsibleUsers); $i++) {
+        echo "<option name='NRESPONSIBLE' value='{$responsibleUsers[$i]}'>$responsibleUsers[$i]</option>";
+    }
+    echo "</select>";
+    echo "<tr><td width='50'>Created:</td><td width='100'><input type='text' name='CREATED' value='{$objDateTime->format('d-m-Y')}'></td></tr>
+            <input type='hidden' name='CREATED'  value='";
+    echo $objDateTime->format('d-m-Y');
+    echo "'>
+            
+            <tr><td width='50'>Deadline:</td><td width='100'><input type='text' name='DEADLINE' value='";
+    echo $objDateTime->format('d-m-Y');
+    echo "'></td></tr>
+           
+            <tr><td width='50'>Description:</td><td width='100'><textarea row='2' cols='40' name='DESCRIPTION'></textarea></td></tr>
+           
+            <tr><td width='50'>Rationale:</td><td width='100'><textarea row='2' cols='40' name='RATIONALE'></textarea></td></tr>
+            
+            <tr><td width='50'></td><td width='100'><input type=\"submit\" name =\"submitAddedNewActionItem\" value=\"Submit\"></td></tr>
+            </form></table>";
 }
 
 
@@ -503,12 +552,13 @@ function newActionItemForm($pincident, $projectgroup) {
 #   Returns: (nothing)
 #
 ##############################################
-function addNewAIToFile() {
+function addNewAIToFile()
+{
 
     $pid = trim($_POST['PID']);
     $pgroup = trim($_POST['PGROUP']);
     $FILENAME = ACTIONITEMS;
-    if(file_exists($FILENAME)) {
+    if (file_exists($FILENAME)) {
         $aifile = fopen($FILENAME, 'r+') or die("cant open file");
         $NAI = '<Actionitem>' . PHP_EOL;
         $NAI .= "<ID>" . $_POST['ID'] . "</ID>" . PHP_EOL;
@@ -522,7 +572,7 @@ function addNewAIToFile() {
         $NAI .= "<DEADLINE>" . $_POST['DEADLINE'] . "</DEADLINE>" . PHP_EOL;
         $NAI .= "<DESCRIPTION>" . $_POST['DESCRIPTION'] . "</DESCRIPTION>" . PHP_EOL;
         $NAI .= "<RATIONALE>" . $_POST['RATIONALE'] . "</RATIONALE>" . PHP_EOL;
-        $NAI .= "</Actionitem>".PHP_EOL;
+        $NAI .= "</Actionitem>" . PHP_EOL;
         $NAI .= "</ACTIONITEMS>";
 
         fseek($aifile, -14, SEEK_END);
@@ -530,7 +580,7 @@ function addNewAIToFile() {
         fclose($aifile);
 
         echo "Action Item added!<br/><br/>";
-        echo '<a href=?pid='. $pid . '&pgroup=' . $pgroup . '>Back To List Area</a>';
+        echo '<a href=?pid=' . $pid . '&pgroup=' . $pgroup . '>Back To List Area</a>';
     }
 }
 
@@ -542,15 +592,17 @@ function addNewAIToFile() {
 #   Returns: (nothing)
 #
 ##############################################
-function Verify_SignIn($search_em, $search_pwd){
+function Verify_SignIn($search_em, $search_pwd)
+{
+    
     $xml = simplexml_load_file(REGISTERED_USERS);
-    $search_ln=strtolower($search_em);
-    $count=false;
+    $search_ln = strtolower($search_em);
+    $count = false;
     global $errors;
 
     //Search for email and password match in users file
-    for($i=0; $i< count($xml); $i++){
-        if (strtolower($xml->person[$i]->EML) == strtolower($search_em) && md5($search_pwd) == $xml->person[$i]->PWD){
+    for ($i = 0; $i < count($xml); $i++) {
+        if (strtolower($xml->person[$i]->EML) == strtolower($search_em) && md5($search_pwd) == $xml->person[$i]->PWD) {
             $count = true;
             $_SESSION['email'] = trim($xml->person[$i]->EML);//start a session store email
             $_SESSION['firstname'] = trim($xml->person[$i]->FNE);//start a session store firstname
@@ -562,8 +614,8 @@ function Verify_SignIn($search_em, $search_pwd){
     }//end for loop
 
     //no match found with email and password combination
-    if($count == false){
-        $status_fail=array('fail');
+    if ($count == false) {
+        $status_fail = array('fail');
         $errors['fail'] = "<span class=\"errors\"><b>&nbsp Email address and/or password not valid. Please try again!</span>";
         return $status_fail;
     }
