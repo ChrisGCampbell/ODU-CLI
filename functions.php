@@ -602,9 +602,9 @@ function addNewAIToFile()
 
 ###############################################
 #   function Verify_Session_Email_Exists()
-#   parameters: none
+#   parameters: takes 2 parameters(email & passwd
 #   Authentication of user
-#   Returns: (nothing)
+#   Returns: (nothing) or fail status
 #
 ##############################################
 function Verify_SignIn($search_em, $search_pwd)
