@@ -10,10 +10,14 @@ define("ACTIONITEMS", "DataFiles/Actionitems.xml");
 define("AIREPORTS", "DataFiles/aireports.xml");
 define("REGISTERED_USERS", "DataFiles/user_file.xml");
 error_reporting(0);
+
+
 final class ActionReports {
     private $_firstname;
     private $_lastname;
     private $_emailAddress;
+    static $pid;
+    static $pgroup;
 
     // constructor
     public function __construct() {
@@ -28,6 +32,14 @@ final class ActionReports {
 
     public function getUserEmailAddress() {
         return $this->_emailAddress;
+    }
+
+    public function setPGROUP($pgroup) {
+        $this->pgroup = $pgroup;
+    }
+
+    public function setPID($pid) {
+        $this->pid = $pid;
     }
 
     public function displayGroupSelectionList() {
@@ -54,46 +66,63 @@ final class ActionReports {
 
     public function displayProjectIncidentList()
     {
-        define(GROUP, trim($_POST['group']));
-        $txtfile = file_get_contents(GROUPINCIDENTS);
-        $rows = explode("\n", $txtfile);
-        $pid = [];
-
-        for ($i = 0; $i < count($rows); $i++) {
-            if (strpos($rows[$i], GROUP) !== false) {
-                $projectIncidents = explode("|", $rows[$i]);
-                break;
-            }
+        if( !isset($_POST['group']) ) {
+            echo "You did not select a group.<br/><a href='actionitems.php'>Back to Group Area</a>";
+            exit();
         }
-        if (empty($projectIncidents)) {
-            echo "No current listings for " . GROUP;
-        } else {
-            echo "List of <b>".GROUP."s</b> <br/>";
-            echo "----------------------";
-            echo "<table width='550'>";
-            //Project Incidents array beings at index 1
-            for ($i = 1; $i < count($projectIncidents); $i++) {
-                echo "<tr> <td> <a href=?pid={$projectIncidents[$i]}&pgroup=".GROUP.">" . $projectIncidents[$i] . "</a> </td>";
+        else {
+            $this->setPGROUP(trim($_POST['group']));
+            $txtfile = file_get_contents(GROUPINCIDENTS);
+
+                try {
+                    if ($txtfile == false) {
+                        throw new customException("Failed to open Group Incidents on ");
+                    }
+                }
+                catch(customException $e) {
+                    echo $e->errorMessage();
+                }
+
+            $rows = explode("\n", $txtfile);
+            $pid = [];
+
+            for ($i = 0; $i < count($rows); $i++) {
+                if ( strpos( $rows[$i], $this->pgroup ) !== false ) {
+                    $projectIncidents = explode( "|", $rows[$i] );
+                    break;
+                }
             }
-            echo "</table>";
-            echo "----------------------";
+
+            if ( empty($projectIncidents) ) {
+                echo "No current listings for " . $this->pgroup;
+            }
+            else {
+                echo "List of <b>".$this->pgroup."s</b> <br/>";
+                echo "----------------------";
+                echo "<table width='550'>";
+                //Project Incidents array beings at index 1
+                for ($i = 1; $i < count($projectIncidents); $i++) {
+                    echo '<tr> <td> <a href="?pid='.$projectIncidents[$i].'&amp;pgroup='.$this->pgroup.'">'.$projectIncidents[$i].'</a> </td></tr>';
+                }
+                echo "</table>";
+                echo "----------------------";
+                echo "<br/><br/><a href='actionitems.php'>Back to Group Selection Area.</a>";
+            }
         }
     }
 
-    public function displayActionItemDetails($PID,$PGROUP)
+    public function displayActionItemDetails()
     {
-        $pid = $PID;
-        $pgroup = $PGROUP;
         $aixml = simplexml_load_file(ACTIONITEMS);
         $timearray = []; //array to hold and sort PID by dates
 
-        echo "List of Action Items for {$pid} in the group {$pgroup}:</br>";
+        echo "List of Action Items for {$this->pid} in the group {$this->pgroup}:</br>";
         echo "-------------------";
         echo "<table width='1000'><th width='300' align='left'>Action Item</th><th width='250' align='center'>Owner</th><th align='left'>Date Created</th><th align='left'>Description</th>";
 
         //Find PID dates
         for ($i = 0; $i < count($aixml); $i++) {
-            if ($aixml->Actionitem[$i]->PGROUP == $pgroup && $aixml->Actionitem[$i]->PID == $pid) {
+            if ($aixml->Actionitem[$i]->PGROUP == $this->pgroup && $aixml->Actionitem[$i]->PID == $this->pid) {
                 $timearray[$i] = strtotime($aixml->Actionitem[$i]->CREATED);
             }
         }
@@ -117,8 +146,8 @@ final class ActionReports {
         echo "<form method='POST' action='";
         echo $_SERVER['PHP_SELF'];
         echo "'> 
-         <input type='hidden' name='pid' value='{$pid}'>
-         <input type='hidden' name='pgroup' value='{$pgroup}'>
+         <input type='hidden' name='pid' value='{$this->pid}'>
+         <input type='hidden' name='pgroup' value='{$this->pgroup}'>
          <input type='submit' name='newActionItem' value='Create New Action Item'></form><br/><br/>";
 
         echo "-------------------";
@@ -203,7 +232,7 @@ final class customException extends Exception {
         $errormessage = $this->getMessage() . " " . $currentTime;
         fwrite($errorfile,$errormessage);
         fclose($errorfile);
-        echo "An error has occurred. Please contact the system administror.";
+        echo "An error has occurred. The error has been recorded and sent to the system administror.";
         exit();
     }
 }
