@@ -1,6 +1,0 @@
-Project|Project1|Project2|Project3|Project4
-Workpackage|Workpackage1|Workpackage2|Workpackage3|Workpackage4|Workpackage5
-Task|Task1|Task2|Task3|Task4
-Milestone|Milestone1|Milestone2|Milestone3
-Deliverable|Deliverable1|Deliverable2|Deliverable3|Deliverable4|Deliverable5
-Meeting|Meeting1|Meeting2|Meeting3|Meeting4
