@@ -307,7 +307,7 @@ final class ActionReports {
             <input type='hidden' name='AIACRO'  value='{$newstring}'>
             
             <tr><td width='50'>Owner:</td><td width='100'><input type='text' name='OWNER' value='{$_SESSION['firstname']} {$_SESSION['lastname']}'></td></tr>
-            <input type='hidden' name='AIACRO'  value='{$_SESSION['firstname']} {$_SESSION['lastname']}'>
+            <input type='hidden' name='OWNER'  value='{$_SESSION['firstname']} {$_SESSION['lastname']}'>
             
             <tr><td width='50'> Responsible:</td><td width='100'>";
 
@@ -350,6 +350,7 @@ final class ActionReports {
         $pid = trim($_POST['PID']);
         $pgroup = trim($_POST['PGROUP']);
         $FILENAME = ACTIONITEMS;
+
         if (file_exists($FILENAME)) {
             $aifile = fopen($FILENAME, 'r+') or die("cant open file");
             $NAI = '<Actionitem>' . PHP_EOL;
@@ -542,13 +543,9 @@ final class ActionReports {
 
         return $responsibleUsers;
     }
-
-
-
-
-
-
 }
+
+
 final class customException extends Exception {
     public function errorMessage() {
         $currentTime = date('H:i, jS F Y');
