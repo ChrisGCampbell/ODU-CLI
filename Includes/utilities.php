@@ -12,6 +12,7 @@ define("REGISTERED_USERS", "DataFiles/user_file.xml");
 error_reporting(0);
 
 
+
 final class ActionReports {
     private $_firstname;
     private $_lastname;
@@ -166,7 +167,14 @@ final class ActionReports {
         echo "<br/><br/><a href='actionitems.php'>Back to Group Selection Area</a><br><br>";
     }
 
-
+    ################################################
+    # Function editAI()
+    # parameters 0
+    # Allows users to edit an action item
+    # Fields are limited for editing. User
+    # must be logged in to utilize this functionality
+    # returns (nothing)
+    #################################################
     public function editAI()
     {
         $aiacronym = $_SESSION['aiacronym'];
