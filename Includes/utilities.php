@@ -63,7 +63,14 @@ final class ActionReports {
         echo '&nbsp<input type="submit" value="submit" name="submitGroup"></form>';
     }
 
-
+    ################################################
+    # Function displayProjectIncidentList()
+    # parameters 0
+    # Prints to display a list of action item
+    # User is able to select a item
+    # Sends a url with parameters to identify item
+    # returns (nothing)
+    #################################################
     public function displayProjectIncidentList()
     {
         if( !isset($_POST['group']) ) {
