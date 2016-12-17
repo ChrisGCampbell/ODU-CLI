@@ -209,9 +209,15 @@ final class ActionReports {
         echo "<table width='800'>";
         echo "<form method='POST' action=\"";
         echo $_SERVER['PHP_SELF'];
-        echo "\">
-            <tr><td width='50'>Responsible:</td><td width='100'> <input type='text' name='responsible' value='{$responsible}'></td></tr>
-            <tr><td width='50'>Deadline:</td><td width='100'> <input type='text' name='deadline' value='{$deadline}'></td></tr>
+        echo "\">";
+        $data = $this->getTagData("NRESPONSIBLE", AIREPORTS);
+
+        echo "<tr><td width='50'>Responsible:</td><td><select name='NRESPONSIBLE'>";
+        for ($i = 0; $i < count($data); $i++) {
+            echo "<option  value='$data[$i]'>$data[$i]</option>";
+        }
+        echo "</select></td></tr>";
+        echo    "<tr><td width='50'>Deadline:</td><td width='100'> <input type='text' name='deadline' value='{$deadline}'></td></tr>
             <tr><td width='50'>Rationale:</td><td width='100'> <textarea rows='3' cols='40' name='rationale'>{$rationale}</textarea></td></tr>
             <tr><td width='50'>Description:</td><td width='100'><textarea rows='3' cols='40' name='description'>{$description}</textarea></td></tr>
             <input type='hidden' name='aiacronym' value='";
@@ -233,7 +239,6 @@ final class ActionReports {
 
     public function saveToFile($descr, $aia, $resp, $ration, $dead)
     {
-
         $pid = trim($_POST['pid']);
         $pgroup = trim($_POST['pgroup']);
         $description = trim($descr);
@@ -291,7 +296,7 @@ final class ActionReports {
         $newvalue = $max + 1;//returns the number after project1- + 1
         $newstring = $substring . $newvalue;
         $objDateTime = new DateTime('NOW');
-        $responsibleUsers = [];
+        $data = [];
 
         echo "---------------------------------------------------------------------<br/>";
         echo "CREATE A NEW ACTION ITEM IN THE AREA OF <BR/>";
@@ -326,34 +331,44 @@ final class ActionReports {
             
             <tr><td width='50'> Responsible:</td><td width='100'>";
 
-        $responsibleUsers = $this->getResponsibleUsers();
+        $data = $this->getTagData("NRESPONSIBLE", 'actionitem');
 
         echo "<select name='NRESPONSIBLE'>";
-        for ($i = 0; $i < count($responsibleUsers); $i++) {
-            echo "<option  value='$responsibleUsers[$i]'>$responsibleUsers[$i]</option>";
+        for ($i = 0; $i < count($data); $i++) {
+            echo "<option  value='$data[$i]'>$data[$i]</option>";
         }
         echo "</select>";
+
         echo "<tr><td width='50'>Created:</td><td width='100'><input type='text' name='CREATED' value='{$objDateTime->format('d-m-Y')}'></td></tr>
-            <input type='hidden' name='CREATED'  value='";
+              <input type='hidden' name='CREATED'  value='";
+
         echo $objDateTime->format('d-m-Y');
-        echo "'>
-            
-            <tr><td width='50'>Deadline:</td><td width='100'><input type='text' name='DEADLINE' value='";
+
+        echo "'><tr><td width='50'>Deadline:</td><td width='100'><input type='text' name='DEADLINE' value='";
+
         echo $objDateTime->format('d-m-Y');
-        echo "'></td></tr>
-           
-           <tr><td width='50'>Status:</td><td width='100'><input type='text' name='AISTATUS' value=''></td></tr>
-           
-           
-            <tr><td width='50'>Description:</td><td width='100'><textarea row='2' cols='40' name='DESCRIPTION'></textarea></td></tr>
-           
-            <tr><td width='50'>Rationale:</td><td width='100'><textarea row='2' cols='40' name='RATIONALE'></textarea></td></tr>
-            
-            <tr><td width='50'>Dependency:</td><td width='100'><textarea row='2' cols='40' name='AIDEPENDENCY'></textarea></td></tr>
-            
-     
-            <tr><td width='50'></td><td width='100'><input type=\"submit\" name =\"submitAddedNewActionItem\" value=\"Submit\"></td></tr>
-            </form></table>";
+
+        echo "'></td></tr>";
+
+        echo "<tr><td width='50'>Status:</td><td width='100'><input type='text' name='AISTATUS' value=''></td></tr>";
+
+
+        echo "<tr><td width='50'>Description:</td><td width='100'><textarea row='2' cols='40' name='DESCRIPTION'></textarea></td></tr>";
+
+        echo "<tr><td width='50'>Rationale:</td><td width='100'><textarea row='2' cols='40' name='RATIONALE'></textarea></td></tr>";
+
+        $data = [];
+        $data = $this->getTagData('PID', 'actionitem', $pid, 'AIACRO');
+
+        echo "<tr><td width='50'>Dependency:</td><td width='100'><select name='AIDEPENDENCY'>";
+
+        for ($i = 0; $i < count($data); $i++) {
+            echo "<option  value='$data[$i]'>$data[$i]</option>";
+        }
+        echo "</select></td></tr>";
+
+        echo " <tr><td width='50'></td><td width='100'><input type='submit' name ='submitAddedNewActionItem' value='Submit'></td></tr>
+               </form></table>";
 
         echo "<br/><br/><a href='actionitems.php'>Back to Group Selection Area</a><br><br>";
     }
@@ -473,11 +488,12 @@ final class ActionReports {
            
            <tr><td width='50'> Responsible:</td><td width='100'>";
 
-        $responsibleUsers = $this->getResponsibleUsers();
+        $data = [];
+        $data = $this->getTagData('NRESPONSIBLE','actionitem');
 
         echo "<select>";
-        for ($i = 0; $i < count($responsibleUsers); $i++) {
-            echo "<option name='NRESPONSIBLE' value='{$responsibleUsers[$i]}'>$responsibleUsers[$i]</option>";
+        for ($i = 0; $i < count($data); $i++) {
+            echo "<option name='NRESPONSIBLE' value='{$data[$i]}'>$data[$i]</option>";
         }
         echo "</select>";
         echo "</td></tr>";
@@ -485,7 +501,7 @@ final class ActionReports {
         echo '<tr><td width="50"></td><td width="100"><input type="submit" name="submitNewReport" value="Submit"></td></tr>
            </form></table>';
 
-        echo '<br><br><a href=?pid=' . $pid . '&pgroup=' . $pgroup . '>Back To List Area</a>';
+        echo '<br><br><a href=?pid=' . $_SESSION['pid'] . '&pgroup=' . $_SESSION['pgroup'] . '>Back To List Area</a>';
 
     }
 
@@ -546,17 +562,48 @@ final class ActionReports {
         echo '<a href=?pid=' . $pid . '&pgroup=' . $pgroup . '>Back To List of Action Items</a>';
     }
 
-    public function getResponsibleUsers()
+    ######################################################################
+    # Function getTagData(tagElement, entitytype, [searchvalue], [returnvalue])
+    # This is a universal function that filters values from an xml file
+    #
+    # Search:
+    # parameters: must specify a tag element from xml file along with the entity type
+    #             search value and return type are optional.
+    # For example to extract the list of owner names in the actions items file
+    # call $this->getTagData('OWNER', 'actionitem'), where in this case
+    # <OWNER> is the tagElement and this tag belongs to an actionitem.
+    #
+    # Filter:
+    # To filter for a specify value within a file you must add
+    # tagElement, entitytype, searchvalue and returnvalue parameters.
+    # For example to filter a list of 'OWNERS' that belong to the 'Project4'
+    # group within the 'actionitem' file you would call the function like this:
+    # call $this->getTagData('PID', 'actionitem', 'project4', 'OWNER')
+    #
+    # must be logged in to utilize this functionality
+    #
+    # returns (array)
+    ######################################################################
+    public function getTagData($tag, $filetype, $searchvalue, $returnvalue)
     {
+        if($filetype == 'aireport') {$root = "Aireport"; $filename = ActionReports;}
+        if($filetype == 'actionitem') { $root = "Actionitem"; $filename = ACTIONITEMS;}
+        $xmlfile = simplexml_load_file($filename);
+        $data = [];
 
-        $aireportsxml = simplexml_load_file(AIREPORTS);
-        $responsibleUsers = [];
-
-        for ($i = 0; $i < count($aireportsxml); $i++) {
-            array_push($responsibleUsers, $aireportsxml->Aireport[$i]->NRESPONSIBLE);
+        if($searchvalue == NULL & $returnvalue == NULL){
+            for ($i = 0; $i < count($xmlfile); $i++) {
+                array_push($data, $xmlfile->{$root}[$i]->$tag);
+            }
+        }
+        else {
+            for ($i = 0; $i < count($xmlfile); $i++) {
+                if($xmlfile->{$root}[$i]->$tag == $searchvalue)
+                    array_push($data, $xmlfile->{$root}[$i]->$returnvalue);
+            }
         }
 
-        return $responsibleUsers;
+        return $data;
     }
 }
 
