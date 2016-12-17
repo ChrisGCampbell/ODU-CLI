@@ -1,6 +1,7 @@
 <?php
 session_start();
 
+//testdata
 $_SESSION['firstname'] = 'James';
 $_SESSION['lastname'] = 'Simons';
 $_SESSION['email'] = 'Simons002@odu.edu';
@@ -11,6 +12,7 @@ include('header.html');
 
 $actionitem = new ActionReports();
 echo '<p id="AISection"></p>';
+
 
 if ( empty($_POST) && empty($_GET) )
 
@@ -33,7 +35,7 @@ else {
         }
 
         if ( array_key_exists( "submitEditAI",$_POST ) ) {
-            saveToFile($_POST['description'],$_POST['aiacronym'],$_POST['responsible'],$_POST['rationale'],$_POST['deadline']);
+            echo '<script>document.getElementById("AISection").innerHTML = "'. $actionitem->saveToFile($_POST['description'],$_POST['aiacronym'],$_POST['responsible'],$_POST['rationale'],$_POST['deadline']).'";</script>';
         }
 
         if( array_key_exists( "newActionItem", $_POST ) ) {
