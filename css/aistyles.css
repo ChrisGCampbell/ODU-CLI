@@ -15,3 +15,7 @@ button.incidents {
 .formfield * {
     vertical-align: middle;
 }
+
+.style-datepicker {
+    font-size:50px;
+}

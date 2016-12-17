@@ -10,7 +10,7 @@
 <RESPONSIBLE>XYZ</RESPONSIBLE>
 <CREATED>16:44, 5th Sept 2016</CREATED>
 <DEADLINE>20th Dec 2016</DEADLINE>
-<DEPENDENCY/>
+<DEPENDENCY></DEPENDENCY>
 <DESCRIPTION>Check and correct issues with the "Append Link" function in Write/Add Comment.!</DESCRIPTION>
 <RATIONALE>Fix for a current problem: In write_comment, one can add a URL into the comment. The URL box shows
 http:// 
@@ -30,7 +30,7 @@ https:// in the box and then append the link, it will not be clickable.
 <RESPONSIBLE>XYZ</RESPONSIBLE>
 <CREATED>16:44, 3rd Dec 2016</CREATED>
 <DEADLINE>20th Dec 2016</DEADLINE>
-<DEPENDENCY/>
+<DEPENDENCY></DEPENDENCY>
 <DESCRIPTION>Check and correct issues with the "Append Link" function in Write/Add Comment.
 </DESCRIPTION>
 <RATIONALE>Fix for a current problem: In write_comment, one can add a URL into the comment. The URL box shows
@@ -51,7 +51,7 @@ https:// in the box and then append the link, it will not be clickable.
 <RESPONSIBLE>XYZ</RESPONSIBLE>
 <CREATED>16:45, 3rd July 2014</CREATED>
 <DEADLINE>20th July 2016</DEADLINE>
-<DEPENDENCY/>
+<DEPENDENCY></DEPENDENCY>
 <DESCRIPTION>We are getting things in place!!!</DESCRIPTION>
 <RATIONALE>Additional functionality: The function display_selected_uploads(upload_item) works very well. We get a table showing the uploaded files in a category. See, for example, "Library" in http://www.mari-odu.org/cl/workspace. Currently, we use the same functions to show a list of graphics, but the list does not include a small picture of each graphics.</RATIONALE>
 </Actionitem>
@@ -65,7 +65,7 @@ https:// in the box and then append the link, it will not be clickable.
 <RESPONSIBLE>XYZ</RESPONSIBLE>
 <CREATED>16:45, 1st Aug 2013</CREATED>
 <DEADLINE>11th Aug 2016</DEADLINE>
-<DEPENDENCY/>
+<DEPENDENCY></DEPENDENCY>
 <DESCRIPTION/>
 <RATIONALE>yes</RATIONALE>
 </Actionitem>
@@ -79,7 +79,7 @@ https:// in the box and then append the link, it will not be clickable.
 <RESPONSIBLE>XYZ</RESPONSIBLE>
 <CREATED>16:45, 3rd July 2010</CREATED>
 <DEADLINE>20th July 2016</DEADLINE>
-<DEPENDENCY/>
+<DEPENDENCY></DEPENDENCY>
 <DESCRIPTION>We are getting things in place!</DESCRIPTION>
 <RATIONALE>Additional functionality: The function display_selected_uploads(upload_item) works very well. We get a table showing the uploaded files in a category. See, for example, "Library" in http://www.mari-odu.org/cl/workspace. Currently, we use the same functions to show a list of graphics, but the list does not include a small picture of each graphics.
 </RATIONALE>
@@ -94,7 +94,7 @@ https:// in the box and then append the link, it will not be clickable.
 <RESPONSIBLE>XYZ</RESPONSIBLE>
 <CREATED>16:45, 4th Feb 2011</CREATED>
 <DEADLINE>11th Aug 2016</DEADLINE>
-<DEPENDENCY/>
+<DEPENDENCY></DEPENDENCY>
 <DESCRIPTION/>
 <RATIONALE>ok</RATIONALE>
 </Actionitem>
@@ -108,7 +108,7 @@ https:// in the box and then append the link, it will not be clickable.
 <RESPONSIBLE>XYZ</RESPONSIBLE>
 <CREATED>16:45, 3rd July 2009</CREATED>
 <DEADLINE>20th July 2017</DEADLINE>
-<DEPENDENCY/>
+<DEPENDENCY></DEPENDENCY>
 <DESCRIPTION>A wireless sensor network (WSN) is a wireless network consisting of spatially distributed autonomous devices using sensors to monitor physical or environmental conditions. A WSN system incorporates a gateway that provides wireless connectivity back to the wired world and distributed nodes !!</DESCRIPTION>
 <RATIONALE>Additional functionality: The function display_selected_uploads(upload_item) works very well. We get a table showing the uploaded files in a category. See, for example, "Library" in http://www.mari-odu.org/cl/workspace. Currently, we use the same functions to show a list of graphics, but the list does not include a small picture of each graphics.</RATIONALE>
 </Actionitem>
@@ -194,11 +194,11 @@ https:// in the box and then append the link, it will not be clickable.
 <NUMBER>1</NUMBER>
 <AIACRO>PRCT-Project2-3</AIACRO>
 <OWNER>rick</OWNER>
-<RESPONSIBLE/>
-<CREATED/>
+<RESPONSIBLE></RESPONSIBLE>
+<CREATED></CREATED>
 <DEADLINE>30-11-2016</DEADLINE>
-<DESCRIPTION/>
-<RATIONALE/>
+<DESCRIPTION></DESCRIPTION>
+<RATIONALE></RATIONALE>
 </Actionitem>
 <Actionitem>
 <ID>3984</ID>
@@ -207,11 +207,11 @@ https:// in the box and then append the link, it will not be clickable.
 <NUMBER>1</NUMBER>
 <AIACRO>PRCT-Project2-3</AIACRO>
 <OWNER>donald</OWNER>
-<RESPONSIBLE/>
-<CREATED/>
+<RESPONSIBLE></RESPONSIBLE>
+<CREATED></CREATED>
 <DEADLINE>30-11-2016</DEADLINE>
-<DESCRIPTION/>
-<RATIONALE/>
+<DESCRIPTION></DESCRIPTION>
+<RATIONALE></RATIONALE>
 </Actionitem>
 <Actionitem>
 <ID>3984</ID>
@@ -220,11 +220,11 @@ https:// in the box and then append the link, it will not be clickable.
 <NUMBER>1</NUMBER>
 <AIACRO>PRCT-Project2-3</AIACRO>
 <OWNER>ed</OWNER>
-<RESPONSIBLE/>
-<CREATED/>
+<RESPONSIBLE></RESPONSIBLE>
+<CREATED></CREATED>
 <DEADLINE>30-11-2016</DEADLINE>
-<DESCRIPTION/>
-<RATIONALE/>
+<DESCRIPTION></DESCRIPTION>
+<RATIONALE></RATIONALE>
 </Actionitem>
 <Actionitem>
 <ID>3984</ID>
@@ -233,11 +233,11 @@ https:// in the box and then append the link, it will not be clickable.
 <NUMBER>1</NUMBER>
 <AIACRO>PRCT-Project2-3</AIACRO>
 <OWNER>stacy</OWNER>
-<RESPONSIBLE/>
-<CREATED/>
+<RESPONSIBLE></RESPONSIBLE>
+<CREATED></CREATED>
 <DEADLINE>30-11-2016</DEADLINE>
-<DESCRIPTION/>
-<RATIONALE/>
+<DESCRIPTION></DESCRIPTION>
+<RATIONALE></RATIONALE>
 </Actionitem>
 <Actionitem>
 <ID>8079</ID>
@@ -246,11 +246,11 @@ https:// in the box and then append the link, it will not be clickable.
 <NUMBER>1</NUMBER>
 <AIACRO>PRCT-Project2-4</AIACRO>
 <OWNER>Tim</OWNER>
-<RESPONSIBLE/>
+<RESPONSIBLE></RESPONSIBLE>
 <CREATED>30-11-2016</CREATED>
 <DEADLINE>30-11-2016</DEADLINE>
-<DESCRIPTION/>
-<RATIONALE/>
+<DESCRIPTION></DESCRIPTION>
+<RATIONALE></RATIONALE>
 </Actionitem>
 <Actionitem>
 <ID>4315</ID>
@@ -259,11 +259,11 @@ https:// in the box and then append the link, it will not be clickable.
 <NUMBER>1</NUMBER>
 <AIACRO>PRCT-Project2-5</AIACRO>
 <OWNER>Tom</OWNER>
-<RESPONSIBLE/>
+<RESPONSIBLE></RESPONSIBLE>
 <CREATED>30-11-2016</CREATED>
 <DEADLINE>30-11-2016</DEADLINE>
-<DESCRIPTION/>
-<RATIONALE/>
+<DESCRIPTION></DESCRIPTION>
+<RATIONALE></RATIONALE>
 </Actionitem>
 <Actionitem>
 <ID>4315</ID>
@@ -272,11 +272,11 @@ https:// in the box and then append the link, it will not be clickable.
 <NUMBER>1</NUMBER>
 <AIACRO>PRCT-Project2-5</AIACRO>
 <OWNER>jim</OWNER>
-<RESPONSIBLE/>
+<RESPONSIBLE></RESPONSIBLE>
 <CREATED>30-11-2016</CREATED>
 <DEADLINE>30-11-2016</DEADLINE>
-<DESCRIPTION/>
-<RATIONALE/>
+<DESCRIPTION></DESCRIPTION>
+<RATIONALE></RATIONALE>
 </Actionitem>
 <Actionitem>
 <ID>4315</ID>
@@ -285,11 +285,11 @@ https:// in the box and then append the link, it will not be clickable.
 <NUMBER>1</NUMBER>
 <AIACRO>PRCT-Project2-5</AIACRO>
 <OWNER>warner</OWNER>
-<RESPONSIBLE/>
+<RESPONSIBLE></RESPONSIBLE>
 <CREATED>30-11-2016</CREATED>
 <DEADLINE>30-11-2016</DEADLINE>
-<DESCRIPTION/>
-<RATIONALE/>
+<DESCRIPTION></DESCRIPTION>
+<RATIONALE></RATIONALE>
 </Actionitem>
 <Actionitem>
 <ID>9563</ID>
@@ -298,7 +298,7 @@ https:// in the box and then append the link, it will not be clickable.
 <NUMBER>1</NUMBER>
 <AIACRO>PRCT-Project2-6</AIACRO>
 <OWNER>chris campbell</OWNER>
-<NRESPONSIBLE/>
+<NRESPONSIBLE></NRESPONSIBLE>
 <CREATED>07-12-2016</CREATED>
 <DEADLINE>07-12-2016</DEADLINE>
 <DESCRIPTION>TEST</DESCRIPTION>
@@ -313,7 +313,7 @@ https:// in the box and then append the link, it will not be clickable.
 <NUMBER>1</NUMBER>
 <AIACRO>PRCT-Project2-6</AIACRO>
 <OWNER>chris campbell</OWNER>
-<NRESPONSIBLE/>
+<NRESPONSIBLE></NRESPONSIBLE>
 <CREATED>07-12-2016</CREATED>
 <DEADLINE>07-12-2016</DEADLINE>
 <DESCRIPTION>FDFFF</DESCRIPTION>
@@ -328,7 +328,7 @@ https:// in the box and then append the link, it will not be clickable.
 <NUMBER>1</NUMBER>
 <AIACRO>PRCT-Project2-7</AIACRO>
 <OWNER>chris campbell</OWNER>
-<NRESPONSIBLE/>
+<NRESPONSIBLE></NRESPONSIBLE>
 <CREATED>07-12-2016</CREATED>
 <DEADLINE>07-12-2016</DEADLINE>
 <DESCRIPTION>cxxc</DESCRIPTION>
@@ -343,7 +343,7 @@ https:// in the box and then append the link, it will not be clickable.
 <NUMBER>1</NUMBER>
 <AIACRO>PRCT-Project2-8</AIACRO>
 <OWNER>chris campbell</OWNER>
-<NRESPONSIBLE/>
+<NRESPONSIBLE></NRESPONSIBLE>
 <CREATED>07-12-2016</CREATED>
 <DEADLINE>07-12-2016</DEADLINE>
 <DESCRIPTION>xcx</DESCRIPTION>
@@ -352,22 +352,7 @@ https:// in the box and then append the link, it will not be clickable.
 <AISTATUS>xcx</AISTATUS>
 </Actionitem>
 <Actionitem>
-<ID>3647</ID>
-<PGROUP>Project</PGROUP>
-<PID>Project3</PID>
-<NUMBER>1</NUMBER>
-<AIACRO>PRCT-Proj2</AIACRO>
-<OWNER>James Simons</OWNER>
-<NRESPONSIBLE>ted</NRESPONSIBLE>
-<CREATED>12-12-2016</CREATED>
-<DEADLINE>12-12-2016</DEADLINE>
-<DESCRIPTION>new description</DESCRIPTION>
-<RATIONALE>new rationale</RATIONALE>
-<AIDEPENDENCY>new dependency</AIDEPENDENCY>
-<AISTATUS>active</AISTATUS>
-</Actionitem>
-<Actionitem>
-<ID>2763</ID>
+<ID>7136</ID>
 <PGROUP>Project</PGROUP>
 <PID>Project4</PID>
 <NUMBER>1</NUMBER>
@@ -376,9 +361,9 @@ https:// in the box and then append the link, it will not be clickable.
 <NRESPONSIBLE>ted</NRESPONSIBLE>
 <CREATED>17-12-2016</CREATED>
 <DEADLINE>17-12-2016</DEADLINE>
-<DESCRIPTION>description for new action item</DESCRIPTION>
-<RATIONALE>this action item has been updated</RATIONALE>
+<DESCRIPTION>description for new actio item</DESCRIPTION>
+<RATIONALE>rationale for new action item</RATIONALE>
 <AIDEPENDENCY>PRCT-Project4-2</AIDEPENDENCY>
 <AISTATUS>active</AISTATUS>
-<RESPONSIBLE></RESPONSIBLE></Actionitem>
+</Actionitem>
 </ACTIONITEMS>

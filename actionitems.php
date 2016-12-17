@@ -55,7 +55,6 @@ else {
         }
 
         if ( array_key_exists( "submitNewReport", $_POST ) ) {
-            echo "her";
             echo '<script>document.getElementById("AISection").innerHTML = "'.$actionitem->addNewReportToFile().'";</script>';
         }
 

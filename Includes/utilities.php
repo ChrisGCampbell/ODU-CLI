@@ -176,7 +176,7 @@ final class ActionReports {
 
     ################################################
     # Function editAI()
-    # parameters 0
+    # parameters none
     # Allows users to edit an action item
     # Fields are limited for editing. User
     # must be logged in to utilize this functionality
@@ -339,14 +339,14 @@ final class ActionReports {
         }
         echo "</select></td></tr>";
 
-        echo "<tr><td width='50'>Created:</td><td width='100'><input type='text' name='CREATED' value='{$objDateTime->format('d-m-Y')}'></td></tr>
+        echo "<tr><td width='50'>Created:</td><td width='100'><input type='text' name='CREATED' value='{$objDateTime->format('m/d/Y')}'></td></tr>
               <input type='hidden' name='CREATED'  value='";
 
-        echo $objDateTime->format('d-m-Y');
+        echo $objDateTime->format('m/d/Y');
 
         echo "'><tr><td width='50'>Deadline:</td><td width='100'><input type='text' name='DEADLINE' value='";
 
-        echo $objDateTime->format('d-m-Y');
+        echo $objDateTime->format('m/d/Y');
 
         echo "'></td></tr>";
 
@@ -403,6 +403,15 @@ final class ActionReports {
 
         $xmlfile = simplexml_load_file($filename);
         $data = [];
+
+        try {
+            if (!$xmlfile) {
+                throw new customException("Failed to open xml to retrieve xml tags on ");
+            }
+        }
+        catch(customException $e) {
+            echo $e->errorMessage();
+        }
 
         if($searchvalue == NULL && $returnvalue == NULL){
             for ($i = 0; $i < count($xmlfile); $i++) {
@@ -517,22 +526,20 @@ final class ActionReports {
             <tr><td width='50'>Authors:</td><td width='100'><input type='text' name='OWNER'  value='{$_SESSION['firstname']} {$_SESSION['lastname']}' disabled></td></tr>
             <input type='hidden' name='OWNER'  value='{$_SESSION['firstname']} {$_SESSION['lastname']} ' >
             
-            <tr><td width='50'>Date:</td><td width='100'><input type='text' name='DATE' value='{$objDateTime->format('d-m-Y')}' disabled></td></tr>
-            <input type='hidden' name='DATE'  value='{$objDateTime->format('d-m-Y')}'>
+            <tr><td width='50'>Date:</td><td width='100'><input type='text' name='DATE' value='{$objDateTime->format('m/d/Y')}' disabled></td></tr>
+            <input type='hidden' name='DATE'  value='{$objDateTime->format('m/d/Y')}'>
             
             <tr><td width='50'>Report Number:</td><td width='100'><input type='text' name='REPORT'  value='1' disabled></td></tr>
             <input type='hidden' name='REPORT'  value='1'>
            
             <tr><td width='50'>Status:</td><td width='100'><select name='STATUS'><option value='Active'>Active</option><option value='Inactive'>Inactive</option></select></td></tr>
            
-            <tr><td width='50'>New Deadline:</td><td width='100'><input type='text' name='DEADLINE' value=''></td></tr>
-           
            <tr><td width='50'>New Description:</td><td width='100'><textarea row='2' cols='40' name='NDESCRIPTION'></textarea></td></tr>
            
            <tr><td width='50'>New Responsible:</td><td width='100'>";
 
         $data = [];
-        $data = $this->getTagData('NRESPONSIBLE','actionitem');
+        $data = $this->getTagData('NRESPONSIBLE','aireport');
 
         echo "<select>";
         for ($i = 0; $i < count($data); $i++) {
@@ -541,10 +548,12 @@ final class ActionReports {
         echo "</select>";
         echo "</td></tr>";
 
+        echo "<tr><td width='50'>New Deadline:</td><td width='100'><input class='datepicker' type='text' id='datepicker' name='DEADLINE' value=''></td></tr>";
+
         echo '<tr><td width="50"></td><td width="100"><input type="submit" name="submitNewReport" value="Submit"></td></tr>
            </form></table>';
 
-        echo '<br><br><a href=?pid=' . $_SESSION['pid'] . '&pgroup=' . $_SESSION['pgroup'] . '>Back To List Area</a>';
+        echo '<br><br><br><br><a href=?pid=' . $_SESSION['pid'] . '&pgroup=' . $_SESSION['pgroup'] . '>Back To List Area</a>';
 
     }
 
