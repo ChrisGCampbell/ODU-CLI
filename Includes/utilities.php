@@ -210,7 +210,7 @@ final class ActionReports {
         echo "<form method='POST' action=\"";
         echo $_SERVER['PHP_SELF'];
         echo "\">";
-        $data = $this->getTagData("NRESPONSIBLE", AIREPORTS);
+        $data = $this->getTagData("NRESPONSIBLE", 'aireport');
 
         echo "<tr><td width='50'>Responsible:</td><td><select name='NRESPONSIBLE'>";
         for ($i = 0; $i < count($data); $i++) {
@@ -237,7 +237,7 @@ final class ActionReports {
     }
 
 
-    public function saveToFile($descr, $aia, $resp, $ration, $dead)
+    public function saveToFile()
     {
         $pid = trim($_POST['pid']);
         $pgroup = trim($_POST['pgroup']);
@@ -331,13 +331,13 @@ final class ActionReports {
             
             <tr><td width='50'> Responsible:</td><td width='100'>";
 
-        $data = $this->getTagData("NRESPONSIBLE", 'actionitem');
+        $data = $this->getTagData('NRESPONSIBLE', 'aireport');
 
         echo "<select name='NRESPONSIBLE'>";
         for ($i = 0; $i < count($data); $i++) {
             echo "<option  value='$data[$i]'>$data[$i]</option>";
         }
-        echo "</select>";
+        echo "</select></td></tr>";
 
         echo "<tr><td width='50'>Created:</td><td width='100'><input type='text' name='CREATED' value='{$objDateTime->format('d-m-Y')}'></td></tr>
               <input type='hidden' name='CREATED'  value='";
@@ -373,6 +373,51 @@ final class ActionReports {
         echo "<br/><br/><a href='actionitems.php'>Back to Group Selection Area</a><br><br>";
     }
 
+
+    ######################################################################
+    # Function getTagData(tagElement, entitytype, [searchvalue], [returnvalue])
+    # This is a universal function that filters values from an xml file
+    #
+    # Search:
+    # parameters: must specify a tag element from xml file along with the entity type
+    #             search value and return type are optional.
+    # For example to extract the list of owner names in the actions items file
+    # call $this->getTagData('OWNER', 'actionitem'), where in this case
+    # <OWNER> is the tagElement and this tag belongs to an actionitem.
+    #
+    # Filter:
+    # To filter for a specify value within a file you must add
+    # tagElement, entitytype, searchvalue and returnvalue parameters.
+    # For example to filter a list of 'OWNERS' that belong to the 'Project4'
+    # group within the 'actionitem' file you would call the function like this:
+    # call $this->getTagData('PID', 'actionitem', 'project4', 'OWNER')
+    #
+    # must be logged in to utilize this functionality
+    #
+    # returns (array)
+    ######################################################################
+    public function getTagData($tag, $type, $searchvalue=NULL, $returnvalue=NULL)
+    {
+        if($type == 'aireport') {$root = "Aireport"; $filename = AIREPORTS;}
+        if($type == 'actionitem') { $root = "Actionitem"; $filename = ACTIONITEMS;}
+
+        $xmlfile = simplexml_load_file($filename);
+        $data = [];
+
+        if($searchvalue == NULL && $returnvalue == NULL){
+            for ($i = 0; $i < count($xmlfile); $i++) {
+                array_push($data, $xmlfile->{$root}[$i]->{$tag});
+            }
+        }
+        else {
+            for ($i = 0; $i < count($xmlfile); $i++) {
+                if($xmlfile->{$root}[$i]->$tag == $searchvalue)
+                    array_push($data, $xmlfile->{$root}[$i]->$returnvalue);
+            }
+        }
+
+        return $data;
+    }
 
     public function addNewAIToFile()
     {
@@ -469,24 +514,22 @@ final class ActionReports {
             <tr><td width='50'>ID:</td><td width='100'><input type='text' name='ID'  value='{$ID}' disabled></td></tr>
             <input type='hidden' name='ID' value='{$ID}'>
             
-            <tr><td width='50'>Owner:</td><td width='100'><input type='text' name='OWNER'  value='{$_SESSION['firstname']} {$_SESSION['lastname']}'></td></tr>
-            <input type='hidden' name='OWNER'  value='{$_SESSION['firstname']} {$_SESSION['lastname']}'>
+            <tr><td width='50'>Authors:</td><td width='100'><input type='text' name='OWNER'  value='{$_SESSION['firstname']} {$_SESSION['lastname']}' disabled></td></tr>
+            <input type='hidden' name='OWNER'  value='{$_SESSION['firstname']} {$_SESSION['lastname']} ' >
             
-            <tr><td width='50'>Date:</td><td width='100'><input type='text' name='DATE' value='{$objDateTime->format('d-m-Y')}'></td></tr>
+            <tr><td width='50'>Date:</td><td width='100'><input type='text' name='DATE' value='{$objDateTime->format('d-m-Y')}' disabled></td></tr>
             <input type='hidden' name='DATE'  value='{$objDateTime->format('d-m-Y')}'>
             
-            <tr><td width='50'>Report:</td><td width='100'><input type='text' name='REPORT'  value='1' disabled></td></tr>
+            <tr><td width='50'>Report Number:</td><td width='100'><input type='text' name='REPORT'  value='1' disabled></td></tr>
             <input type='hidden' name='REPORT'  value='1'>
            
-            <tr><td width='50'>Deadline:</td><td width='100'><input type='text' name='NDEADLINE'></td></tr>
-            
-            <tr><td width='50'>Status:</td><td width='100'><input type='text' name='STATUS' value=''></td></tr>
+            <tr><td width='50'>Status:</td><td width='100'><select name='STATUS'><option value='Active'>Active</option><option value='Inactive'>Inactive</option></select></td></tr>
            
-            <tr><td width='50'>Deadline:</td><td width='100'><input type='text' name='DEADLINE' value=''></td></tr>
+            <tr><td width='50'>New Deadline:</td><td width='100'><input type='text' name='DEADLINE' value=''></td></tr>
            
-           <tr><td width='50'> Description:</td><td width='100'><textarea row='2' cols='40' name='NDESCRIPTION'></textarea></td></tr>
+           <tr><td width='50'>New Description:</td><td width='100'><textarea row='2' cols='40' name='NDESCRIPTION'></textarea></td></tr>
            
-           <tr><td width='50'> Responsible:</td><td width='100'>";
+           <tr><td width='50'>New Responsible:</td><td width='100'>";
 
         $data = [];
         $data = $this->getTagData('NRESPONSIBLE','actionitem');
@@ -560,50 +603,6 @@ final class ActionReports {
             echo "<b>Currently no reports on this item.</b><br/><br/>";
         }
         echo '<a href=?pid=' . $pid . '&pgroup=' . $pgroup . '>Back To List of Action Items</a>';
-    }
-
-    ######################################################################
-    # Function getTagData(tagElement, entitytype, [searchvalue], [returnvalue])
-    # This is a universal function that filters values from an xml file
-    #
-    # Search:
-    # parameters: must specify a tag element from xml file along with the entity type
-    #             search value and return type are optional.
-    # For example to extract the list of owner names in the actions items file
-    # call $this->getTagData('OWNER', 'actionitem'), where in this case
-    # <OWNER> is the tagElement and this tag belongs to an actionitem.
-    #
-    # Filter:
-    # To filter for a specify value within a file you must add
-    # tagElement, entitytype, searchvalue and returnvalue parameters.
-    # For example to filter a list of 'OWNERS' that belong to the 'Project4'
-    # group within the 'actionitem' file you would call the function like this:
-    # call $this->getTagData('PID', 'actionitem', 'project4', 'OWNER')
-    #
-    # must be logged in to utilize this functionality
-    #
-    # returns (array)
-    ######################################################################
-    public function getTagData($tag, $filetype, $searchvalue, $returnvalue)
-    {
-        if($filetype == 'aireport') {$root = "Aireport"; $filename = ActionReports;}
-        if($filetype == 'actionitem') { $root = "Actionitem"; $filename = ACTIONITEMS;}
-        $xmlfile = simplexml_load_file($filename);
-        $data = [];
-
-        if($searchvalue == NULL & $returnvalue == NULL){
-            for ($i = 0; $i < count($xmlfile); $i++) {
-                array_push($data, $xmlfile->{$root}[$i]->$tag);
-            }
-        }
-        else {
-            for ($i = 0; $i < count($xmlfile); $i++) {
-                if($xmlfile->{$root}[$i]->$tag == $searchvalue)
-                    array_push($data, $xmlfile->{$root}[$i]->$returnvalue);
-            }
-        }
-
-        return $data;
     }
 }
 
