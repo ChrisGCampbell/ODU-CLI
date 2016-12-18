@@ -218,8 +218,8 @@ final class ActionReports {
         }
         echo "</select></td></tr>";
         echo    "<tr><td width='50'>Deadline:</td><td width='100'> <input type='text' name='deadline' value='{$deadline}'></td></tr>
-            <tr><td width='50'>Rationale:</td><td width='100'> <textarea rows='3' cols='40' name='rationale'>{$rationale}</textarea></td></tr>
-            <tr><td width='50'>Description:</td><td width='100'><textarea rows='3' cols='40' name='description'>{$description}</textarea></td></tr>
+            <tr><td width='50'>Rationale:</td><td width='100'> <textarea rows='5' cols='50' name='rationale'>{$rationale}</textarea></td></tr>
+            <tr><td width='50'>Description:</td><td width='100'><textarea rows=5' cols='50' name='description'>{$description}</textarea></td></tr>
             <input type='hidden' name='aiacronym' value='";
         echo $aiacronym;
         echo "'>";
@@ -236,30 +236,32 @@ final class ActionReports {
 
     }
 
-
+    ######################################################################
+    # Function saveToFile()
+    # Writes to file
+    # parameters: zero
+    #
+    # must be logged in to utilize this functionality
+    #
+    # returns (nothing)
+    ######################################################################
     public function saveToFile()
     {
-        $pid = trim($_POST['pid']);
-        $pgroup = trim($_POST['pgroup']);
-        $description = trim($descr);
-        $rationale = trim($ration);
-        $responsible = trim($resp);
-        $deadline = trim($dead);
-        $aiacronym = trim($aia);
         $aixml = simplexml_load_file(ACTIONITEMS);
 
         for ($i = 0; $i < count($aixml); $i++) {
-            if ($aixml->Actionitem[$i]->AIACRO == $aiacronym) {
-                $aixml->Actionitem[$i]->DESCRIPTION = $description;
-                $aixml->Actionitem[$i]->RATIONALE = $rationale;
-                $aixml->Actionitem[$i]->DEADLINE = $deadline;
-                $aixml->Actionitem[$i]->RESPONSIBLE = $responsible;
+            if ($aixml->Actionitem[$i]->AIACRO == trim($_POST['aiacronym'])) {
+                echo "found";
+                $aixml->Actionitem[$i]->DESCRIPTION = trim($_POST['description']);
+                $aixml->Actionitem[$i]->RATIONALE = trim($_POST['rationale']);
+                $aixml->Actionitem[$i]->DEADLINE = trim($_POST['deadline']);
+                $aixml->Actionitem[$i]->RESPONSIBLE = trim($_POST['responsible']);
                 $aixml->asXML(ACTIONITEMS);
             }
         }
 
         echo "File Edited Successfully!<br/><br/>";
-        echo '<a href=?pid=' . $pid . '&pgroup=' . $pgroup . '>Back To List Area</a>';
+        echo '<a href=?pid=' . trim($_POST['pid']) . '&pgroup=' . trim($_POST['pgroup']) . '>Back To List Area</a>';
     }
 
 
