@@ -39,7 +39,7 @@ else {
         }
 
         if( array_key_exists( "newActionItem", $_POST ) ) {
-            echo '<script>document.getElementById("AISection").innerHTML = "'.$actionitem->newActionItemForm($_POST['pid'], $_POST['pgroup']).'";</script>';
+            echo '<script>document.getElementById("AISection").innerHTML = "'.$actionitem->CreateNewActionItem($_POST['pid'], $_POST['pgroup']).'";</script>';
         }
 
         if ( array_key_exists( "submitAddedNewActionItem", $_POST ) ) {

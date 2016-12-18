@@ -265,7 +265,20 @@ final class ActionReports {
     }
 
 
-    public function newActionItemForm($pincident, $projectgroup)
+    ######################################################################
+    # Function CreateNewActionItem()
+    # Displays a form. Allows users to create a new action item
+    # ID, Group, PID, Number, and Owner fields are non-editable
+    # user must enter info for Status, Description, Rationale, and Dependency
+    #
+    # Parameters: 2 - projectincident number and project group passed in from
+    #                 global GET object
+    #
+    # must be logged in to utilize this functionality
+    #
+    # returns (nothing) - Submits form to SaveToFile function for writing
+    ######################################################################
+    public function CreateNewActionItem($pincident, $projectgroup)
     {
 
         $pid = trim($pincident);
@@ -328,7 +341,7 @@ final class ActionReports {
             <tr><td width='50'>AIACRO:</td><td width='100'><input type='text' name='AIACRO'  value='$newstring'></td></tr>
             <input type='hidden' name='AIACRO'  value='{$newstring}'>
             
-            <tr><td width='50'>Owner:</td><td width='100'><input type='text' name='OWNER' value='{$_SESSION['firstname']} {$_SESSION['lastname']}'></td></tr>
+            <tr><td width='50'>Owner:</td><td width='100'><input type='text' name='OWNER' value='{$_SESSION['firstname']} {$_SESSION['lastname']}' disabled></td></tr>
             <input type='hidden' name='OWNER'  value='{$_SESSION['firstname']} {$_SESSION['lastname']}'>
             
             <tr><td width='50'> Responsible:</td><td width='100'>";
@@ -341,14 +354,12 @@ final class ActionReports {
         }
         echo "</select></td></tr>";
 
-        echo "<tr><td width='50'>Created:</td><td width='100'><input type='text' name='CREATED' value='{$objDateTime->format('m/d/Y')}'></td></tr>
-              <input type='hidden' name='CREATED'  value='";
+        echo "<tr><td width='50'>Created:</td><td width='100'><input class='datepicker' id='datepicker' type='text' name='CREATED' value='{$objDateTime->format('d-m-Y')}' disabled></td></tr>";
 
-        echo $objDateTime->format('m/d/Y');
 
-        echo "'><tr><td width='50'>Deadline:</td><td width='100'><input type='text' name='DEADLINE' value='";
+        echo "<tr><td width='50'>Deadline:</td><td width='100'><input class='datepicker' id='datepicker2' type='text' name='DEADLINE' value='";
 
-        echo $objDateTime->format('m/d/Y');
+        echo $objDateTime->format('d-m-Y');
 
         echo "'></td></tr>";
 
