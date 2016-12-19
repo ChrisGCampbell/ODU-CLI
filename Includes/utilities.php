@@ -503,7 +503,7 @@ final class ActionReports {
             fclose($airfile);
 
             echo "Report added!<br/><br/>";
-            echo '<a href=?pid=' . $pid . '&pgroup=' . $pgroup . '>Back To List Area</a>';
+            echo '<a href=?pid=' . $_SESSION['pid'] . '&pgroup=' . $_SESSION['pgroup'] . '>Back To List Area</a>';
         }
     }
 
