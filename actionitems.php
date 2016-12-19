@@ -1,11 +1,6 @@
 <?php
 session_start();
 
-//testdata
-$_SESSION['firstname'] = 'James';
-$_SESSION['lastname'] = 'Simons';
-$_SESSION['email'] = 'Simons002@odu.edu';
-
 //require('Includes/session_check.php');
 require('Includes/utilities.php');
 include('header.html');
