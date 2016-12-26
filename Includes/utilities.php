@@ -118,7 +118,14 @@ final class ActionReports {
         }
     }
 
-
+    ################################################
+    # Function displayActionItemLimitedView()
+    # parameters 0
+    # Prints to display a preview of action items
+    # User is able to select a item
+    # Sends a url with parameters to identify item
+    # returns (nothing)
+    #################################################
     public function displayActionItemLimitedView()
     {
         $pid = $_SESSION['pid'];
@@ -441,6 +448,16 @@ final class ActionReports {
         return $data;
     }
 
+
+    ######################################################################
+    # Function addNewAIToFile()
+    # Writes a new action item to xml file
+    # parameters: zero
+    #
+    # must be logged in to utilize this functionality
+    #
+    # returns (nothing)
+    ######################################################################
     public function addNewAIToFile()
     {
 
@@ -477,6 +494,15 @@ final class ActionReports {
     }
 
 
+    ######################################################################
+    # Function addNewReportToFile()
+    # Writes a new report item to xml file
+    # parameters: zero
+    #
+    # must be logged in to utilize this functionality
+    #
+    # returns (nothing)
+    ######################################################################
     public function addNewReportToFile()
     {
 
@@ -507,6 +533,16 @@ final class ActionReports {
         }
     }
 
+
+    ######################################################################
+    # Function addAiReportForm()
+    # Creates a form to allow users to add a report
+    # parameters: 1 (actionitem)
+    #
+    # must be logged in to utilize this functionality
+    #
+    # returns (nothing)
+    ######################################################################
     public function addAiReportForm($ai)
     {
 
@@ -571,6 +607,7 @@ final class ActionReports {
     }
 
 
+    
     public function viewAI()
     {
 
