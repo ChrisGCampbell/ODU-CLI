@@ -607,7 +607,7 @@ final class ActionReports {
     }
 
 
-    
+
     public function viewAI()
     {
 
