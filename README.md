@@ -38,26 +38,12 @@ We need the following web pages:
 
 (1) Publish new AI/edit AI: the page should first ask for inputs of Group and Group incident. You should read the groups from the file known_groups.txt. Initially this file will contain:
 ------
-7
-Project 
-Workpackage 
-Task 
-Milestone
-Deliverable
-Meeting 
-Individual
--------
+
 
 (2) The known group incidents should be stored in a separate file, e.g. known_incidents.txt. Whenever a new incident is entered after a group has been selected, you should add this incident into known_incidents.txt together with the group it belongs to. The contents of known_incidents.txt should be in the format:
 ----------
-Project|NSF20160001
-Workpackage|NSF20160001-WP1
-Task|NSF20160001-WP1-T2
-Milestone|NSF20160001-WP1-T2-M1
-Deliverable|NSF20160001-WP1-D3
-Meeting|5thGSTSWS
-----------
 
 (3) Publish new Report/edit Report: after a user has selected a Group the user should see all incidents in that group and, after selecting an incident see all the AI from this particular incident. After selecting a specific AI, the user should see the full AI plus all previous reports and then be able to add a new report. The user also should be able to edit any of the reports the user has published previously but not any of the reports that were published by others.
- 
+ --------
 (4) View AIs: after a user has selected a Group the user should see all incidents in that group and, after selecting an incident see all the AI from this particular incident. After selecting a specific AI, the user should see the full AI plus all previous reports and then be able to add a new report. This is very similar to what is needed for (2).
+------
