@@ -607,7 +607,15 @@ final class ActionReports {
     }
 
 
-
+     ######################################################################
+        # Function viewAI()
+        # Creates a view/display for the user
+        # parameters: 0
+        #
+        # must be logged in to utilize this functionality
+        #
+        # returns (nothing)
+        ######################################################################
     public function viewAI()
     {
 
@@ -666,6 +674,13 @@ final class ActionReports {
 }
 
 
+     ######################################################################
+    # class CustomException
+    # Handles site errors.
+    # must be logged in to utilize this functionality
+    #
+    # returns a custom error. Logs error to error-log file
+    ######################################################################
 final class customException extends Exception {
     public function errorMessage() {
         $currentTime = date('H:i, jS F Y');
