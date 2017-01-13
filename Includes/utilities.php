@@ -676,7 +676,7 @@ final class ActionReports {
 
      ######################################################################
     # class CustomException
-    # Handles site errors.
+    # Handles site errors. Custom error handler
     # must be logged in to utilize this functionality
     #
     # returns a custom error. Logs error to error-log file
